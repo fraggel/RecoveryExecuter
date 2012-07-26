@@ -9,10 +9,10 @@ import android.widget.*;
 import java.io.*;
 import java.util.*;
 
-public class config extends Activity implements IFolderItemListener
+public class fileselect extends Activity implements IFileFolderItemListener
 {
 	
-   private EditText edittext;
+	
    private String initialDir;
    SharedPreferences sp;
    AlertDialog diag;
@@ -20,56 +20,51 @@ public class config extends Activity implements IFolderItemListener
 	   diag=new AlertDialog.Builder(this).create();
    	try{
 	   super.onCreate(savedInstanceState);
-	   setContentView(R.layout.config);
-	   setTitle("Configuracion");
+	   setContentView(R.layout.fileselect);
+	   setTitle("Seleccionar zip");
 	   
 	   initialDir= "/mnt/sdcard/Download/";
-	   FolderLayout localFolders = (FolderLayout)findViewById(R.id.localfolders);
-	   localFolders.setIFolderItemListener(this);
-	   localFolders.setDir("/mnt");
+	   FileFolderLayout localFileFolders = (FileFolderLayout)findViewById(R.id.localfilefolders);
+	   localFileFolders.setIFolderItemListener(this);
+	   localFileFolders.setDir("/mnt");
 	   try{
 		   sp=getSharedPreferences("recexec",Context.MODE_WORLD_WRITEABLE);
 		   initialDir=sp.getString("url","/mnt/sdcard/Download/");
+		   localFileFolders.setDir(initialDir);
 		   
 	   } catch(Exception e){
 		   diag.setMessage(e.getMessage());
 		   diag.show();
 	   }
 	   
-	   edittext=(EditText)findViewById(R.id.editText);
-	   edittext.setText(initialDir);
 	}catch(Exception e){
+		/*String a="";
+        	ByteArrayOutputStream baos=new ByteArrayOutputStream(1024);
+        	PrintStream ps=new PrintStream(baos); 
+        	e.printStackTrace(ps);
+        	ps.flush();
+        	ps.close();
+        	a=baos.toString();*/
 		diag.setMessage(e.getMessage());
 		diag.show();
 	}
 	   
    }
-	public void changeProperties(View v){
-		
-		try
-		{
-			SharedPreferences.Editor editor=sp.edit();
-			editor.putString("url",edittext.getText().toString());
-			editor.commit();
-			diag.setMessage("Ruta guardada correctamente");
-		}
-		catch (Exception e)
-		{
-			diag.setMessage(e.getMessage());
-		}
-		diag.show();
-		finish();
-	}
 	protected void onActivityResult(int request,int result,Intent data){
 		super.onActivityResult(request,result,data);
 	}
 	public void OnFileClicked(File file) {
-		try{
-			edittext=(EditText)findViewById(R.id.editText);
+
+		
+			/*edittext=(EditText)findViewById(R.id.editText);
 			edittext.setText(file.getPath());
-			initialDir=file.getPath();
-		}catch (Exception e)
-		{}
+			initialDir=file.getPath();*/
+			if(!file.isDirectory()){
+			Intent it=new Intent();
+			it.putExtra("file",file.getPath());
+			setResult(Activity.RESULT_OK,it);
+			finish();
+			}
 
         // TODO Auto-generated method stub
     }
@@ -80,7 +75,7 @@ public class config extends Activity implements IFolderItemListener
 	public boolean onCreateOptionsMenu(Menu menu){
 		try{
 			MenuInflater inflater=getMenuInflater();
-			inflater.inflate(R.menu.menuconfig,menu);
+			inflater.inflate(R.menu.menufile, menu);
 		}catch (Exception e)
 		{}
 		return true;
@@ -90,11 +85,7 @@ public class config extends Activity implements IFolderItemListener
 		try
 		{
 		switch(menuitem.getItemId()){
-			case R.id.op1:
-			changeProperties(findViewById(R.layout.config));
-			ret= true;
-			break;
-			case R.id.op2:
+			case R.id.opfile1:
 			finish();
 			ret= true;
 			break;

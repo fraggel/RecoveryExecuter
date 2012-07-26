@@ -15,4 +15,5 @@
 	<CheckBox android:id="@+id/wipedalvik" android:text="@string/wipedalvik" android:layout_width="fill_parent"
         android:layout_height="wrap_content"></CheckBox>
 	<Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="@string/btnFlash" android:onClick="Flash"/>
-</LinearLayout>
+	
+	</LinearLayout>

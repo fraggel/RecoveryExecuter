@@ -22,11 +22,16 @@ public class MainActivity extends Activity
     @Override
     public void onCreate(Bundle savedInstanceState)
 	{
-		super.setTitle("RecoveryExecuter 1.1.0");
+		dialog=new AlertDialog.Builder(this).create();
+		try{
+		super.setTitle("RecoveryExecuter 1.2.0");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 		
-		dialog=new AlertDialog.Builder(this).create();
+		}catch(Exception e ){
+			dialog.setMessage(e.getMessage());
+			dialog.show();
+		}
 		//showFileChooser();
     }
 	public void Flash(View v){
@@ -38,13 +43,13 @@ public class MainActivity extends Activity
 			sp=getSharedPreferences("recexec",Context.MODE_WORLD_WRITEABLE);
 			initialDir=sp.getString("url","/mnt/sdcard/Download/");
 			
-			Intent intent=new Intent(Intent.ACTION_GET_CONTENT);
-			intent.setDataAndType(Uri.parse(initialDir),"application/zip");
-			intent.addCategory(Intent.CATEGORY_OPENABLE);
-			java.lang.CharSequence cs="Selecciona un zip";
-        		startActivityForResult(Intent.createChooser(intent,cs),FILE_SELECT_CODE);
+        	Intent intent=new Intent(this,fileselect.class);
+			startActivityForResult(intent,FILE_SELECT_CODE);
         	}catch (Exception e)
-		{}
+		{
+			dialog.setMessage(e.getMessage());
+			dialog.show();
+		}
 	}
 	private void showConfig(){
 		try{
@@ -93,8 +98,9 @@ public class MainActivity extends Activity
 		switch(request){
 			case FILE_SELECT_CODE:
 			if(result==RESULT_OK){
-				Uri uri=data.getData();
-				file=uri.getPath();
+				file=data.getStringExtra("file");
+				/*Uri uri=data.getData();
+				file=uri.getPath();*/
 	
 				dialog.setMessage("Se va a flashear el archivo "+file);
 				dialog.setButton2("Cancelar",new DialogInterface.OnClickListener(){
@@ -141,7 +147,10 @@ public class MainActivity extends Activity
 			break;
 		}
 		}catch (Exception e)
-		{}
-		super.onActivityResult(request,result,data);
+		{
+			dialog.setMessage(e.getMessage());
+			dialog.show();
 		}
+		super.onActivityResult(request,result,data);
 	}
+}

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Recovery Executer, te permite flashear un zip en recovery seleccionandolo en tu explorador de archivos!\n\nPulsa el boton menu y selecciona abrir para seleccionar el fichero que quieres flashear o el boton \"Seleccionar zip\".\nEl menu \"Config\" te permite cambiar la ruta por defecto.\n\nSelecciona si deseas hacer algun wipe antes de flashear el zip.</string>
+    <string name="hello">Recovery Executer, te permite flashear un zip en recovery seleccionandolo del explorador de archivos!\n\nPulsa el boton menu y selecciona abrir para seleccionar el fichero que quieres flashear o el boton \"Seleccionar zip\".\nEl menu \"Config\" te permite cambiar la ruta por defecto.\n\nSelecciona si deseas hacer algun wipe antes de flashear el zip.</string>
     <string name="app_name">RecoveryExecuter</string>
-    <string name="configurl">Selecciona la carpeta que deseas usar como predeterminada, esto hara que cada vez que quieras flashear un zip el explorador de archivos se posicione en dicha carpeta\n\nUna vez seleccionada la carpeta pulsa menu/guardar y volvera a la pantalla anterior.</string>
+    <string name="configurl">Selecciona la carpeta que deseas usar como predeterminada, esto hara que cada vez que quieras flashear un zip el explorador de archivos se posicione en dicha carpeta\n\nUna vez seleccionada la carpeta pulsa menu/guardar o el boton de \"Guardar\" para guardar la ruta y volver a la pantalla anterior.</string>
 	<string name="wipedata">Wipe Data</string>
 	<string name="wipecache">Wipe Cache</string>
 	<string name="wipedalvik">Wipe Dalvik</string>
-	<string name="btnFlash">Sellecionar zip</string>
+	<string name="btnFlash">Seleccionar zip</string>
 	<string name="btnGuardar">Guardar</string>
 </resources>

@@ -21,7 +21,7 @@ public class fileselect extends Activity implements IFileFolderItemListener
    	try{
 	   super.onCreate(savedInstanceState);
 	   setContentView(R.layout.fileselect);
-	   setTitle("Seleccionar zip");
+	   setTitle("Seleccionar Archivo");
 	   
 	   initialDir= "/mnt/sdcard/Download/";
 	   FileFolderLayout localFileFolders = (FileFolderLayout)findViewById(R.id.localfilefolders);

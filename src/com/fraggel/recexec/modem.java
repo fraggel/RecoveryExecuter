@@ -12,7 +12,7 @@ public boolean writeModem(String ruta,InputStream isBinary,InputStream isScript,
 			File f=new File(ruta+"/META-INF/com/google/android/");
 			f.mkdirs();
 			File updatebinary=new File(f.getPath()+"/update-binary");
-			File updatescript=new File(f.getPath()+"/update-script");
+			File updatescript=new File(f.getPath()+"/updater-script");
 			File flashimage=new File(r.getPath()+"/flash_image");
 	
 			BufferedInputStream fisB=new BufferedInputStream(isBinary);

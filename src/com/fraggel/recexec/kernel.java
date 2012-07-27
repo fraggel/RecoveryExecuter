@@ -12,7 +12,7 @@ public class kernel
 			File f=new File(ruta+"/META-INF/com/google/android/");
 			f.mkdirs();
 			File updatebinary=new File(f.getPath()+"/update-binary");
-			File updatescript=new File(f.getPath()+"/update-script");
+			File updatescript=new File(f.getPath()+"/updater-script");
 	
 			BufferedInputStream fisB=new BufferedInputStream(isBinary);
 			BufferedOutputStream bosB =new BufferedOutputStream(new FileOutputStream(updatebinary));

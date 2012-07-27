@@ -11,6 +11,7 @@ import android.nfc.*;
 import android.util.*;
 import java.util.*;
 import java.util.zip.*;
+import com.ice.tar.*;
 
 public class MainActivity extends Activity
 {
@@ -136,7 +137,7 @@ public class MainActivity extends Activity
 										if (!"".equals(file))
 										{
 											crearZipCwm(file);
-											//escribirRecovery();
+											escribirRecovery();
 										}
 									}
 									catch (Exception e)
@@ -204,18 +205,45 @@ public class MainActivity extends Activity
 			//copiar a rutaTmp quitando el .md5
 			//asignar ext nuevo file
 			//asignar f nuevo File
-			File tmp=new File(f);
-			String renamed=tmp.getName().substring(0, tmp.getName().length() - 4);
-			copiarFichero(tmp, new File(rutaTmp.getPath() + "/" + renamed));
-			f = rutaTmp.getPath() + "/" + renamed;
-			ext = f.substring(f.length() - 4, f.length()).toLowerCase();
+			try
+			{
+		    	File tmp=new File(f);
+		    	String renamed=tmp.getName().substring(0, tmp.getName().length() - 4);
+		    	copiarFichero(tmp, new File(rutaTmp.getPath() + "/" + renamed));
+				f = rutaTmp.getPath() + "/" + renamed;
+				ext = f.substring(f.length() - 4, f.length()).toLowerCase();
+			}
+			catch (Exception e)
+			{
+				f = "";
+			}
 		}
 		if (".tar".equals(ext))
 		{
 			//unzip
 			//asignar ext file extracted
 			//asignar f nuevo file
-			unZip(f);
+			try
+			{
+				Tar tar=new Tar();
+				tar.extractFiles(new File(f), rutaTmp);
+				new File(f).delete();
+				File[] fichers=rutaTmp.listFiles();
+				for (int x=0;x < fichers.length;x++)
+				{
+					File r=fichers[x];
+					if (r.isFile())
+					{
+						String ex= r.getName().substring(r.getName().length() - 4, r.getName().length()).toLowerCase();
+						ext = ex;
+						f = r.getPath();
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				f = "";
+			}
 		}
 		if (".img".equals(ext))
 		{
@@ -226,11 +254,11 @@ public class MainActivity extends Activity
 				kernel k=new kernel();
 				k.writeKernel(rutaTmpKernel.getPath(), getResources().openRawResource(R.raw.updatebinarykernel), getResources().openRawResource(R.raw.updaterscriptkernel));
 				crearZip(rutaTmp.getPath() + "/kernel.zip", new File(rutaTmpKernel.getPath() + "/META-INF/"), "boot.img");
+				f = rutaTmp.getPath() + "/kernel.zip";
 	    	}
 			catch (Exception e)
 			{
-				diag.setMessage(e.getMessage());
-				diag.show();
+				f = "";
 			}
 		}
 		if (".bin".equals(ext))
@@ -242,11 +270,14 @@ public class MainActivity extends Activity
 				modem m=new modem();
 				m.writeModem(rutaTmpModem.getPath(), getResources().openRawResource(R.raw.updatebinarymodem), getResources().openRawResource(R.raw.updaterscriptmodem), getResources().openRawResource(R.raw.flash_imagemodem));
 				crearZip(rutaTmp.getPath() + "/modem.zip", new File(rutaTmpModem.getPath() + "/META-INF/"), "modem.bin");
+				f = rutaTmp.getPath() + "/modem.zip";
 			}
 			catch (Exception e)
-			{}
+			{
+				f = "";
+			}
 		}
-
+        file = f;
 	}
 
 	private void copiarFicheroKernel(String f, File rutaTmpKernel) throws Exception
@@ -411,7 +442,7 @@ public class MainActivity extends Activity
 	}
 	private static void unZip(String strZipFile) throws Exception
 	{
-		
+
 		File fSourceZip = new File(strZipFile);
 		String zipPath = strZipFile.substring(0, strZipFile.length() - 4);
 		File temp = new File(zipPath);

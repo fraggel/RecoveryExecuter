@@ -112,7 +112,7 @@ public class MainActivity extends Activity
 						{
 							if(!"".equals(file)){
 								crearZipCwm();
-								escribirRecovery();
+								//escribirRecovery();
 							}
 						}
 						catch (Exception e)
@@ -157,6 +157,18 @@ public class MainActivity extends Activity
 		bos.close();
 	}
 	public void crearZipCwm() throws Exception{
+		//si es kernel empieza el bin por ANDROID!
+		//si es modem empieza por PSIRAM
+		//si el file es .img leer cabecera y montar zip en /mnt/sdcard/RecoveryExecuter/
+		//si el file es tar descomprimir y crear el zip
+		//si el file es tar.md5 quitar el md5 y descomprimir en la ruta
+		File rutaTmp=new File("/mnt/sdcard/RecoveryExecuter/");
+		rutaTmp.mkdirs();
+		String  ext=file.substring(file.length()-4,file.length());
+		if(".md5".equals(ext)){
+			
+		}
+		if(".tar".equals(ext)){}
 		
 	}
 }

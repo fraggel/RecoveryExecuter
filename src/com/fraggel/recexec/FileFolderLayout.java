@@ -71,7 +71,10 @@ public class FileFolderLayout extends LinearLayout implements AdapterView.OnItem
 			    ext=file.getName().substring(file.getName().length()-4,file.getName().length());
 			}
 			
-			if(!file.isDirectory() && ".zip".equals(ext.toLowerCase())){
+			if(!file.isDirectory() && (".zip".equals(ext.toLowerCase())
+				|| ".img".equals(ext.toLowerCase())
+			    || ".tar".equals(ext.toLowerCase())
+			   || ".md5".equals(ext.toLowerCase()))){
 				path.add(file.getPath());
 				item.add(file.getName());
 			}

@@ -1,0 +1,7 @@
+package_extract_file("flash_image", "/tmp/flash_image");
+set_perm(0, 0, 0777, "/tmp/flash_image");
+ui_print("Installing modem...");
+assert(package_extract_file("modem.bin", "/tmp/modem.bin"),
+run_program("/tmp/flash_image", "/dev/block/mmcblk0p7", "/tmp/modem.bin"),
+delete("/tmp/modem.bin"));
+delete("/tmp/flash_image");

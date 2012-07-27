@@ -50,6 +50,14 @@ import java.util.*;
 			}
 			if(".zip".equals(ext)){
 		    	img1.setImageResource(R.drawable.imgzip);
+			}else if(".bin".equals(ext)){
+		    	img1.setImageResource(R.drawable.imgbin);
+			}else if(".img".equals(ext)){
+		    	img1.setImageResource(R.drawable.imgimg);
+			}else if(".tar".equals(ext)){
+		    	img1.setImageResource(R.drawable.imgtar);
+			}else if(".md5".equals(ext)){
+		    	img1.setImageResource(R.drawable.imgmd5);
 			}else{
 				img1.setImageResource(R.drawable.folder);
 			}

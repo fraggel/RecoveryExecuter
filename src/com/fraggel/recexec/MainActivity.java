@@ -77,8 +77,6 @@ public class MainActivity extends Activity
 			break;
 			case R.id.op2:
 			showConfig();
-			//dialog.setMessage("En desarrollo");
-			//dialog.show();
 			ret= true;
 			break;
 			case R.id.op3:
@@ -113,32 +111,11 @@ public class MainActivity extends Activity
 						try
 						{
 							if(!"".equals(file)){
-								Runtime rt=Runtime.getRuntime();
-								java.lang.Process p=rt.exec("su");
-								CheckBox chkdata=(CheckBox)findViewById(R.id.wipedata);
-								CheckBox chkcache=(CheckBox)findViewById(R.id.wipecache);
-								CheckBox chkdalvik=(CheckBox)findViewById(R.id.wipedalvik);
-								BufferedOutputStream bos=new BufferedOutputStream(p.getOutputStream());
-								bos.write(("rm /cache/recovery/extendedcommand\n").getBytes());
-								if(chkdata.isChecked()){
-									bos.write(("echo 'Wipe Data'\n").getBytes());
-									bos.write(("echo 'format (\"/data\");' > /cache/recovery/extendedcommand\n").getBytes());
-								}
-								if(chkcache.isChecked()){
-									bos.write(("echo 'Wipe Cache'\n").getBytes());
-									bos.write(("echo 'format (\"/cache\");' >> /cache/recovery/extendedcommand\n").getBytes());
-								}
-								if(chkdalvik.isChecked()){
-									//bos.write(("echo 'rm -r \"/data/dalvik-cache\";\n' >> /cache/recovery/extendedcommand\n").getBytes());
-									bos.write(("rm -r \"/data/dalvik-cache\"\n").getBytes());
-								}
-								bos.write(("echo 'install_zip(\""+file.replaceFirst("/mnt/sdcard/","/emmc/").replaceFirst("/mnt/extSdCard/","/sdcard/")+"\");' >> /cache/recovery/extendedcommand\n").getBytes());
-								bos.write(("reboot recovery").getBytes());
-								bos.flush();
-								bos.close();
+								crearZipCwm();
+								escribirRecovery();
 							}
 						}
-						catch (IOException e)
+						catch (Exception e)
 						{}
 					}
 				});
@@ -152,5 +129,34 @@ public class MainActivity extends Activity
 			dialog.show();
 		}
 		super.onActivityResult(request,result,data);
+	}
+	public void escribirRecovery() throws Exception{
+		
+		Runtime rt=Runtime.getRuntime();
+		java.lang.Process p=rt.exec("su");
+		CheckBox chkdata=(CheckBox)findViewById(R.id.wipedata);
+		CheckBox chkcache=(CheckBox)findViewById(R.id.wipecache);
+		CheckBox chkdalvik=(CheckBox)findViewById(R.id.wipedalvik);
+		BufferedOutputStream bos=new BufferedOutputStream(p.getOutputStream());
+		bos.write(("rm /cache/recovery/extendedcommand\n").getBytes());
+		if(chkdata.isChecked()){
+			bos.write(("echo 'Wipe Data'\n").getBytes());
+			bos.write(("echo 'format (\"/data\");' > /cache/recovery/extendedcommand\n").getBytes());
+		}
+		if(chkcache.isChecked()){
+			bos.write(("echo 'Wipe Cache'\n").getBytes());
+			bos.write(("echo 'format (\"/cache\");' >> /cache/recovery/extendedcommand\n").getBytes());
+		}
+		if(chkdalvik.isChecked()){
+			//bos.write(("echo 'rm -r \"/data/dalvik-cache\";\n' >> /cache/recovery/extendedcommand\n").getBytes());
+			bos.write(("rm -r \"/data/dalvik-cache\"\n").getBytes());
+		}
+		bos.write(("echo 'install_zip(\""+file.replaceFirst("/mnt/sdcard/","/emmc/").replaceFirst("/mnt/extSdCard/","/sdcard/")+"\");' >> /cache/recovery/extendedcommand\n").getBytes());
+		bos.write(("reboot recovery").getBytes());
+		bos.flush();
+		bos.close();
+	}
+	public void crearZipCwm() throws Exception{
+		
 	}
 }

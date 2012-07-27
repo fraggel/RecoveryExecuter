@@ -27,7 +27,7 @@ public class FileFolderLayout extends LinearLayout implements AdapterView.OnItem
         this.context = context;
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.filefolderview, this);
-
+		myPath= (TextView) findViewById(R.id.filepath);
         lstView = (ListView) findViewById(R.id.filelist);
 		//folderListener=
         getDir(root, lstView);
@@ -48,7 +48,7 @@ public class FileFolderLayout extends LinearLayout implements AdapterView.OnItem
 
         item = new ArrayList<String>();
         path = new ArrayList<String>();
-		
+		myPath.setText(dirPath);
         File f = new File(dirPath);
         File[] files = f.listFiles();
 		java.util.Arrays.sort(files);

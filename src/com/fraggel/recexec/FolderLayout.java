@@ -45,7 +45,7 @@ public class FolderLayout extends LinearLayout implements AdapterView.OnItemClic
 
 
     private void getDir(String dirPath, ListView v) {
-		
+		myPath.setText(dirPath);
         item = new ArrayList<String>();
         path = new ArrayList<String>();
         File f = new File(dirPath);

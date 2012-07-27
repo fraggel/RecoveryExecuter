@@ -226,8 +226,13 @@ public class MainActivity extends Activity
 			try
 			{
 				Tar tar=new Tar();
-				tar.extractFiles(new File(f), rutaTmp);
-				new File(f).delete();
+				File g=new File(rutaTmp+"/"+new File(f).getName());
+				if(g.exists()){
+					g.delete();
+				}
+				copiarFichero(new File(f),g);	
+				
+				tar.extractFiles(g, rutaTmp);
 				File[] fichers=rutaTmp.listFiles();
 				for (int x=0;x < fichers.length;x++)
 				{
@@ -237,6 +242,7 @@ public class MainActivity extends Activity
 						String ex= r.getName().substring(r.getName().length() - 4, r.getName().length()).toLowerCase();
 						ext = ex;
 						f = r.getPath();
+						g.delete();
 					}
 				}
 			}
@@ -253,7 +259,7 @@ public class MainActivity extends Activity
 				copiarFicheroKernel(f, rutaTmpKernel);
 				kernel k=new kernel();
 				k.writeKernel(rutaTmpKernel.getPath(), getResources().openRawResource(R.raw.updatebinarykernel), getResources().openRawResource(R.raw.updaterscriptkernel));
-				crearZip(rutaTmp.getPath() + "/kernel.zip", new File(rutaTmpKernel.getPath() + "/META-INF/"), "boot.img");
+				crearZip(rutaTmp.getPath() + "/kernel.zip", new File(rutaTmpKernel.getPath() + "/META-INF/"), "boot.img","");
 				f = rutaTmp.getPath() + "/kernel.zip";
 	    	}
 			catch (Exception e)
@@ -269,7 +275,7 @@ public class MainActivity extends Activity
 				copiarFicheroModem(f, rutaTmpModem);
 				modem m=new modem();
 				m.writeModem(rutaTmpModem.getPath(), getResources().openRawResource(R.raw.updatebinarymodem), getResources().openRawResource(R.raw.updaterscriptmodem), getResources().openRawResource(R.raw.flash_imagemodem));
-				crearZip(rutaTmp.getPath() + "/modem.zip", new File(rutaTmpModem.getPath() + "/META-INF/"), "modem.bin");
+				crearZip(rutaTmp.getPath() + "/modem.zip", new File(rutaTmpModem.getPath() + "/META-INF/"), "modem.bin","flash_image");
 				f = rutaTmp.getPath() + "/modem.zip";
 			}
 			catch (Exception e)
@@ -345,12 +351,15 @@ public class MainActivity extends Activity
 			ficheros[x].delete();
 		}               
 	}
-	public static void crearZip(String ficheroDest, File srcDir, String objeto) throws Exception
+	public static void crearZip(String ficheroDest, File srcDir, String objeto,String objeto2) throws Exception
 	{
 		BufferedOutputStream out=new BufferedOutputStream(new FileOutputStream(ficheroDest));
 		List<String> fileList = listDirectory(srcDir);
 		ZipOutputStream zout = new ZipOutputStream(out);
 		fileList.add(objeto);
+		if(!"".equals(objeto2.trim())){
+			fileList.add(objeto2);
+		}
 		zout.setLevel(9);
 		zout.setComment("Zipper v1.2");
 

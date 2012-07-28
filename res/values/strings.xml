@@ -16,4 +16,5 @@
 	<string name="wipedalvik">Wipe Dalvik</string>
 	<string name="btnFlash">Seleccionar fichero</string>
 	<string name="btnGuardar">Guardar</string>
+	<string name="version">1.3</string>
 </resources>

@@ -10,11 +10,11 @@
 	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     	android:layout_width="fill_parent"
 		android:layout_height="wrap_content">
-		<com.fraggel.recexec.FolderLayout 
+		<com.fraggel.recoveryexecuter.FolderLayout 
 			android:layout_width="match_parent"
 			android:layout_height="400dp"
 			layout="@layout/folderview" android:id="@+id/localfolders">
-		</com.fraggel.recexec.FolderLayout>
+		</com.fraggel.recoveryexecuter.FolderLayout>
 	</LinearLayout>
 	<EditText android:id="@+id/editText"
 		android:layout_width="fill_parent"

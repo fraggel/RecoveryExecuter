@@ -4,6 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical" xmlns:tools="http://schemas.android.com/tools">
 
+    <Button
+        android:id="@+id/btnAyudaLista"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btnAyuda" 
+        android:onClick="ayuda"/>
+
     <Spinner
         android:id="@+id/comboAcciones"
         android:layout_width="match_parent"

@@ -36,6 +36,7 @@ public class MainActivity extends Activity
 	private String initialDir="/mnt/sdcard/Download/";
 	private SharedPreferences sp;
     AlertDialog diag;
+    ArrayList lista;
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -70,8 +71,12 @@ public class MainActivity extends Activity
 public void creaLista(View v){
 	try
 	{
+		sp = getSharedPreferences("recexec", Context.MODE_WORLD_WRITEABLE);
+		initialDir = sp.getString("url", "/mnt/sdcard/Download/");
+		
 		Intent intent=new Intent(this, crearLista.class);
-		startActivity(intent);
+		intent.putStringArrayListExtra("lista",lista);
+		startActivityForResult(intent,FILE_SELECT_CODE);
 	}
 	catch (Exception e)
 	{
@@ -160,43 +165,86 @@ public void creaLista(View v){
 					if (result == RESULT_OK)
 					{
 						file = data.getStringExtra("file");
-						ArrayList lista=data.getStringArrayListExtra("lista");
+						lista=data.getStringArrayListExtra("lista");
+						
 						/*Uri uri=data.getData();
 						 file=uri.getPath();*/
-						if(!"".equals(file)){
-						AlertDialog dialog=new AlertDialog.Builder(this).create();
-						dialog.setMessage("Se va a flashear el archivo " + file);
-						dialog.setButton2("Cancelar", new DialogInterface.OnClickListener(){
-								public void onClick(DialogInterface dialog, int witch)
-								{
-									//finish();
-								}
-							});
-						dialog.setButton("Aceptar", new DialogInterface.OnClickListener(){
-								public void onClick(DialogInterface dialog, int witch)
-								{
-									try
+						if(file !=null && !"".equals(file)){
+							AlertDialog dialog=new AlertDialog.Builder(this).create();
+							dialog.setMessage("Se va a flashear el archivo " + file);
+							dialog.setButton2("Cancelar", new DialogInterface.OnClickListener(){
+									public void onClick(DialogInterface dialog, int witch)
 									{
-										if (!"".equals(file))
+										//finish();
+									}
+								});
+							dialog.setButton("Aceptar", new DialogInterface.OnClickListener(){
+									public void onClick(DialogInterface dialog, int witch)
+									{
+										try
 										{
-											crearZipCwm(file);
-											escribirRecovery();
+											if (!"".equals(file))
+											{
+												crearZipCwm(file);
+												escribirRecovery();
+											}
+										}
+										catch (Exception e)
+										{
+											diag.setMessage(e.getMessage());
+											diag.show();
 										}
 									}
-									catch (Exception e)
+								});
+							dialog.show();
+						}else if(lista !=null && lista.size()>0){
+							AlertDialog dialog=new AlertDialog.Builder(this).create();
+							dialog.setMessage("Se va a flashear la lista de acciones");
+							dialog.setButton2("Cancelar", new DialogInterface.OnClickListener(){
+									public void onClick(DialogInterface dialog, int witch)
 									{
-										diag.setMessage(e.getMessage());
-										diag.show();
+										//finish();
 									}
-								}
-							});
-						dialog.show();
-						}else if(lista.size()>0){
-							for (int i = 0; i < lista.size(); i++) {
-								String string = (String)lista.get(i);
-								diag.setMessage(string);
-							}
-							diag.show();
+								});
+							dialog.setButton("Aceptar", new DialogInterface.OnClickListener(){
+									public void onClick(DialogInterface dialog, int witch)
+									{
+										try
+										{
+												Runtime rt=Runtime.getRuntime();
+												java.lang.Process p=rt.exec("su");
+												BufferedOutputStream bos=new BufferedOutputStream(p.getOutputStream());
+												bos.write(("rm /cache/recovery/extendedcommand\n").getBytes());
+												for (int i = 0; i < lista.size(); i++) {
+													String string = (String)lista.get(i);
+													System.out.println(string);
+													if("Wipe Data".equals(string)){
+														bos.write(("echo 'Wipe Data'\n").getBytes());
+														bos.write(("echo 'format (\"/data\");' >> /cache/recovery/extendedcommand\n").getBytes());
+														
+													}else if("Wipe Cache".equals(string)){
+														bos.write(("echo 'Wipe Cache'\n").getBytes());
+														bos.write(("echo 'format (\"/cache\");' >> /cache/recovery/extendedcommand\n").getBytes());
+													}else if("Wipe Dalvik".equals(string)){
+														bos.write(("rm -r \"/data/dalvik-cache\"\n").getBytes());
+													}else if("Selecciona una accion".equals(string)){
+														
+													}else if(!"".equals(string)){
+														crearZipCwm(string);
+														bos.write(("echo 'install_zip(\"" + file.replaceFirst("/mnt/sdcard/", "/emmc/").replaceFirst("/mnt/extSdCard/", "/sdcard/") + "\");' >> /cache/recovery/extendedcommand\n").getBytes());
+													}
+												}
+												bos.flush();
+												bos.close();
+											}
+										catch (Exception e)
+										{
+											diag.setMessage(e.getMessage());
+											diag.show();
+										}
+									}
+								});
+							dialog.show();
 						}
 					}
 					break;

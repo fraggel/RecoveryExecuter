@@ -9,7 +9,6 @@ import java.util.List;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -29,7 +28,6 @@ public class crearLista extends Activity implements OnItemSelectedListener, Adap
 	List<HashMap<String, String>> fillMaps;
 	HashMap<String, String> map;
 	SimpleAdapter adapt ;
-	private SharedPreferences sp;
 	Spinner spinner;
 	String[] from = new String[] {"rowtexts"};
 	int[] to = new int[] { R.id.rowtexts};
@@ -65,7 +63,7 @@ public class crearLista extends Activity implements OnItemSelectedListener, Adap
 	private void reconstruirMap(ArrayList<String> stringArrayListExtra) {
 		if(stringArrayListExtra!=null && stringArrayListExtra.size()>0){
 			
-			for (Iterator iterator = stringArrayListExtra.iterator(); iterator
+			for (Iterator<String> iterator = stringArrayListExtra.iterator(); iterator
 					.hasNext();) {
 				String string = (String) iterator.next();
 				map = new HashMap<String, String>();
@@ -89,7 +87,10 @@ public class crearLista extends Activity implements OnItemSelectedListener, Adap
 			selected="";
 		}else if("Flashear Archivo".equals(selected)){
 			showFileChooser();
+		}else{
+			anyadir(view);
 		}
+		
 		
 	}
 	private void showFileChooser()
@@ -139,6 +140,7 @@ public class crearLista extends Activity implements OnItemSelectedListener, Adap
 					if (result == RESULT_OK)
 					{
 						file = data.getStringExtra("file");
+						anyadir(null);
 					}
 					break;
 			}

@@ -15,7 +15,7 @@ import android.widget.TextView;
  
 		private LayoutInflater mInflater;
 		
-		private List data;
+		private List<String> data;
 
 		public miAdapter(Context context,List<String> item) {
  

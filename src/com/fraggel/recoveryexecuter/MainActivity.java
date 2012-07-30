@@ -14,8 +14,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
-import com.ice.tar.Tar;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -28,6 +26,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
+
+import com.ice.tar.Tar;
 
 public class MainActivity extends Activity
 {
@@ -47,7 +47,7 @@ public class MainActivity extends Activity
 			super.setTitle(R.string.version);
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.main);
-
+			
 		}
 		catch (Exception e )
 		{
@@ -172,13 +172,13 @@ public void creaLista(View v){
 						if(file !=null && !"".equals(file)){
 							AlertDialog dialog=new AlertDialog.Builder(this).create();
 							dialog.setMessage("Se va a flashear el archivo " + file);
-							dialog.setButton2("Cancelar", new DialogInterface.OnClickListener(){
+							dialog.setButton(AlertDialog.BUTTON_NEGATIVE,"Cancelar", new DialogInterface.OnClickListener(){
 									public void onClick(DialogInterface dialog, int witch)
 									{
 										//finish();
 									}
 								});
-							dialog.setButton("Aceptar", new DialogInterface.OnClickListener(){
+							dialog.setButton(AlertDialog.BUTTON_POSITIVE,"Aceptar", new DialogInterface.OnClickListener(){
 									public void onClick(DialogInterface dialog, int witch)
 									{
 										try
@@ -200,13 +200,13 @@ public void creaLista(View v){
 						}else if(lista !=null && lista.size()>0){
 							AlertDialog dialog=new AlertDialog.Builder(this).create();
 							dialog.setMessage("Se va a flashear la lista de acciones");
-							dialog.setButton2("Cancelar", new DialogInterface.OnClickListener(){
+							dialog.setButton(AlertDialog.BUTTON_NEGATIVE,"Cancelar", new DialogInterface.OnClickListener(){
 									public void onClick(DialogInterface dialog, int witch)
 									{
 										//finish();
 									}
 								});
-							dialog.setButton("Aceptar", new DialogInterface.OnClickListener(){
+							dialog.setButton(AlertDialog.BUTTON_POSITIVE,"Aceptar", new DialogInterface.OnClickListener(){
 									public void onClick(DialogInterface dialog, int witch)
 									{
 										try

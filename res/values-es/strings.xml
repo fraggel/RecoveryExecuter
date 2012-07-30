@@ -10,10 +10,11 @@
 		    \"Flashear archivo\X se mostrará el explorador de archivos para seleccionar el archivo a flashear.\n\nUna vez seleccionado el archivo es necesario pulsar el boton \"Añadir a Lista\".\n\nPulsando 
 		    sobre alguno de los elementos se eliminará dicho elemento de la lista de acciones.Una vez terminada la lista pulsar el boton \"Guardar Lista\".</string>
     <string name="app_name">RecoveryExecuter</string>
-    <string name="configurl">Selecciona la carpeta que deseas usar como predeterminada, esto hara que cada 
+    <!--<string name="configurl">Selecciona la carpeta que deseas usar como predeterminada, esto hara que cada 
 		vez que quieras flashear un fichero el explorador de archivos se posicione en dicha carpeta\n\nUna 
 		vez seleccionada la carpeta pulsa menu/guardar o el boton de \"Guardar\" para guardar la ruta y volver 
-		a la pantalla anterior.</string>
+		a la pantalla anterior.</string>-->
+	<string name="configurl">Ruta por defecto</string>
 	<string name="wipedata">Wipe Data</string>
 	<string name="wipecache">Wipe Cache</string>
 	<string name="wipedalvik">Wipe Dalvik</string>
@@ -31,7 +32,11 @@
 	<string name="cancelar">Cancelar</string>
 	<string name="config">Configuracion</string>
 	<string name="aflashear">Flashear :</string>
+	<string name="si">Si</string>
+	<string name="no">No</string>
+	<string name="selecarchivo">Seleccionar archivo</string>
 	<string name="accionesflashear">Flashear Lista de Acciones</string>
+	<string name="salirlista">Desea guardar la lista de acciones?</string>
 	<string-array name="acciones">
 		<item>Selecciona una accion</item>
         	<item>Wipe Data</item>

@@ -34,9 +34,7 @@ public class MainActivity extends Activity
 			res=this.getResources();
 			DisplayMetrics dm=res.getDisplayMetrics();
 			android.content.res.Configuration conf=res.getConfiguration();
-			if("es".equals(conf.locale.getLanguage())){
-				conf.locale=new Locale("en");
-			}else{
+			if(!"es".equals(conf.locale.getLanguage())){
 				conf.locale=new Locale("en");
 			}
 			

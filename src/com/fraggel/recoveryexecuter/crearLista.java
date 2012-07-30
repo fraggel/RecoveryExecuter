@@ -1,22 +1,14 @@
 package com.fraggel.recoveryexecuter;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.Spinner;
+import android.app.*;
+import android.content.*;
+import android.os.*;
+import android.view.*;
+import android.widget.*;
+import android.widget.AdapterView.*;
+import com.fraggel.recoveryexecuter.*;
+import java.io.*;
+import java.util.*;
 
 public class crearLista extends Activity implements OnItemSelectedListener, AdapterView.OnItemClickListener {
 
@@ -198,5 +190,56 @@ public class crearLista extends Activity implements OnItemSelectedListener, Adap
         // TODO Auto-generated method stub
         onListItemClick((ListView) arg0, arg0, arg2, arg3);
     }
+	public boolean onCreateOptionsMenu(Menu menu){
+		try{
+			MenuInflater inflater=getMenuInflater();
+			inflater.inflate(R.menu.menulist, menu);
+		}catch (Exception e)
+		{}
+		return true;
+	}
+	public boolean onOptionsItemSelected(MenuItem menuitem){
+		boolean ret =false;
+		try
+		{
+			switch(menuitem.getItemId()){
+				case R.id.opfile1:
+				if(listaAcciones!=null && listaAcciones.size()>0){
+					AlertDialog dialog=new AlertDialog.Builder(this).create();
+					dialog.setMessage(getResources().getString(R.string.salirlista));
+					dialog.setButton(AlertDialog.BUTTON_NEGATIVE, getResources().getString(R.string.no), new DialogInterface.OnClickListener(){
+							public void onClick(DialogInterface dialog, int witch)
+							{
+								finish();
+							}
+						});
+					dialog.setButton(AlertDialog.BUTTON_POSITIVE, getResources().getString(R.string.si), new DialogInterface.OnClickListener(){
+							public void onClick(DialogInterface dialog, int witch)
+							{
+								try
+								{
+									guardarLista(null);
+								}
+								catch (Exception e)
+								{
+									diag.setMessage(e.getMessage());
+									diag.show();
+								}
+							}
+						});
+					dialog.show();
+					}else{
+						finish();
+					}
+					ret= true;
+					break;
+				default:
+					ret= false;
+					break;
+			}
+		}catch (Exception e)
+		{}
+		return ret;
+	}
 
 }

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-<item android:id="@+id/op1" android:title="Abrir"></item>
-<item android:id="@+id/op2" android:title="Config"></item>
-<item android:id="@+id/op3" android:title="Salir"></item>
+<item android:id="@+id/op1" android:title="Flashear Archivo"></item>
+<item android:id="@+id/op2" android:title="Crear Lista Acciones"></item>
+<item android:id="@+id/op3" android:title="Configuracion"></item>
+<item android:id="@+id/op4" android:title="Salir"></item>
 </menu>
 	

@@ -42,6 +42,7 @@ public final class R {
         public static final int op1=0x7f080016;
         public static final int op2=0x7f080017;
         public static final int op3=0x7f080019;
+        public static final int op4=0x7f08001a;
         public static final int opfile1=0x7f080018;
         public static final int path=0x7f080008;
         public static final int rowtext=0x7f080014;

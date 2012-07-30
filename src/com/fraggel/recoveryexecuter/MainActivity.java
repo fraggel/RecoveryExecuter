@@ -145,11 +145,15 @@ public class MainActivity extends Activity
 					showFileChooser();
 					ret = true;
 					break;
-				case R.id.op2:
+					case R.id.op2:
+					creaLista(null);
+					ret=true;
+					break;
+				case R.id.op3:
 					showConfig();
 					ret = true;
 					break;
-				case R.id.op3:
+				case R.id.op4:
 					finish();
 					ret = true;
 					break;

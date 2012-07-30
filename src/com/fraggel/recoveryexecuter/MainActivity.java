@@ -28,6 +28,7 @@ import android.view.View;
 import android.widget.CheckBox;
 
 import com.ice.tar.Tar;
+import java.io.*;
 
 public class MainActivity extends Activity
 {
@@ -37,6 +38,7 @@ public class MainActivity extends Activity
 	private SharedPreferences sp;
     AlertDialog diag;
     ArrayList lista;
+	File rutaTmp=new File("/mnt/sdcard/RecoveryExecuter/");
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -47,7 +49,7 @@ public class MainActivity extends Activity
 			super.setTitle(R.string.version);
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.main);
-			
+			borrarDirectorio(rutaTmp);
 		}
 		catch (Exception e )
 		{
@@ -56,7 +58,8 @@ public class MainActivity extends Activity
 		}
 		//showFileChooser();
     }
-    public void Ayuda(View v){
+    public void Ayuda(View v)
+	{
     	try
 		{
 			Intent intent=new Intent(this, ayuda.class);
@@ -68,25 +71,28 @@ public class MainActivity extends Activity
 			diag.show();
 		}
     }
-public void creaLista(View v){
-	try
+	public void creaLista(View v)
 	{
-		sp = getSharedPreferences("recexec", Context.MODE_WORLD_WRITEABLE);
-		initialDir = sp.getString("url", "/mnt/sdcard/Download/");
-		
-		Intent intent=new Intent(this, crearLista.class);
-		intent.putStringArrayListExtra("lista",lista);
-		startActivityForResult(intent,FILE_SELECT_CODE);
-	}
-	catch (Exception e)
-	{
-		diag.setMessage(e.getMessage());
-		diag.show();
-	}
-		
+		try
+		{
+			borrarDirectorio(rutaTmp);
+			sp = getSharedPreferences("recexec", Context.MODE_WORLD_WRITEABLE);
+			initialDir = sp.getString("url", "/mnt/sdcard/Download/");
+
+			Intent intent=new Intent(this, crearLista.class);
+			intent.putStringArrayListExtra("lista", lista);
+			startActivityForResult(intent, FILE_SELECT_CODE);
+		}
+		catch (Exception e)
+		{
+			diag.setMessage(e.getMessage());
+			diag.show();
+		}
+
 	}
 	public void Flash(View v)
 	{
+		borrarDirectorio(rutaTmp);
 		showFileChooser();
 	}
 
@@ -135,6 +141,7 @@ public void creaLista(View v){
 			switch (menuitem.getItemId())
 			{
 				case R.id.op1:
+				borrarDirectorio(rutaTmp);
 					showFileChooser();
 					ret = true;
 					break;
@@ -165,20 +172,21 @@ public void creaLista(View v){
 					if (result == RESULT_OK)
 					{
 						file = data.getStringExtra("file");
-						lista=data.getStringArrayListExtra("lista");
-						
+						lista = data.getStringArrayListExtra("lista");
+
 						/*Uri uri=data.getData();
 						 file=uri.getPath();*/
-						if(file !=null && !"".equals(file)){
+						if (file != null && !"".equals(file))
+						{
 							AlertDialog dialog=new AlertDialog.Builder(this).create();
 							dialog.setMessage("Se va a flashear el archivo " + file);
-							dialog.setButton(AlertDialog.BUTTON_NEGATIVE,"Cancelar", new DialogInterface.OnClickListener(){
+							dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancelar", new DialogInterface.OnClickListener(){
 									public void onClick(DialogInterface dialog, int witch)
 									{
 										//finish();
 									}
 								});
-							dialog.setButton(AlertDialog.BUTTON_POSITIVE,"Aceptar", new DialogInterface.OnClickListener(){
+							dialog.setButton(AlertDialog.BUTTON_POSITIVE, "Aceptar", new DialogInterface.OnClickListener(){
 									public void onClick(DialogInterface dialog, int witch)
 									{
 										try
@@ -197,49 +205,63 @@ public void creaLista(View v){
 									}
 								});
 							dialog.show();
-						}else if(lista !=null && lista.size()>0){
+						}
+						else if (lista != null && lista.size() > 0)
+						{
 							AlertDialog dialog=new AlertDialog.Builder(this).create();
 							dialog.setMessage("Se va a flashear la lista de acciones");
-							dialog.setButton(AlertDialog.BUTTON_NEGATIVE,"Cancelar", new DialogInterface.OnClickListener(){
+							dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancelar", new DialogInterface.OnClickListener(){
 									public void onClick(DialogInterface dialog, int witch)
 									{
 										//finish();
 									}
 								});
-							dialog.setButton(AlertDialog.BUTTON_POSITIVE,"Aceptar", new DialogInterface.OnClickListener(){
+							dialog.setButton(AlertDialog.BUTTON_POSITIVE, "Aceptar", new DialogInterface.OnClickListener(){
 									public void onClick(DialogInterface dialog, int witch)
 									{
 										try
 										{
-												Runtime rt=Runtime.getRuntime();
-												java.lang.Process p=rt.exec("su");
-												BufferedOutputStream bos=new BufferedOutputStream(p.getOutputStream());
-												bos.write(("rm /cache/recovery/extendedcommand\n").getBytes());
-												for (int i = 0; i < lista.size(); i++) {
-													String string = (String)lista.get(i);
-													System.out.println(string);
-													if("Wipe Data".equals(string)){
-														bos.write(("echo 'Wipe Data'\n").getBytes());
-														bos.write(("echo 'format (\"/data\");' >> /cache/recovery/extendedcommand\n").getBytes());
-													}else if("Wipe Cache".equals(string)){
-														bos.write(("echo 'Wipe Cache'\n").getBytes());
-														bos.write(("echo 'format (\"/cache\");' >> /cache/recovery/extendedcommand\n").getBytes());
-													}else if("Wipe Dalvik".equals(string)){
-														bos.write(("rm -r \"/data/dalvik-cache\"\n").getBytes());
-													}else if("Wipe Battery".equals(string)){
-														bos.write(("rm \"/data/system/batterystats.bin\"\n").getBytes());
-													}else if("Selecciona una accion".equals(string)){
-														
-													}else if(!"".equals(string)){
-														crearZipCwm(string);
-														bos.write(("echo 'install_zip(\"" + file.replaceFirst("/mnt/sdcard/", "/emmc/").replaceFirst("/mnt/extSdCard/", "/sdcard/") + "\");' >> /cache/recovery/extendedcommand\n").getBytes());
-													}
-													
+											Runtime rt=Runtime.getRuntime();
+											java.lang.Process p=rt.exec("su");
+											BufferedOutputStream bos=new BufferedOutputStream(p.getOutputStream());
+											bos.write(("rm /cache/recovery/extendedcommand\n").getBytes());
+											for (int i = 0; i < lista.size(); i++)
+											{
+												String string = (String)lista.get(i);
+												System.out.println(string);
+												if ("Wipe Data".equals(string))
+												{
+													bos.write(("echo 'Wipe Data'\n").getBytes());
+													bos.write(("echo 'format (\"/data\");' >> /cache/recovery/extendedcommand\n").getBytes());
 												}
-												bos.write(("reboot recovery").getBytes());
-												bos.flush();
-												bos.close();
+												else if ("Wipe Cache".equals(string))
+												{
+													bos.write(("echo 'Wipe Cache'\n").getBytes());
+													bos.write(("echo 'format (\"/cache\");' >> /cache/recovery/extendedcommand\n").getBytes());
+												}
+												else if ("Wipe Dalvik".equals(string))
+												{
+													bos.write(("rm -r \"/data/dalvik-cache\"\n").getBytes());
+												}
+												else if ("Wipe Battery".equals(string))
+												{
+													bos.write(("rm \"/data/system/batterystats.bin\"\n").getBytes());
+												}
+												else if ("Selecciona una accion".equals(string))
+												{
+
+												}
+												else if (!"".equals(string))
+												{
+													crearZipCwm(string);
+													bos.write(("echo 'install_zip(\"" + file.replaceFirst("/mnt/sdcard/", "/emmc/").replaceFirst("/mnt/extSdCard/", "/sdcard/") + "\");' >> /cache/recovery/extendedcommand\n").getBytes());
+												}
+
 											}
+											bos.write(("reboot recovery").getBytes());
+											bos.flush();
+											bos.close();
+										}
 										catch (Exception e)
 										{
 											diag.setMessage(e.getMessage());
@@ -298,11 +320,9 @@ public void creaLista(View v){
 	}
 	public void crearZipCwm(String f) throws Exception
 	{
-		File rutaTmp=new File("/mnt/sdcard/RecoveryExecuter/");
 		File rutaTmpKernel=new File("/mnt/sdcard/RecoveryExecuter/kernel/");
 		File rutaTmpModem=new File("/mnt/sdcard/RecoveryExecuter/modem/");
 		rutaTmp.mkdirs();
-		borrarDirectorio(rutaTmp);
 		rutaTmpKernel.mkdirs();
 		rutaTmpModem.mkdirs();
 
@@ -333,12 +353,13 @@ public void creaLista(View v){
 			try
 			{
 				Tar tar=new Tar();
-				File g=new File(rutaTmp+"/"+new File(f).getName());
-				if(g.exists()){
+				File g=new File(rutaTmp + "/" + new File(f).getName());
+				if (g.exists())
+				{
 					g.delete();
 				}
-				copiarFichero(new File(f),g);	
-				
+				copiarFichero(new File(f), g);	
+
 				tar.extractFiles(g, rutaTmp);
 				File[] fichers=rutaTmp.listFiles();
 				for (int x=0;x < fichers.length;x++)
@@ -360,14 +381,17 @@ public void creaLista(View v){
 		}
 		if (".img".equals(ext))
 		{
-			//kernel
+
 			try
 			{
-				copiarFicheroKernel(f, rutaTmpKernel);
-				kernel k=new kernel();
-				k.writeKernel(rutaTmpKernel.getPath(), getResources().openRawResource(R.raw.updatebinarykernel), getResources().openRawResource(R.raw.updaterscriptkernel));
-				crearZip(rutaTmp.getPath() + "/kernel.zip", new File(rutaTmpKernel.getPath() + "/META-INF/"), "boot.img","");
-				f = rutaTmp.getPath() + "/kernel.zip";
+				if (validaCabeceraKernel(f))
+				{
+					copiarFicheroKernel(f, rutaTmpKernel);
+					kernel k=new kernel();
+					k.writeKernel(rutaTmpKernel.getPath(), getResources().openRawResource(R.raw.updatebinarykernel), getResources().openRawResource(R.raw.updaterscriptkernel));
+					crearZip(rutaTmp.getPath() + "/kernel.zip", new File(rutaTmpKernel.getPath() + "/META-INF/"), "boot.img", "");
+					f = rutaTmp.getPath() + "/kernel.zip";
+				}
 	    	}
 			catch (Exception e)
 			{
@@ -376,14 +400,17 @@ public void creaLista(View v){
 		}
 		if (".bin".equals(ext))
 		{
-			//modem
+		
 			try
 			{
-				copiarFicheroModem(f, rutaTmpModem);
-				modem m=new modem();
-				m.writeModem(rutaTmpModem.getPath(), getResources().openRawResource(R.raw.updatebinarymodem), getResources().openRawResource(R.raw.updaterscriptmodem), getResources().openRawResource(R.raw.flash_imagemodem));
-				crearZip(rutaTmp.getPath() + "/modem.zip", new File(rutaTmpModem.getPath() + "/META-INF/"), "modem.bin","flash_image");
-				f = rutaTmp.getPath() + "/modem.zip";
+				if (validacabeceraModem(f))
+				{
+					copiarFicheroModem(f, rutaTmpModem);
+					modem m=new modem();
+					m.writeModem(rutaTmpModem.getPath(), getResources().openRawResource(R.raw.updatebinarymodem), getResources().openRawResource(R.raw.updaterscriptmodem), getResources().openRawResource(R.raw.flash_imagemodem));
+					crearZip(rutaTmp.getPath() + "/modem.zip", new File(rutaTmpModem.getPath() + "/META-INF/"), "modem.bin", "flash_image");
+					f = rutaTmp.getPath() + "/modem.zip";
+				}
 			}
 			catch (Exception e)
 			{
@@ -391,6 +418,34 @@ public void creaLista(View v){
 			}
 		}
         file = f;
+	}
+
+	private boolean validacabeceraModem(String f) throws Exception
+	{
+		boolean ret=false;
+		BufferedInputStream bis =new BufferedInputStream(new FileInputStream(f));
+		byte[] cabecera=new byte[6];
+		bis.read(cabecera);
+		bis.close();
+		if ("PSIRAM".equals(new String(cabecera)))
+		{
+			ret = true;
+		}
+		return ret;
+	}
+
+	private boolean validaCabeceraKernel(String f) throws Exception
+	{
+		boolean ret=false;
+		BufferedInputStream bis =new BufferedInputStream(new FileInputStream(f));
+		byte[] cabecera=new byte[7];
+		bis.read(cabecera);
+		bis.close();
+		if ("ANDROID".equals(new String(cabecera)))
+		{
+			ret = true;
+		}
+		return ret;
 	}
 
 	private void copiarFicheroKernel(String f, File rutaTmpKernel) throws Exception
@@ -446,7 +501,6 @@ public void creaLista(View v){
 	}
 	public void borrarDirectorio(File directorio)
 	{
-
 		File[] ficheros = directorio.listFiles();
 
 		for (int x=0;x < ficheros.length;x++)
@@ -458,13 +512,14 @@ public void creaLista(View v){
 			ficheros[x].delete();
 		}               
 	}
-	public static void crearZip(String ficheroDest, File srcDir, String objeto,String objeto2) throws Exception
+	public static void crearZip(String ficheroDest, File srcDir, String objeto, String objeto2) throws Exception
 	{
 		BufferedOutputStream out=new BufferedOutputStream(new FileOutputStream(ficheroDest));
 		List<String> fileList = listDirectory(srcDir);
 		ZipOutputStream zout = new ZipOutputStream(out);
 		fileList.add(objeto);
-		if(!"".equals(objeto2.trim())){
+		if (!"".equals(objeto2.trim()))
+		{
 			fileList.add(objeto2);
 		}
 		zout.setLevel(9);

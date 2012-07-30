@@ -24,7 +24,7 @@
 	<string name="btnGuardar">Guardar</string>
 	<string name="btnAyuda">Ayuda</string>
 	<string name="salir">Salir</string>
-	<string name="version">"RecoveryExecuter 1.4.1</string>
+	<string name="version">"RecoveryExecuter 1.4.2</string>
 	<string name="btnGuardarLista">Guardar Lista</string>
 	<string-array name="acciones">
 	    <item>Selecciona una accion</item>

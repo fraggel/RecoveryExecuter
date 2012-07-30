@@ -55,6 +55,31 @@ public class MainActivity extends Activity
 		}
 		//showFileChooser();
     }
+    public void Ayuda(View v){
+    	try
+		{
+			Intent intent=new Intent(this, ayuda.class);
+			startActivity(intent);
+		}
+		catch (Exception e)
+		{
+			diag.setMessage(e.getMessage());
+			diag.show();
+		}
+    }
+public void creaLista(View v){
+	try
+	{
+		Intent intent=new Intent(this, crearLista.class);
+		startActivity(intent);
+	}
+	catch (Exception e)
+	{
+		diag.setMessage(e.getMessage());
+		diag.show();
+	}
+		
+	}
 	public void Flash(View v)
 	{
 		showFileChooser();
@@ -135,8 +160,10 @@ public class MainActivity extends Activity
 					if (result == RESULT_OK)
 					{
 						file = data.getStringExtra("file");
+						ArrayList lista=data.getStringArrayListExtra("lista");
 						/*Uri uri=data.getData();
 						 file=uri.getPath();*/
+						if(!"".equals(file)){
 						AlertDialog dialog=new AlertDialog.Builder(this).create();
 						dialog.setMessage("Se va a flashear el archivo " + file);
 						dialog.setButton2("Cancelar", new DialogInterface.OnClickListener(){
@@ -164,6 +191,13 @@ public class MainActivity extends Activity
 								}
 							});
 						dialog.show();
+						}else if(lista.size()>0){
+							for (int i = 0; i < lista.size(); i++) {
+								String string = (String)lista.get(i);
+								diag.setMessage(string);
+							}
+							diag.show();
+						}
 					}
 					break;
 			}

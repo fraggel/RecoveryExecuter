@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Recovery Executer, te permite flashear un zip,tar,tar.md5,img,bin en recovery 
+    <string name="ayuda">Recovery Executer, te permite flashear un zip,tar,tar.md5,img,bin en recovery 
 		seleccionandolo del explorador de archivos!\n\nPulsa el boton menu y selecciona abrir para 
 		seleccionar el fichero que quieres flashear o el boton \"Seleccionar fichero\".\nEl menu \"Config\" 
 		te permite cambiar la ruta por defecto.\n\nSelecciona si deseas hacer algun wipe antes de flashear 
@@ -14,7 +14,19 @@
 	<string name="wipedata">Wipe Data</string>
 	<string name="wipecache">Wipe Cache</string>
 	<string name="wipedalvik">Wipe Dalvik</string>
-	<string name="btnFlash">Seleccionar fichero</string>
+	<string name="btnFlash">Flashear fichero</string>
+	<string name="btnCrearLista">Crear Lista de Acciones</string>
+	<string name="btnAnyadirLista">Añadir a Lista</string>
 	<string name="btnGuardar">Guardar</string>
+	<string name="btnAyuda">Ayuda</string>
+	<string name="salir">Salir</string>
 	<string name="version">1.3</string>
+	<string name="btnGuardarLista">Guardar Lista</string>
+	<string-array name="acciones">
+	    <item>Selecciona una accion</item>
+        <item>Wipe Data</item>
+        <item>Wipe Cache</item>
+        <item>Wipe Dalvik</item>
+        <item>Flashear Archivo</item>
+    </string-array>
 </resources>

@@ -28,6 +28,8 @@
 		</activity>
 		<activity android:name="fileselect" android:icon="@drawable/ic_launcher">
 		</activity>
+		<activity android:name="ayuda"></activity>
+		<activity android:name="crearLista"></activity>
 		
     </application>
 </manifest>

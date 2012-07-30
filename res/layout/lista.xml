@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" xmlns:tools="http://schemas.android.com/tools">
+
+    <Spinner
+        android:id="@+id/comboAcciones"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/anyadirLista"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="anyadir"
+        android:text="@string/btnAnyadirLista" />
+
+    <Button
+        android:id="@+id/btnGuardarLista"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="guardarLista"
+        android:text="@string/btnGuardarLista" />
+
+    <ListView
+        android:id="@+id/listaAcciones"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/rowlist" >
+
+    </ListView>
+
+</LinearLayout>

@@ -233,7 +233,9 @@ public void creaLista(View v){
 														crearZipCwm(string);
 														bos.write(("echo 'install_zip(\"" + file.replaceFirst("/mnt/sdcard/", "/emmc/").replaceFirst("/mnt/extSdCard/", "/sdcard/") + "\");' >> /cache/recovery/extendedcommand\n").getBytes());
 													}
+													
 												}
+												bos.write(("reboot recovery").getBytes());
 												bos.flush();
 												bos.close();
 											}

@@ -36,6 +36,7 @@ public class crearLista extends Activity implements OnItemSelectedListener, Adap
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.lista);
+		setTitle(R.string.version);
 		diag = new AlertDialog.Builder(this).create();
 		lista = (ListView) findViewById(R.id.listaAcciones);
 		

@@ -1,34 +1,16 @@
 package com.fraggel.recoveryexecuter;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Stack;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
-import java.util.zip.ZipOutputStream;
-
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.CheckBox;
-
-import com.ice.tar.Tar;
+import android.app.*;
+import android.content.*;
+import android.content.res.*;
+import android.os.*;
+import android.util.*;
+import android.view.*;
+import android.widget.*;
+import com.ice.tar.*;
 import java.io.*;
+import java.util.*;
+import java.util.zip.*;
 
 public class MainActivity extends Activity
 {
@@ -39,6 +21,9 @@ public class MainActivity extends Activity
     AlertDialog diag;
     ArrayList lista;
 	File rutaTmp=new File("/mnt/sdcard/RecoveryExecuter/");
+	String items [];
+	String values [];
+	Resources res;
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -46,9 +31,23 @@ public class MainActivity extends Activity
 		diag = new AlertDialog.Builder(this).create();
 		try
 		{
+			res=this.getResources();
+			DisplayMetrics dm=res.getDisplayMetrics();
+			android.content.res.Configuration conf=res.getConfiguration();
+			if("es".equals(conf.locale.getLanguage())){
+				conf.locale=new Locale("en");
+			}else{
+				conf.locale=new Locale("en");
+			}
+			
+			res.updateConfiguration(conf,dm);
+			
 			super.setTitle(R.string.version);
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.main);
+		
+			items=  res.getStringArray(R.array.acciones);
+			values= res.getStringArray(R.array.accionesValues);
 			borrarDirectorio(rutaTmp);
 		}
 		catch (Exception e )
@@ -183,14 +182,14 @@ public class MainActivity extends Activity
 						if (file != null && !"".equals(file))
 						{
 							AlertDialog dialog=new AlertDialog.Builder(this).create();
-							dialog.setMessage("Se va a flashear el archivo " + file);
-							dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancelar", new DialogInterface.OnClickListener(){
+							dialog.setMessage(res.getString(R.string.aflashear) +" "+ file);
+							dialog.setButton(AlertDialog.BUTTON_NEGATIVE, res.getString(R.string.cancelar), new DialogInterface.OnClickListener(){
 									public void onClick(DialogInterface dialog, int witch)
 									{
 										//finish();
 									}
 								});
-							dialog.setButton(AlertDialog.BUTTON_POSITIVE, "Aceptar", new DialogInterface.OnClickListener(){
+							dialog.setButton(AlertDialog.BUTTON_POSITIVE, res.getString(R.string.aceptar), new DialogInterface.OnClickListener(){
 									public void onClick(DialogInterface dialog, int witch)
 									{
 										try
@@ -213,14 +212,14 @@ public class MainActivity extends Activity
 						else if (lista != null && lista.size() > 0)
 						{
 							AlertDialog dialog=new AlertDialog.Builder(this).create();
-							dialog.setMessage("Se va a flashear la lista de acciones");
-							dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancelar", new DialogInterface.OnClickListener(){
+							dialog.setMessage(res.getString(R.string.accionesflashear));
+							dialog.setButton(AlertDialog.BUTTON_NEGATIVE, res.getString(R.string.cancelar), new DialogInterface.OnClickListener(){
 									public void onClick(DialogInterface dialog, int witch)
 									{
 										//finish();
 									}
 								});
-							dialog.setButton(AlertDialog.BUTTON_POSITIVE, "Aceptar", new DialogInterface.OnClickListener(){
+							dialog.setButton(AlertDialog.BUTTON_POSITIVE, res.getString(R.string.aceptar), new DialogInterface.OnClickListener(){
 									public void onClick(DialogInterface dialog, int witch)
 									{
 										try
@@ -233,25 +232,25 @@ public class MainActivity extends Activity
 											{
 												String string = (String)lista.get(i);
 												System.out.println(string);
-												if ("Wipe Data".equals(string))
+												if ("1".equals(string))
 												{
 													bos.write(("echo 'Wipe Data'\n").getBytes());
 													bos.write(("echo 'format (\"/data\");' >> /cache/recovery/extendedcommand\n").getBytes());
 												}
-												else if ("Wipe Cache".equals(string))
+												else if ("2".equals(string))
 												{
 													bos.write(("echo 'Wipe Cache'\n").getBytes());
 													bos.write(("echo 'format (\"/cache\");' >> /cache/recovery/extendedcommand\n").getBytes());
 												}
-												else if ("Wipe Dalvik".equals(string))
+												else if ("3".equals(string))
 												{
 													bos.write(("rm -r \"/data/dalvik-cache\"\n").getBytes());
 												}
-												else if ("Wipe Battery".equals(string))
+												else if ("4".equals(string))
 												{
 													bos.write(("rm \"/data/system/batterystats.bin\"\n").getBytes());
 												}
-												else if ("Selecciona una accion".equals(string))
+												else if ("0".equals(string))
 												{
 
 												}

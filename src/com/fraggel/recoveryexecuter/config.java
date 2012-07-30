@@ -26,7 +26,7 @@ public class config extends Activity implements IFolderItemListener
    	try{
 	   super.onCreate(savedInstanceState);
 	   setContentView(R.layout.config);
-	   setTitle("Configuracion");
+	   setTitle(getResources().getString(R.string.config));
 	   
 	   initialDir= "/mnt/sdcard/Download/";
 	   FolderLayout localFolders = (FolderLayout)findViewById(R.id.localfolders);
@@ -56,7 +56,7 @@ public class config extends Activity implements IFolderItemListener
 			SharedPreferences.Editor editor=sp.edit();
 			editor.putString("url",edittext.getText().toString());
 			editor.commit();
-			diag.setMessage("Ruta guardada correctamente");
+			diag.setMessage(getResources().getString(R.string.rutaguardada));
 		}
 		catch (Exception e)
 		{

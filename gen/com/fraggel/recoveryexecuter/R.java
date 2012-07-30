@@ -10,6 +10,7 @@ package com.fraggel.recoveryexecuter;
 public final class R {
     public static final class array {
         public static final int acciones=0x7f060000;
+        public static final int accionesValues=0x7f060001;
     }
     public static final class attr {
     }
@@ -78,6 +79,9 @@ public final class R {
         public static final int updaterscriptmodem=0x7f040004;
     }
     public static final class string {
+        public static final int accionesflashear=0x7f050015;
+        public static final int aceptar=0x7f050011;
+        public static final int aflashear=0x7f050014;
         public static final int app_name=0x7f050002;
         public static final int ayuda=0x7f050000;
         public static final int ayudaLista=0x7f050001;
@@ -87,7 +91,10 @@ public final class R {
         public static final int btnFlash=0x7f050008;
         public static final int btnGuardar=0x7f05000b;
         public static final int btnGuardarLista=0x7f05000f;
+        public static final int cancelar=0x7f050012;
+        public static final int config=0x7f050013;
         public static final int configurl=0x7f050003;
+        public static final int rutaguardada=0x7f050010;
         public static final int salir=0x7f05000d;
         public static final int version=0x7f05000e;
         public static final int wipebattery=0x7f050007;

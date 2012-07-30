@@ -30,6 +30,8 @@ public class crearLista extends Activity implements OnItemSelectedListener, Adap
 	SimpleAdapter adapt ;
 	Spinner spinner;
 	String[] from = new String[] {"rowtexts"};
+	String items [];
+	String values [];
 	int[] to = new int[] { R.id.rowtexts};
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -40,7 +42,9 @@ public class crearLista extends Activity implements OnItemSelectedListener, Adap
 		
 		fillMaps = new ArrayList<HashMap<String, String>>();
 		
-
+		items=  getResources().getStringArray(R.array.acciones);
+		values=getResources().getStringArray(R.array.accionesValues);
+		
 		Intent intent = this.getIntent();
 		ArrayList<String> stringArrayListExtra = intent.getStringArrayListExtra("lista");
 		if(stringArrayListExtra!=null && stringArrayListExtra.size()>0){
@@ -66,6 +70,14 @@ public class crearLista extends Activity implements OnItemSelectedListener, Adap
 			for (Iterator<String> iterator = stringArrayListExtra.iterator(); iterator
 					.hasNext();) {
 				String string = (String) iterator.next();
+				int r =-1;
+				   for(int x=0;x<items.length;x++){
+					   if(string.equals(values[x])){
+						   string=items[x];
+					   }else if(string.split("/").length-1>0){
+						   string=items[items.length-1]+" "+string.split("/")[string.split("/").length-1];
+					   }
+				   }
 				map = new HashMap<String, String>();
 				map.put("rowtexts", string);
 				file="";
@@ -82,12 +94,15 @@ public class crearLista extends Activity implements OnItemSelectedListener, Adap
 	}
 	public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 		// An item was selected. You can retrieve the selected item using
-		selected = parent.getItemAtPosition(pos).toString();
-		if("Selecciona una accion".equals(selected)){
+	
+		selected=values[pos];
+		if("0".equals(selected)){
 			selected="";
-		}else if("Flashear Archivo".equals(selected)){
+		}else if("5".equals(selected)){
 			showFileChooser();
+			selected = parent.getItemAtPosition(pos).toString();
 		}else{
+			selected = parent.getItemAtPosition(pos).toString();
 			anyadir(view);
 		}
 		
@@ -119,7 +134,13 @@ public class crearLista extends Activity implements OnItemSelectedListener, Adap
 			File ff=new File(file);
 			selected=selected+" "+ff.getName();
 		}else if(!"".equals(selected)){
-			listaAcciones.add(selected);
+			int r=-1;
+			for(int x=0;x<items.length;x++){
+				if(selected.equals(items[x])){
+					r=x;
+				}
+			}
+			listaAcciones.add(values[r]);
 		}
 		if(!"".equals(selected)){
 			map.put("rowtexts", selected);

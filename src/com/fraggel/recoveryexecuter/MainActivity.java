@@ -44,7 +44,7 @@ public class MainActivity extends Activity
 		diag = new AlertDialog.Builder(this).create();
 		try
 		{
-			super.setTitle("RecoveryExecuter "+R.string.version);
+			super.setTitle("RecoveryExecuter "+findViewById(R.string.version));
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.main);
 

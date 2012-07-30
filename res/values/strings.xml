@@ -17,19 +17,21 @@
 	<string name="wipedata">Wipe Data</string>
 	<string name="wipecache">Wipe Cache</string>
 	<string name="wipedalvik">Wipe Dalvik</string>
+	<string name="wipebattery">Wipe Battery</string>
 	<string name="btnFlash">Flashear fichero</string>
 	<string name="btnCrearLista">Crear Lista de Acciones</string>
 	<string name="btnAnyadirLista">Añadir a Lista</string>
 	<string name="btnGuardar">Guardar</string>
 	<string name="btnAyuda">Ayuda</string>
 	<string name="salir">Salir</string>
-	<string name="version">"RecoveryExecuter 1.4.0</string>
+	<string name="version">"RecoveryExecuter 1.4.1</string>
 	<string name="btnGuardarLista">Guardar Lista</string>
 	<string-array name="acciones">
 	    <item>Selecciona una accion</item>
         <item>Wipe Data</item>
         <item>Wipe Cache</item>
         <item>Wipe Dalvik</item>
+        <item>Wipe Battery</item>
         <item>Flashear Archivo</item>
     </string-array>
 </resources>

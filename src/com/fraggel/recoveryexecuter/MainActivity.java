@@ -221,12 +221,13 @@ public void creaLista(View v){
 													if("Wipe Data".equals(string)){
 														bos.write(("echo 'Wipe Data'\n").getBytes());
 														bos.write(("echo 'format (\"/data\");' >> /cache/recovery/extendedcommand\n").getBytes());
-														
 													}else if("Wipe Cache".equals(string)){
 														bos.write(("echo 'Wipe Cache'\n").getBytes());
 														bos.write(("echo 'format (\"/cache\");' >> /cache/recovery/extendedcommand\n").getBytes());
 													}else if("Wipe Dalvik".equals(string)){
 														bos.write(("rm -r \"/data/dalvik-cache\"\n").getBytes());
+													}else if("Wipe Battery".equals(string)){
+														bos.write(("rm \"/data/system/batterystats.bin\"\n").getBytes());
 													}else if("Selecciona una accion".equals(string)){
 														
 													}else if(!"".equals(string)){
@@ -267,6 +268,7 @@ public void creaLista(View v){
 		CheckBox chkdata=(CheckBox)findViewById(R.id.wipedata);
 		CheckBox chkcache=(CheckBox)findViewById(R.id.wipecache);
 		CheckBox chkdalvik=(CheckBox)findViewById(R.id.wipedalvik);
+		CheckBox chkbattery=(CheckBox)findViewById(R.id.wipebattery);
 		BufferedOutputStream bos=new BufferedOutputStream(p.getOutputStream());
 		bos.write(("rm /cache/recovery/extendedcommand\n").getBytes());
 		if (chkdata.isChecked())
@@ -283,6 +285,11 @@ public void creaLista(View v){
 		{
 			//bos.write(("echo 'rm -r \"/data/dalvik-cache\";\n' >> /cache/recovery/extendedcommand\n").getBytes());
 			bos.write(("rm -r \"/data/dalvik-cache\"\n").getBytes());
+		}
+		if (chkbattery.isChecked())
+		{
+			//bos.write(("echo 'rm -r \"/data/dalvik-cache\";\n' >> /cache/recovery/extendedcommand\n").getBytes());
+			bos.write(("rm \"/data/system/batterystats.bin\"\n").getBytes());
 		}
 		bos.write(("echo 'install_zip(\"" + file.replaceFirst("/mnt/sdcard/", "/emmc/").replaceFirst("/mnt/extSdCard/", "/sdcard/") + "\");' >> /cache/recovery/extendedcommand\n").getBytes());
 		bos.write(("reboot recovery").getBytes());

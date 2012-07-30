@@ -31,7 +31,12 @@
         android:layout_height="wrap_content"
         android:text="@string/wipedalvik" >
     </CheckBox>
-
+    <CheckBox
+        android:id="@+id/wipebattery"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/wipebattery" >
+    </CheckBox>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

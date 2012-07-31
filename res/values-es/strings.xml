@@ -45,6 +45,7 @@
 	<string name="enviaEmail">Enviar Email</string>
 	<string name="noEmailCliente">No hay clientes de email instalados.</string>
 	<string name="envioErrores">Enviar log de errores</string>
+	<string name="noerrorlog">No existe fichero de errores</string>
 	<string-array name="acciones">
 		<item>Selecciona una acción</item>
         	<item>Wipe Data</item>

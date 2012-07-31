@@ -41,6 +41,7 @@ Clicking on any item that item will be removed from the list of actions.After th
 	<string name="enviaEmail">Send Email</string>
 	<string name="noEmailCliente">There are no email clients installed.</string>
 	<string name="envioErrores">Send Error Log</string>
+	<string name="noerrorlog">Error log didn\'t exist</string>
 	<string-array name="acciones">
         <item>Select action</item>
         <item>Wipe Data</item>

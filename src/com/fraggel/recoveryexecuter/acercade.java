@@ -1,13 +1,13 @@
 package com.fraggel.recoveryexecuter;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Intent;
-import android.content.res.Resources;
-import android.net.Uri;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Toast;
+import android.app.*;
+import android.content.*;
+import android.content.res.*;
+import android.net.*;
+import android.os.*;
+import android.view.*;
+import android.widget.*;
+import java.io.*;
 
 public class acercade extends Activity{
 	AlertDialog diag;
@@ -35,6 +35,8 @@ public class acercade extends Activity{
 		 }
 	 }
 	 public void enviarEmailErrores(View v){
+		 File f=new File("/mnt/sdcard/RecoveryExecuter/exceptions.log");
+		 if(f.exists()){
 		 Intent i = new Intent(Intent.ACTION_SEND);
 		 i.setType("message/rfc822");
 		 i.putExtra(Intent.EXTRA_EMAIL  , new String[]{res.getString(R.string.email)});
@@ -45,6 +47,10 @@ public class acercade extends Activity{
 		     startActivity(Intent.createChooser(i, res.getString(R.string.enviaEmail)));
 		 } catch (android.content.ActivityNotFoundException ex) {
 		     Toast.makeText(this, res.getString(R.string.noEmailCliente), Toast.LENGTH_SHORT).show();
+		 }
+		 }else{
+			 diag.setMessage(res.getResourceName(R.string.noerrorlog));
+			 diag.show();
 		 }
 	 }
 }

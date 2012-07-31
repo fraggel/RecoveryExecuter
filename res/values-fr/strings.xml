@@ -46,6 +46,7 @@ En cliquant sur n\'importe quel élément il sera retiré de la liste des action
 	<string name="enviaEmail">Envoyer un email</string>
 	<string name="noEmailCliente">Il n\'y a pas les clients de messagerie installés.</string>
 	<string name="envioErrores">Envoyer journal des erreurs</string>
+	<string name="noerrorlog">Pas de fichier d\'erreur</string>
     <string-array name="acciones">
         <item>Sélectioner une Action</item>
         <item>Wipe Data</item>

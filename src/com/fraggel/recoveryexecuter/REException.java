@@ -2,7 +2,6 @@ package com.fraggel.recoveryexecuter;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 
@@ -16,14 +15,16 @@ public class REException extends Throwable
 	BufferedOutputStream bos;
 	
 public REException(Exception e){
-	rutaTmp=new File("/mnt/sdcard/RecoveryExecuter/exceptions.log");
+	rutaTmp=new File("/mnt/sdcard/RecoveryExecuter/");
 	rutaTmp.mkdirs();
+	rutaTmp=new File("/mnt/sdcard/RecoveryExecuter/exceptions.log");
 	setE(e);
 	printTrace();
 }
 public REException(String mensaje,StackTraceElement trace){
-	rutaTmp=new File("/mnt/sdcard/RecoveryExecuter/exceptions.log");
+	rutaTmp=new File("/mnt/sdcard/RecoveryExecuter/");
 	rutaTmp.mkdirs();
+	rutaTmp=new File("/mnt/sdcard/RecoveryExecuter/exceptions.log");
 	setMensaje(mensaje);
 	setTrace(trace);
 	setE(null);

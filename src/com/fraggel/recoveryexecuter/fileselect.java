@@ -37,22 +37,14 @@ public class fileselect extends Activity implements IFileFolderItemListener
 		   localFileFolders.setDir(initialDir);
 		   
 	   } catch(Exception e){
-		   try {
-				throw new REException(e);
-			} catch (REException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+		   new REException(e);
+			
 	   }
 	   
 	}catch(Exception e){
 		
-		try {
-			throw new REException(e);
-		} catch (REException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		new REException(e);
+		
 	}
 	   
    }
@@ -75,12 +67,8 @@ public class fileselect extends Activity implements IFileFolderItemListener
 			
 			}
 		} catch (Exception e) {
-			try {
-				throw new REException(e);
-			} catch (REException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			new REException(e);
+			
 
 		}
 
@@ -96,12 +84,8 @@ public class fileselect extends Activity implements IFileFolderItemListener
 			inflater.inflate(R.menu.menufile, menu);
 		}catch (Exception e)
 		{
-			try {
-				throw new REException(e);
-			} catch (REException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			new REException(e);
+			
 		}
 		return true;
 	}
@@ -120,12 +104,8 @@ public class fileselect extends Activity implements IFileFolderItemListener
 		}
 		}catch (Exception e)
 		{
-			try {
-				throw new REException(e);
-			} catch (REException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			new REException(e);
+			
 		}
 		return ret;
 	}

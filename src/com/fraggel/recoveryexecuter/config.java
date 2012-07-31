@@ -37,23 +37,16 @@ public class config extends Activity implements IFolderItemListener
 		   initialDir=sp.getString("url","/mnt/sdcard/Download/");
 		   
 	   } catch(Exception e){
-		   try {
-				throw new REException(e);
-			} catch (REException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+		   
+		   new REException(e);
+			
 	   }
 	   
 	   edittext=(EditText)findViewById(R.id.editText);
 	   edittext.setText(initialDir);
 	}catch(Exception e){
-		try {
-			throw new REException(e);
-		} catch (REException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		
+		new REException(e);
 	}
 	   
    }
@@ -69,12 +62,7 @@ public class config extends Activity implements IFolderItemListener
 		}
 		catch (Exception e)
 		{
-			try {
-				throw new REException(e);
-			} catch (REException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			new REException(e);
 		}
 		finish();
 	}
@@ -88,12 +76,8 @@ public class config extends Activity implements IFolderItemListener
 			initialDir=file.getPath();
 		}catch (Exception e)
 		{
-			try {
-				throw new REException(e);
-			} catch (REException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}			
+			new REException(e);
+						
 		}
 
         // TODO Auto-generated method stub
@@ -108,12 +92,8 @@ public class config extends Activity implements IFolderItemListener
 			inflater.inflate(R.menu.menuconfig,menu);
 		}catch (Exception e)
 		{
-			try {
-				throw new REException(e);
-			} catch (REException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			new REException(e);
+			
 		}
 		return true;
 	}
@@ -136,12 +116,8 @@ public class config extends Activity implements IFolderItemListener
 		}
 		}catch (Exception e)
 		{
-			try {
-				throw new REException(e);
-			} catch (REException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			new REException(e);
+			
 		}
 		return ret;
 	}

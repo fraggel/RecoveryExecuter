@@ -57,12 +57,8 @@ public class crearLista extends Activity implements OnItemSelectedListener, Adap
 			spinner.setAdapter(adapter);
 			spinner.setOnItemSelectedListener(this);
 		} catch (Exception e) {
-			try {
-				throw new REException(e);
-			} catch (REException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			new REException(e);
+			
 		}
 	}
 	private void reconstruirMap(ArrayList<String> stringArrayListExtra) throws Exception{
@@ -106,12 +102,8 @@ public class crearLista extends Activity implements OnItemSelectedListener, Adap
 			try{
 				showFileChooser();
 			}catch(Exception e){
-				try {
-					throw new REException(e);
-				} catch (REException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				new REException(e);
+				
 			}
 			selected = parent.getItemAtPosition(pos).toString();
 		}else{
@@ -119,12 +111,8 @@ public class crearLista extends Activity implements OnItemSelectedListener, Adap
 			try{
 				anyadir(view);
 			}catch(Exception e){
-				try {
-					throw new REException(e);
-				} catch (REException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				new REException(e);
+				
 			}
 		}
 		
@@ -182,12 +170,8 @@ public class crearLista extends Activity implements OnItemSelectedListener, Adap
 		}
 		catch (Exception e)
 		{
-			try {
-				throw new REException(e);
-			} catch (REException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			new REException(e);
+			
 
 		}
 		super.onActivityResult(request, result, data);
@@ -200,12 +184,8 @@ public class crearLista extends Activity implements OnItemSelectedListener, Adap
 		}
 		catch (Exception e)
 		{
-			try {
-				throw new REException(e);
-			} catch (REException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			new REException(e);
+			
 		}
 	}
 	public void onListItemClick(ListView l, View v, int position, long id) {
@@ -215,12 +195,8 @@ public class crearLista extends Activity implements OnItemSelectedListener, Adap
 			adapt= new SimpleAdapter(this, fillMaps,	R.layout.rowlist, from, to);
 			lista.setAdapter(adapt);
 		}catch(Exception e){
-			try {
-				throw new REException(e);
-			} catch (REException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			new REException(e);
+			
 		}
     }
 
@@ -234,12 +210,8 @@ public class crearLista extends Activity implements OnItemSelectedListener, Adap
 			inflater.inflate(R.menu.menulist, menu);
 		}catch (Exception e)
 		{
-			try {
-				throw new REException(e);
-			} catch (REException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			new REException(e);
+			
 		}
 		return true;
 	}
@@ -261,12 +233,8 @@ public class crearLista extends Activity implements OnItemSelectedListener, Adap
 								}
 								catch (Exception e)
 								{
-									try {
-										throw new REException(e);
-									} catch (REException e1) {
-										// TODO Auto-generated catch block
-										e1.printStackTrace();
-									}
+									new REException(e);
+									
 								}
 							}
 						});
@@ -279,12 +247,8 @@ public class crearLista extends Activity implements OnItemSelectedListener, Adap
 								}
 								catch (Exception e)
 								{
-									try {
-										throw new REException(e);
-									} catch (REException e1) {
-										// TODO Auto-generated catch block
-										e1.printStackTrace();
-									}
+									new REException(e);
+									
 								}
 							}
 						});
@@ -300,12 +264,8 @@ public class crearLista extends Activity implements OnItemSelectedListener, Adap
 			}
 		}catch (Exception e)
 		{
-			try {
-				throw new REException(e);
-			} catch (REException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			new REException(e);
+			
 		}
 		return ret;
 	}

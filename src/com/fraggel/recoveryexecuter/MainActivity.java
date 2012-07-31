@@ -88,12 +88,8 @@ public class MainActivity extends Activity
 		}
 		catch (Exception e)
 		{
-			try {
-				throw new REException(e);
-			} catch (REException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			new REException(e);
+			
 		}
     }
 	public void creaLista(View v)
@@ -132,12 +128,8 @@ public class MainActivity extends Activity
 		}
 		catch (Exception e)
 		{
-			try {
-				throw new REException(e);
-			} catch (REException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			new REException(e);
+			
 		}
 	}
 	private void showConfig()
@@ -149,12 +141,8 @@ public class MainActivity extends Activity
 		}
 		catch (Exception e)
 		{
-			try {
-				throw new REException(e);
-			} catch (REException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			new REException(e);
+			
 		}
 	}
 	public boolean onCreateOptionsMenu(Menu menu)
@@ -166,12 +154,8 @@ public class MainActivity extends Activity
 		}
 		catch (Exception e)
 		{
-			try {
-				throw new REException(e);
-			} catch (REException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			new REException(e);
+			
 		}
 		return true;
 	}
@@ -206,12 +190,8 @@ public class MainActivity extends Activity
 		}
 		catch (Exception e)
 		{
-			try {
-				throw new REException(e);
-			} catch (REException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			new REException(e);
+			
 		}
 		return ret;
 	}
@@ -252,12 +232,8 @@ public class MainActivity extends Activity
 										}
 										catch (Exception e)
 										{
-											try {
-												throw new REException(e);
-											} catch (REException e1) {
-												// TODO Auto-generated catch block
-												e1.printStackTrace();
-											}
+											new REException(e);
+											
 										}
 									}
 								});
@@ -321,12 +297,8 @@ public class MainActivity extends Activity
 										}
 										catch (Exception e)
 										{
-											try {
-												throw new REException(e);
-											} catch (REException e1) {
-												// TODO Auto-generated catch block
-												e1.printStackTrace();
-											}
+											new REException(e);
+											
 										}
 									}
 								});
@@ -338,12 +310,8 @@ public class MainActivity extends Activity
 		}
 		catch (Exception e)
 		{
-			try {
-				throw new REException(e);
-			} catch (REException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			new REException(e);
+			
 		}
 		super.onActivityResult(request, result, data);
 	}
@@ -407,12 +375,8 @@ public class MainActivity extends Activity
 			}
 			catch (Exception e)
 			{
-				try {
-					throw new REException(e);
-				} catch (REException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				new REException(e);
+				
 				f = "";
 			}
 		}
@@ -447,12 +411,8 @@ public class MainActivity extends Activity
 			}
 			catch (Exception e)
 			{
-				try {
-					throw new REException(e);
-				} catch (REException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				new REException(e);
+				
 				f = "";
 			}
 		}
@@ -472,12 +432,8 @@ public class MainActivity extends Activity
 	    	}
 			catch (Exception e)
 			{
-				try {
-					throw new REException(e);
-				} catch (REException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				new REException(e);
+				
 				f = "";
 			}
 		}
@@ -497,12 +453,8 @@ public class MainActivity extends Activity
 			}
 			catch (Exception e)
 			{
-				try {
-					throw new REException(e);
-				} catch (REException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				new REException(e);
+				
 				f = "";
 			}
 		}

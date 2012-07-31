@@ -39,12 +39,8 @@ public class FileFolderLayout extends LinearLayout implements AdapterView.OnItem
 			//folderListener=
 	        getDir(root, lstView);
     	} catch (Exception e) {
-			try {
-				throw new REException(e);
-			} catch (REException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			new REException(e);
+			
 		}
 
     }
@@ -125,12 +121,8 @@ public class FileFolderLayout extends LinearLayout implements AdapterView.OnItem
     	try {
     		onListItemClick((ListView) arg0, arg0, arg2, arg3);
     	} catch (Exception e) {
-			try {
-				throw new REException(e);
-			} catch (REException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			new REException(e);
+			
 		}
     }
 }

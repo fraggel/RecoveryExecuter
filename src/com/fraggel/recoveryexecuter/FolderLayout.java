@@ -29,6 +29,9 @@ public class FolderLayout extends LinearLayout implements AdapterView.OnItemClic
         super(context, attrs);
         // TODO Auto-generated constructor stub
         this.context = context;
+        try {
+			
+		
         LayoutInflater layoutInflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.folderview, this);
@@ -36,8 +39,16 @@ public class FolderLayout extends LinearLayout implements AdapterView.OnItemClic
         myPath = (TextView) findViewById(R.id.path);
         lstView = (ListView) findViewById(R.id.list);
 		//folderListener=
+       
         getDir(root, lstView);
-
+        } catch (Exception e) {
+			try {
+				throw new REException(e);
+			} catch (REException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
     }
 
     public void setIFolderItemListener(IFolderItemListener folderItemListener) {
@@ -45,12 +56,12 @@ public class FolderLayout extends LinearLayout implements AdapterView.OnItemClic
     }
 
     //Set Directory for view at anytime
-    public void setDir(String dirPath){
+    public void setDir(String dirPath) throws Exception{
         getDir(dirPath, lstView);
     }
 
 
-    private void getDir(String dirPath, ListView v) {
+    private void getDir(String dirPath, ListView v) throws Exception{
 		myPath.setText(dirPath);
         item = new ArrayList<String>();
         path = new ArrayList<String>();
@@ -73,7 +84,7 @@ public class FolderLayout extends LinearLayout implements AdapterView.OnItemClic
     }
 
     //can manually set Item to display, if u want
-    public void setItemList(List<String> item){
+    public void setItemList(List<String> item) throws Exception{
 		miAdapter fileList=new miAdapter(context,item);
         //ArrayAdapter<String> fileList = new ArrayAdapter<String>(context,R.layout.row, item);
 
@@ -81,7 +92,7 @@ public class FolderLayout extends LinearLayout implements AdapterView.OnItemClic
         lstView.setOnItemClickListener(this);
     }
 
-    public void onListItemClick(ListView l, View v, int position, long id) {
+    public void onListItemClick(ListView l, View v, int position, long id) throws Exception {
 		try{
 			if(folderListener!=null)
 				folderListener.OnFileClicked(new File(path.get(position)));
@@ -96,7 +107,16 @@ public class FolderLayout extends LinearLayout implements AdapterView.OnItemClic
 
     public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
         // TODO Auto-generated method stub
-        onListItemClick((ListView) arg0, arg0, arg2, arg3);
+    	try {
+    		onListItemClick((ListView) arg0, arg0, arg2, arg3);
+    	} catch (Exception e) {
+			try {
+				throw new REException(e);
+			} catch (REException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
     }
 
 }

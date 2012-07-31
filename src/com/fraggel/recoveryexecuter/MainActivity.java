@@ -1,16 +1,36 @@
 package com.fraggel.recoveryexecuter;
 
-import android.app.*;
-import android.content.*;
-import android.content.res.*;
-import android.os.*;
-import android.util.*;
-import android.view.*;
-import android.widget.*;
-import com.ice.tar.*;
-import java.io.*;
-import java.util.*;
-import java.util.zip.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Locale;
+import java.util.Stack;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+import java.util.zip.ZipOutputStream;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.CheckBox;
+
+import com.ice.tar.Tar;
 
 public class MainActivity extends Activity
 {
@@ -49,18 +69,15 @@ public class MainActivity extends Activity
 			items=  res.getStringArray(R.array.acciones);
 			values= res.getStringArray(R.array.accionesValues);
 			borrarDirectorio(rutaTmp);
-		}
-		catch (Exception e )
-		{
-			diag.setMessage(e.getMessage());
-			diag.show();
+		}catch(Exception e){
+			new REException(e);
 		}
 		//showFileChooser();
     }
 
 	private void controlRootBusybox()
 	{
-		// TODO: Implement this method
+		
 	}
     public void Ayuda(View v)
 	{
@@ -71,8 +88,12 @@ public class MainActivity extends Activity
 		}
 		catch (Exception e)
 		{
-			diag.setMessage(e.getMessage());
-			diag.show();
+			try {
+				throw new REException(e);
+			} catch (REException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
     }
 	public void creaLista(View v)
@@ -89,8 +110,12 @@ public class MainActivity extends Activity
 		}
 		catch (Exception e)
 		{
-			diag.setMessage(e.getMessage());
-			diag.show();
+			try {
+				throw new REException(e);
+			} catch (REException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 
 	}
@@ -112,8 +137,12 @@ public class MainActivity extends Activity
 		}
 		catch (Exception e)
 		{
-			diag.setMessage(e.getMessage());
-			diag.show();
+			try {
+				throw new REException(e);
+			} catch (REException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
 	private void showConfig()
@@ -124,7 +153,14 @@ public class MainActivity extends Activity
 			startActivity(intent);
 		}
 		catch (Exception e)
-		{}
+		{
+			try {
+				throw new REException(e);
+			} catch (REException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 	}
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
@@ -134,7 +170,14 @@ public class MainActivity extends Activity
 			inflater.inflate(R.menu.menuflasher, menu);
 		}
 		catch (Exception e)
-		{}
+		{
+			try {
+				throw new REException(e);
+			} catch (REException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 		return true;
 	}
 	public boolean onOptionsItemSelected(MenuItem menuitem)
@@ -167,7 +210,14 @@ public class MainActivity extends Activity
 			}
 		}
 		catch (Exception e)
-		{}
+		{
+			try {
+				throw new REException(e);
+			} catch (REException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 		return ret;
 	}
 	protected void onActivityResult(int request, int result, Intent data)
@@ -207,8 +257,12 @@ public class MainActivity extends Activity
 										}
 										catch (Exception e)
 										{
-											diag.setMessage(e.getMessage());
-											diag.show();
+											try {
+												throw new REException(e);
+											} catch (REException e1) {
+												// TODO Auto-generated catch block
+												e1.printStackTrace();
+											}
 										}
 									}
 								});
@@ -272,8 +326,12 @@ public class MainActivity extends Activity
 										}
 										catch (Exception e)
 										{
-											diag.setMessage(e.getMessage());
-											diag.show();
+											try {
+												throw new REException(e);
+											} catch (REException e1) {
+												// TODO Auto-generated catch block
+												e1.printStackTrace();
+											}
 										}
 									}
 								});
@@ -285,8 +343,12 @@ public class MainActivity extends Activity
 		}
 		catch (Exception e)
 		{
-			diag.setMessage(e.getMessage());
-			diag.show();
+			try {
+				throw new REException(e);
+			} catch (REException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		super.onActivityResult(request, result, data);
 	}
@@ -350,6 +412,12 @@ public class MainActivity extends Activity
 			}
 			catch (Exception e)
 			{
+				try {
+					throw new REException(e);
+				} catch (REException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				f = "";
 			}
 		}
@@ -384,6 +452,12 @@ public class MainActivity extends Activity
 			}
 			catch (Exception e)
 			{
+				try {
+					throw new REException(e);
+				} catch (REException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				f = "";
 			}
 		}
@@ -403,6 +477,12 @@ public class MainActivity extends Activity
 	    	}
 			catch (Exception e)
 			{
+				try {
+					throw new REException(e);
+				} catch (REException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				f = "";
 			}
 		}
@@ -422,6 +502,12 @@ public class MainActivity extends Activity
 			}
 			catch (Exception e)
 			{
+				try {
+					throw new REException(e);
+				} catch (REException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				f = "";
 			}
 		}
@@ -517,7 +603,9 @@ public class MainActivity extends Activity
 			{
 				borrarDirectorio(ficheros[x]);
 			}
-			ficheros[x].delete();
+			if(!"exceptions.log".equals(ficheros[x].getName())){
+				ficheros[x].delete();
+			}
 		}               
 	}
 	public static void crearZip(String ficheroDest, File srcDir, String objeto, String objeto2) throws Exception

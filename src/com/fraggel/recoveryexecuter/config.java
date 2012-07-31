@@ -37,15 +37,23 @@ public class config extends Activity implements IFolderItemListener
 		   initialDir=sp.getString("url","/mnt/sdcard/Download/");
 		   
 	   } catch(Exception e){
-		   diag.setMessage(e.getMessage());
-		   diag.show();
+		   try {
+				throw new REException(e);
+			} catch (REException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 	   }
 	   
 	   edittext=(EditText)findViewById(R.id.editText);
 	   edittext.setText(initialDir);
 	}catch(Exception e){
-		diag.setMessage(e.getMessage());
-		diag.show();
+		try {
+			throw new REException(e);
+		} catch (REException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 	   
    }
@@ -57,12 +65,17 @@ public class config extends Activity implements IFolderItemListener
 			editor.putString("url",edittext.getText().toString());
 			editor.commit();
 			diag.setMessage(getResources().getString(R.string.rutaguardada));
+			diag.show();
 		}
 		catch (Exception e)
 		{
-			diag.setMessage(e.getMessage());
+			try {
+				throw new REException(e);
+			} catch (REException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
-		diag.show();
 		finish();
 	}
 	protected void onActivityResult(int request,int result,Intent data){
@@ -74,7 +87,14 @@ public class config extends Activity implements IFolderItemListener
 			edittext.setText(file.getPath());
 			initialDir=file.getPath();
 		}catch (Exception e)
-		{}
+		{
+			try {
+				throw new REException(e);
+			} catch (REException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}			
+		}
 
         // TODO Auto-generated method stub
     }
@@ -87,7 +107,14 @@ public class config extends Activity implements IFolderItemListener
 			MenuInflater inflater=getMenuInflater();
 			inflater.inflate(R.menu.menuconfig,menu);
 		}catch (Exception e)
-		{}
+		{
+			try {
+				throw new REException(e);
+			} catch (REException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 		return true;
 	}
 	public boolean onOptionsItemSelected(MenuItem menuitem){
@@ -108,7 +135,14 @@ public class config extends Activity implements IFolderItemListener
 			break;
 		}
 		}catch (Exception e)
-		{}
+		{
+			try {
+				throw new REException(e);
+			} catch (REException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 		return ret;
 	}
 }

@@ -37,20 +37,22 @@ public class fileselect extends Activity implements IFileFolderItemListener
 		   localFileFolders.setDir(initialDir);
 		   
 	   } catch(Exception e){
-		   diag.setMessage(e.getMessage());
-		   diag.show();
+		   try {
+				throw new REException(e);
+			} catch (REException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 	   }
 	   
 	}catch(Exception e){
-		/*String a="";
-        	ByteArrayOutputStream baos=new ByteArrayOutputStream(1024);
-        	PrintStream ps=new PrintStream(baos); 
-        	e.printStackTrace(ps);
-        	ps.flush();
-        	ps.close();
-        	a=baos.toString();*/
-		diag.setMessage(e.getMessage());
-		diag.show();
+		
+		try {
+			throw new REException(e);
+		} catch (REException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 	   
    }
@@ -59,6 +61,8 @@ public class fileselect extends Activity implements IFileFolderItemListener
 	}
 	public void OnFileClicked(File file) {
 
+		try {
+			
 		
 			/*edittext=(EditText)findViewById(R.id.editText);
 			edittext.setText(file.getPath());
@@ -68,7 +72,17 @@ public class fileselect extends Activity implements IFileFolderItemListener
 			it.putExtra("file",file.getPath());
 			setResult(Activity.RESULT_OK,it);
 			finish();
+			
 			}
+		} catch (Exception e) {
+			try {
+				throw new REException(e);
+			} catch (REException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+		}
 
         // TODO Auto-generated method stub
     }
@@ -81,7 +95,14 @@ public class fileselect extends Activity implements IFileFolderItemListener
 			MenuInflater inflater=getMenuInflater();
 			inflater.inflate(R.menu.menufile, menu);
 		}catch (Exception e)
-		{}
+		{
+			try {
+				throw new REException(e);
+			} catch (REException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 		return true;
 	}
 	public boolean onOptionsItemSelected(MenuItem menuitem){
@@ -98,7 +119,14 @@ public class fileselect extends Activity implements IFileFolderItemListener
 			break;
 		}
 		}catch (Exception e)
-		{}
+		{
+			try {
+				throw new REException(e);
+			} catch (REException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 		return ret;
 	}
 }

@@ -26,37 +26,49 @@ public class crearLista extends Activity implements OnItemSelectedListener, Adap
 	String values [];
 	int[] to = new int[] { R.id.rowtexts};
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.lista);
-		setTitle(R.string.version);
-		diag = new AlertDialog.Builder(this).create();
-		lista = (ListView) findViewById(R.id.listaAcciones);
-		
-		fillMaps = new ArrayList<HashMap<String, String>>();
-		
-		items=  getResources().getStringArray(R.array.acciones);
-		values=getResources().getStringArray(R.array.accionesValues);
-		
-		Intent intent = this.getIntent();
-		ArrayList<String> stringArrayListExtra = intent.getStringArrayListExtra("lista");
-		if(stringArrayListExtra!=null && stringArrayListExtra.size()>0){
-			listaAcciones=stringArrayListExtra;
+		try {
+			super.onCreate(savedInstanceState);
+			setContentView(R.layout.lista);
+			setTitle(R.string.version);
+			diag = new AlertDialog.Builder(this).create();
+			lista = (ListView) findViewById(R.id.listaAcciones);
+			
+			fillMaps = new ArrayList<HashMap<String, String>>();
+			
+			items=  getResources().getStringArray(R.array.acciones);
+			values=getResources().getStringArray(R.array.accionesValues);
+			
+			Intent intent = this.getIntent();
+			ArrayList<String> stringArrayListExtra = intent.getStringArrayListExtra("lista");
+			if(stringArrayListExtra!=null && stringArrayListExtra.size()>0){
+				listaAcciones=stringArrayListExtra;
+			}
+			reconstruirMap(listaAcciones);
+			adapt= new SimpleAdapter(this, fillMaps,	R.layout.rowlist, from, to);
+			lista.setAdapter(adapt);	
+			lista.setOnItemClickListener(this);
+			spinner = (Spinner) findViewById(R.id.comboAcciones);
+			ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+					this, R.array.acciones, android.R.layout.simple_spinner_item);
+			// Specify the layout to use when the list of choices appears
+	
+			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			// Apply the adapter to the spinner
+			spinner.setAdapter(adapter);
+			spinner.setOnItemSelectedListener(this);
+		} catch (Exception e) {
+			try {
+				throw new REException(e);
+			} catch (REException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
-		reconstruirMap(listaAcciones);
-		adapt= new SimpleAdapter(this, fillMaps,	R.layout.rowlist, from, to);
-		lista.setAdapter(adapt);	
-		lista.setOnItemClickListener(this);
-		spinner = (Spinner) findViewById(R.id.comboAcciones);
-		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-				this, R.array.acciones, android.R.layout.simple_spinner_item);
-		// Specify the layout to use when the list of choices appears
-
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		// Apply the adapter to the spinner
-		spinner.setAdapter(adapter);
-		spinner.setOnItemSelectedListener(this);
 	}
-	private void reconstruirMap(ArrayList<String> stringArrayListExtra) {
+	private void reconstruirMap(ArrayList<String> stringArrayListExtra) throws Exception{
+		
+			
+		
 		if(stringArrayListExtra!=null && stringArrayListExtra.size()>0){
 			
 			for (Iterator<String> iterator = stringArrayListExtra.iterator(); iterator
@@ -78,7 +90,7 @@ public class crearLista extends Activity implements OnItemSelectedListener, Adap
 		}
 		
 	}
-	public void guardarLista(View v){
+	public void guardarLista(View v)throws Exception{
 		Intent it=new Intent();
 		it.putStringArrayListExtra("lista",listaAcciones);
 		setResult(Activity.RESULT_OK,it);
@@ -91,34 +103,44 @@ public class crearLista extends Activity implements OnItemSelectedListener, Adap
 		if("0".equals(selected)){
 			selected="";
 		}else if("5".equals(selected)){
-			showFileChooser();
+			try{
+				showFileChooser();
+			}catch(Exception e){
+				try {
+					throw new REException(e);
+				} catch (REException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
 			selected = parent.getItemAtPosition(pos).toString();
 		}else{
 			selected = parent.getItemAtPosition(pos).toString();
-			anyadir(view);
+			try{
+				anyadir(view);
+			}catch(Exception e){
+				try {
+					throw new REException(e);
+				} catch (REException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
 		}
 		
 		
 	}
-	private void showFileChooser()
+	private void showFileChooser()throws Exception
 	{
-		try
-		{
         	Intent intent=new Intent(this, fileselect.class);
 			startActivityForResult(intent, 0);
-		}
-		catch (Exception e)
-		{
-			diag.setMessage(e.getMessage());
-			diag.show();
-		}
 	}
 
 	public void onNothingSelected(AdapterView<?> parent) {
 		// Another interface callback
 	}
 
-	public void anyadir(View v) {
+	public void anyadir(View v) throws Exception{
 		map = new HashMap<String, String>();
 		
 		if(file!=null && !"".equals(file)){
@@ -160,8 +182,13 @@ public class crearLista extends Activity implements OnItemSelectedListener, Adap
 		}
 		catch (Exception e)
 		{
-			diag.setMessage(e.getMessage());
-			diag.show();
+			try {
+				throw new REException(e);
+			} catch (REException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
 		}
 		super.onActivityResult(request, result, data);
 	}
@@ -173,8 +200,12 @@ public class crearLista extends Activity implements OnItemSelectedListener, Adap
 		}
 		catch (Exception e)
 		{
-			diag.setMessage(e.getMessage());
-			diag.show();
+			try {
+				throw new REException(e);
+			} catch (REException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
 	public void onListItemClick(ListView l, View v, int position, long id) {
@@ -183,7 +214,14 @@ public class crearLista extends Activity implements OnItemSelectedListener, Adap
 			fillMaps.remove(position);
 			adapt= new SimpleAdapter(this, fillMaps,	R.layout.rowlist, from, to);
 			lista.setAdapter(adapt);
-		}catch(Exception e){}
+		}catch(Exception e){
+			try {
+				throw new REException(e);
+			} catch (REException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
     }
 
     public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
@@ -195,7 +233,14 @@ public class crearLista extends Activity implements OnItemSelectedListener, Adap
 			MenuInflater inflater=getMenuInflater();
 			inflater.inflate(R.menu.menulist, menu);
 		}catch (Exception e)
-		{}
+		{
+			try {
+				throw new REException(e);
+			} catch (REException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 		return true;
 	}
 	public boolean onOptionsItemSelected(MenuItem menuitem){
@@ -222,8 +267,12 @@ public class crearLista extends Activity implements OnItemSelectedListener, Adap
 								}
 								catch (Exception e)
 								{
-									diag.setMessage(e.getMessage());
-									diag.show();
+									try {
+										throw new REException(e);
+									} catch (REException e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+									}
 								}
 							}
 						});
@@ -238,7 +287,14 @@ public class crearLista extends Activity implements OnItemSelectedListener, Adap
 					break;
 			}
 		}catch (Exception e)
-		{}
+		{
+			try {
+				throw new REException(e);
+			} catch (REException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 		return ret;
 	}
 

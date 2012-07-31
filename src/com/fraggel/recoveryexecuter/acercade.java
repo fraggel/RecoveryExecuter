@@ -37,19 +37,19 @@ public class acercade extends Activity{
 	 public void enviarEmailErrores(View v){
 		 File f=new File("/mnt/sdcard/RecoveryExecuter/exceptions.log");
 		 if(f.exists()){
-		 Intent i = new Intent(Intent.ACTION_SEND);
-		 i.setType("message/rfc822");
-		 i.putExtra(Intent.EXTRA_EMAIL  , new String[]{res.getString(R.string.email)});
-		 i.putExtra(Intent.EXTRA_SUBJECT, res.getString(R.string.envioErrores));
-		 i.putExtra(Intent.EXTRA_TEXT   , res.getString(R.string.version));
-		 i.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///mnt/sdcard/RecoveryExecuter/exceptions.log"));
-		 try {
-		     startActivity(Intent.createChooser(i, res.getString(R.string.enviaEmail)));
-		 } catch (android.content.ActivityNotFoundException ex) {
-		     Toast.makeText(this, res.getString(R.string.noEmailCliente), Toast.LENGTH_SHORT).show();
-		 }
+			 Intent i = new Intent(Intent.ACTION_SEND);
+			 i.setType("message/rfc822");
+			 i.putExtra(Intent.EXTRA_EMAIL  , new String[]{res.getString(R.string.email)});
+			 i.putExtra(Intent.EXTRA_SUBJECT, res.getString(R.string.envioErrores));
+			 i.putExtra(Intent.EXTRA_TEXT   , res.getString(R.string.version));
+			 i.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///mnt/sdcard/RecoveryExecuter/exceptions.log"));
+			 try {
+			     startActivity(Intent.createChooser(i, res.getString(R.string.enviaEmail)));
+			 } catch (android.content.ActivityNotFoundException ex) {
+			     Toast.makeText(this, res.getString(R.string.noEmailCliente), Toast.LENGTH_SHORT).show();
+			 }
 		 }else{
-			 diag.setMessage(res.getResourceName(R.string.noerrorlog));
+			 diag.setMessage(res.getString(R.string.noerrorlog));
 			 diag.show();
 		 }
 	 }

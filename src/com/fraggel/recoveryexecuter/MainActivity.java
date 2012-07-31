@@ -115,7 +115,6 @@ public class MainActivity extends Activity
 		boolean instalado=false;
 		try {
 			Runtime rt=Runtime.getRuntime();
-			//java.lang.Process p2=rt.exec("su");
 			java.lang.Process p=rt.exec("awk");
 			LogStreamReader lsr = new LogStreamReader(p.getInputStream());
 			Thread thread = new Thread(lsr, "LogStreamReader");
@@ -126,6 +125,8 @@ public class MainActivity extends Activity
 				linea=lsr.getLine();
 			}
 			instalado=true;
+			
+			java.lang.Process p2=rt.exec("su");
 		} catch (Exception e) {
 			instalado=false;
 		}

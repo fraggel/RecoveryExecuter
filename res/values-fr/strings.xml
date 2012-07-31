@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ayuda">"vous permet de flasher un zip, tar, tar.md5, img, bin dans le Recovery en le sélectionnant dans ​​l\'explorateur de fichiers !
+
+Cliquez sur le bouton menu et sélectionnez l\'option que vous désirez.
+Avec l'option \"Configuration\" vous pouvez sélectionner le chemin par défaut pour le navigateur de fichiers.
+
+Sélectionnez si vous voulez faire les différents Wipe avant de flasher quelque chose.
+
+Pour flasher un kernel, un modem ou de tout autre fichier zip il suffit de le sélectionner à partir du navigateur de fichiers, seuls les fichiers compatibles s\'afficheront."</string>
+    <string name="ayudaLista">"Sélectionnez dans la liste déroulante l\'option que vous souhaitez ajouter à la liste des actions, après avoir sélectionné l\'action, cliquez sur  \"Ajouter à la liste\" si l\'option \"Flasher Fichier\" est sélectionnée, le navigateur de fichier sera affiché pour sélectionner le fichier à flasher
+Après avoir sélectionné le fichier, vous devez appuyer sur le bouton \ "Ajouter à la liste \".
+
+
+En cliquant sur n\'importe quel élément il sera retiré de la liste des actions. Après cliquez sur le bouton \"Sauver la Liste\".."</string>
+
+    <string name="app_name">RecoveryExecuter</string>
+    <string name="configurl">Chemin par défaut</string>
+    <string name="wipedata">Wipe Data</string>
+    <string name="wipecache">Wipe Cache</string>
+    <string name="wipedalvik">Wipe Dalvik</string>
+    <string name="wipebattery">Wipe Battery</string>
+    <string name="btnFlash">Flasher fichier</string>
+    <string name="btnCrearLista">Créer une liste d\'action</string>
+    <string name="btnAnyadirLista">Ajouter à la liste</string>
+    <string name="btnGuardar">Sauver</string>
+    <string name="btnAyuda">Aide</string>
+    <string name="salir">Quitter</string>
+    <string name="version">RecoveryExecuter 1.4.3</string>
+    <string name="btnGuardarLista">Sauver la Liste</string>
+    <string name="rutaguardada">Chemin sauvé</string>
+    <string name="aceptar">Accepter</string>
+    <string name="cancelar">Annuler</string>
+    <string name="config">Configuration</string>
+    <string name="aflashear">Flasher :</string>
+    <string name="si">Oui</string>
+    <string name="no">Non</string>
+    <string name="selecarchivo">Sélectionner un Fichier</string>
+    <string name="accionesflashear">Liste des actions à flasher</string>
+    <string name="salirlista">Sauver la liste d\'Action?</string>
+    <string name="busyboxroot">#Busybox is necessary but isnt installed, install busybox?</string>
+    <string-array name="acciones">
+        <item>Sélectioner une Action</item>
+        <item>Wipe Data</item>
+        <item>Wipe Cache</item>
+        <item>Wipe Dalvik</item>
+        <item>Wipe Battery</item>
+        <item>Flasher Fichier</item>
+    </string-array>
+    <string-array name="accionesValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+</resources>

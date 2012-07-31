@@ -19,10 +19,18 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/contacto" android:textSize="18dp"/>
+	<Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/email" android:textSize="20dp" android:layout_marginLeft="20dp" android:onClick="enviarEmail"/>
 	<TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/email" android:textSize="20dp" android:layout_marginLeft="20dp"/>
+        android:text="@string/envioErrores" android:textSize="18dp"/>
+	<Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/email" android:textSize="20dp" android:layout_marginLeft="20dp" android:onClick="enviarEmailErrores"/>
 	
 	</LinearLayout>
 

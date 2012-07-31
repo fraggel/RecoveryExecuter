@@ -25,7 +25,7 @@
 	<string name="btnGuardar">Guardar</string>
 	<string name="btnAyuda">Ayuda</string>
 	<string name="salir">Salir</string>
-	<string name="version">RecoveryExecuter 1.4.3</string>
+	<string name="version">RecoveryExecuter 1.4.4</string>
 	<string name="btnGuardarLista">Guardar Lista</string>
 	<string name="rutaguardada">Ruta guardada</string>
 	<string name="aceptar">Aceptar</string>
@@ -42,6 +42,9 @@
     <string name="nomautor">Fraggel</string>
     <string name="contacto">Email: </string>
 	<string name="email">androidterminales@gmail.com</string>
+	<string name="enviaEmail">Enviar Email</string>
+	<string name="noEmailCliente">No hay clientes de email instalados.</string>
+	<string name="envioErrores">Enviar log de errores</string>
 	<string-array name="acciones">
 		<item>Selecciona una acción</item>
         	<item>Wipe Data</item>

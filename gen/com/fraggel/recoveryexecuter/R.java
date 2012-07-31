@@ -104,7 +104,10 @@ public final class R {
         public static final int configurl=0x7f050003;
         public static final int contacto=0x7f05001d;
         public static final int email=0x7f05001e;
+        public static final int enviaEmail=0x7f05001f;
+        public static final int envioErrores=0x7f050021;
         public static final int no=0x7f050016;
+        public static final int noEmailCliente=0x7f050020;
         public static final int nomautor=0x7f05001c;
         public static final int rutaguardada=0x7f050010;
         public static final int salir=0x7f05000d;

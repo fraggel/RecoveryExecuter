@@ -21,7 +21,7 @@ Clicking on any item that item will be removed from the list of actions.After th
     <string name="btnGuardar">Save</string>
     <string name="btnAyuda">Help</string>
     <string name="salir">Exit</string>
-    <string name="version">RecoveryExecuter 1.4.3</string>
+    <string name="version">RecoveryExecuter 1.4.4</string>
     <string name="btnGuardarLista">Save List</string>
     <string name="rutaguardada">Path saved</string>
     <string name="aceptar">Accept</string>
@@ -38,6 +38,9 @@ Clicking on any item that item will be removed from the list of actions.After th
     <string name="nomautor">Fraggel</string>
     <string name="contacto">Email: </string>
 	<string name="email">androidterminales@gmail.com</string>
+	<string name="enviaEmail">Send Email</string>
+	<string name="noEmailCliente">There are no email clients installed.</string>
+	<string name="envioErrores">Send Error Log</string>
 	<string-array name="acciones">
         <item>Select action</item>
         <item>Wipe Data</item>

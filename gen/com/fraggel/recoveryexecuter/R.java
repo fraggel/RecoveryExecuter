@@ -125,6 +125,7 @@ public final class R {
         public static final int email=0x7f05001f;
         public static final int enviaEmail=0x7f050020;
         public static final int envioErrores=0x7f050022;
+        public static final int msgApkInstalada=0x7f05002a;
         public static final int msgNoBusybox=0x7f050029;
         public static final int msgNoRoot=0x7f050028;
         public static final int no=0x7f050018;

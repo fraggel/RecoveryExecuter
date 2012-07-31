@@ -54,6 +54,7 @@ En cliquant sur n\'importe quel élément il sera retiré de la liste des action
 	<string name="rdbTxtSistema">Système</string>
 	<string name="msgNoRoot">Vous n\'êtes pas root, pour utiliser cette application vous devez premiere root</string>
 	<string name="msgNoBusybox">Busybox est nécessaire, mais n\'est pas installé, installez busybox?</string>
+	<string name="msgApkInstalada">Application installée</string>
     <string-array name="arrayAcciones">
         <item>Sélectioner une Action</item>
         <item>Wipe Data</item>

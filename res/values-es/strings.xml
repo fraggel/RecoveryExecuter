@@ -53,7 +53,7 @@
 	<string name="rdbTxtSistema">Sistema</string>
 	<string name="msgNoRoot">No eres root, para usar esta aplicación necesitas ser root primero</string>
 	<string name="msgNoBusybox">Busybox es necesario pero no está instalado, Desea instalar busybox?</string>
-	
+	<string name="msgApkInstalada">Aplicacion instalada</string>
 	<string-array name="arrayAcciones">
 		<item>Selecciona una acción</item>
         	<item>Wipe Data</item>

@@ -1,25 +1,15 @@
 package com.fraggel.recoveryexecuter;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
+import android.app.*;
+import android.content.*;
+import android.content.res.*;
+import android.net.*;
+import android.os.*;
+import android.view.*;
+import android.widget.*;
+import java.io.*;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.RadioButton;
-import android.widget.TextView;
+import java.lang.Process;
 
 public class install extends Activity implements IAPKItemListener
 {
@@ -28,12 +18,15 @@ public class install extends Activity implements IAPKItemListener
 	private String initialDir;
 	SharedPreferences sp;
 	AlertDialog diag;
+	Resources res;
 	public void onCreate(Bundle savedInstanceState) {
 	diag=new AlertDialog.Builder(this).create();
    	try{
+		res=getResources();
 	   super.onCreate(savedInstanceState);
 	   setContentView(R.layout.apkselect);
-	   setTitle(getResources().getString(R.string.selecarchivo));
+
+	   setTitle(res.getString(R.string.selecarchivo));
 	   
 	   initialDir= "/mnt/sdcard/Download/";
 	   installLayout localFileFolders = (installLayout)findViewById(R.id.apkfilefolders);
@@ -68,17 +61,14 @@ public class install extends Activity implements IAPKItemListener
 				Runtime runtime=Runtime.getRuntime();
 				Process exec = runtime.exec("su");
 				BufferedOutputStream outputStream =new BufferedOutputStream(exec.getOutputStream());
-				outputStream.write(("mount -o rw remount /system\n").getBytes());
+				outputStream.write(("mount -o rw,remount /system\n").getBytes());
+				outputStream.write(("busybox cp \""+ficheroAPK+"\" /system/app/\n").getBytes());
+				outputStream.flush();
+				outputStream.write(("mount -o ro,remount /system\n").getBytes());
 				outputStream.flush();
 				outputStream.close();
-				File rr=new File(ficheroAPK);
-				File ff=new File("/system/app/"+rr.getName());
-				copiarFichero(rr,ff);
-				Process exec2 = runtime.exec("su");
-				BufferedOutputStream outputStream2 =new BufferedOutputStream(exec2.getOutputStream());
-				outputStream2.write(("mount -o ro remount /system\n").getBytes());
-				outputStream2.flush();
-				outputStream2.close();
+				diag.setMessage(res.getString(R.string.msgApkInstalada));
+				diag.show();
 			}
 	   } catch (Exception e) {
 			new REException(e);
@@ -87,22 +77,6 @@ public class install extends Activity implements IAPKItemListener
 		}
 	   
    }
-   private void copiarFichero(File origen, File destino) throws Exception
-	{
-
-		BufferedInputStream bis=new BufferedInputStream(new FileInputStream(origen));
-		BufferedOutputStream bos=new BufferedOutputStream(new FileOutputStream(destino));
-		int x=-1;
-
-		x = bis.read();
-		while (x != -1)
-		{
-			bos.write(x);
-			x = bis.read();
-		}
-		bos.flush();
-		bos.close();
-	}
 	protected void onActivityResult(int request,int result,Intent data){
 		super.onActivityResult(request,result,data);
 	}

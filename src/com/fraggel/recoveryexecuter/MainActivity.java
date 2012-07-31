@@ -52,6 +52,7 @@ public class MainActivity extends Activity
 		try
 		{
 			rutaTmp=new File("/mnt/sdcard/RecoveryExecuter/");
+			rutaTmp.mkdirs();
 			controlRootBusybox();
 			res=this.getResources();
 			DisplayMetrics dm=res.getDisplayMetrics();

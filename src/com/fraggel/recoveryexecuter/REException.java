@@ -9,10 +9,6 @@ import java.io.PrintStream;
 
 public class REException extends Throwable
 {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	Exception e;
 	String mensaje;
 	StackTraceElement trace;
@@ -21,11 +17,13 @@ public class REException extends Throwable
 	
 public REException(Exception e){
 	rutaTmp=new File("/mnt/sdcard/RecoveryExecuter/exceptions.log");
+	rutaTmp.mkdirs();
 	setE(e);
 	printTrace();
 }
 public REException(String mensaje,StackTraceElement trace){
 	rutaTmp=new File("/mnt/sdcard/RecoveryExecuter/exceptions.log");
+	rutaTmp.mkdirs();
 	setMensaje(mensaje);
 	setTrace(trace);
 	setE(null);

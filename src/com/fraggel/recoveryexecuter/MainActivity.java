@@ -110,12 +110,7 @@ public class MainActivity extends Activity
 		}
 		catch (Exception e)
 		{
-			try {
-				throw new REException(e);
-			} catch (REException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			 new REException(e);
 		}
 
 	}

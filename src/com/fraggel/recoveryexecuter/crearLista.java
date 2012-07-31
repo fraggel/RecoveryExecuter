@@ -255,7 +255,19 @@ public class crearLista extends Activity implements OnItemSelectedListener, Adap
 					dialog.setButton(AlertDialog.BUTTON_NEGATIVE, getResources().getString(R.string.no), new DialogInterface.OnClickListener(){
 							public void onClick(DialogInterface dialog, int witch)
 							{
-								finish();
+								try{
+								listaAcciones=null;
+								guardarLista(null);
+								}
+								catch (Exception e)
+								{
+									try {
+										throw new REException(e);
+									} catch (REException e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+									}
+								}
 							}
 						});
 					dialog.setButton(AlertDialog.BUTTON_POSITIVE, getResources().getString(R.string.si), new DialogInterface.OnClickListener(){

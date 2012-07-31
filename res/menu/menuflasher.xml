@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-<item android:id="@+id/op1" android:title="Flash File"></item>
-<item android:id="@+id/op2" android:title="Create Action List"></item>
-<item android:id="@+id/op3" android:title="Configuration"></item>
-<item android:id="@+id/op4" android:title="Exit"></item>
+	<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:id="@+id/op1" android:title="Flash File"></item>
+	<item android:id="@+id/op2" android:title="Create Action List"></item>
+	<item android:id="@+id/op3" android:title="Configuration"></item>
+   	<item android:id="@+id/op4" android:title="About..." />
+    <item android:id="@+id/op5" android:title="Exit" />
 </menu>
 	

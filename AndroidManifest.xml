@@ -31,6 +31,7 @@
 		<activity android:name="ayuda"></activity>
 		<activity android:name="ayudaLista"></activity>
 		<activity android:name="crearLista"></activity>
+		<activity android:name="acercade"></activity>
 		
     </application>
 </manifest>

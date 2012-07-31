@@ -42,6 +42,7 @@ public final class R {
         public static final int op2=0x7f080015;
         public static final int op3=0x7f080017;
         public static final int op4=0x7f080018;
+        public static final int op5=0x7f080019;
         public static final int opfile1=0x7f080016;
         public static final int path=0x7f080008;
         public static final int rowtext=0x7f080012;
@@ -52,17 +53,18 @@ public final class R {
         public static final int wipedata=0x7f08000d;
     }
     public static final class layout {
-        public static final int ayuda=0x7f030000;
-        public static final int ayudalista=0x7f030001;
-        public static final int config=0x7f030002;
-        public static final int filefolderview=0x7f030003;
-        public static final int filerow=0x7f030004;
-        public static final int fileselect=0x7f030005;
-        public static final int folderview=0x7f030006;
-        public static final int lista=0x7f030007;
-        public static final int main=0x7f030008;
-        public static final int row=0x7f030009;
-        public static final int rowlist=0x7f03000a;
+        public static final int acercade=0x7f030000;
+        public static final int ayuda=0x7f030001;
+        public static final int ayudalista=0x7f030002;
+        public static final int config=0x7f030003;
+        public static final int filefolderview=0x7f030004;
+        public static final int filerow=0x7f030005;
+        public static final int fileselect=0x7f030006;
+        public static final int folderview=0x7f030007;
+        public static final int lista=0x7f030008;
+        public static final int main=0x7f030009;
+        public static final int row=0x7f03000a;
+        public static final int rowlist=0x7f03000b;
     }
     public static final class menu {
         public static final int menuconfig=0x7f070000;
@@ -82,6 +84,7 @@ public final class R {
         public static final int aceptar=0x7f050011;
         public static final int aflashear=0x7f050014;
         public static final int app_name=0x7f050002;
+        public static final int autor=0x7f05001b;
         public static final int ayuda=0x7f050000;
         public static final int ayudaLista=0x7f050001;
         public static final int btnAnyadirLista=0x7f05000a;
@@ -99,7 +102,10 @@ public final class R {
 		a la pantalla anterior.</string>
          */
         public static final int configurl=0x7f050003;
+        public static final int contacto=0x7f05001d;
+        public static final int email=0x7f05001e;
         public static final int no=0x7f050016;
+        public static final int nomautor=0x7f05001c;
         public static final int rutaguardada=0x7f050010;
         public static final int salir=0x7f05000d;
         public static final int salirlista=0x7f050019;

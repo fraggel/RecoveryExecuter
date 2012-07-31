@@ -125,7 +125,6 @@ public class MainActivity extends Activity
 				linea=lsr.getLine();
 			}
 			instalado=true;
-			
 			java.lang.Process p2=rt.exec("su");
 		} catch (Exception e) {
 			instalado=false;
@@ -185,6 +184,19 @@ public class MainActivity extends Activity
 			
 		}
 	}
+	private void showAbout()
+	{
+		try
+		{
+			Intent intent=new Intent(this, acercade.class);
+			startActivity(intent);
+		}
+		catch (Exception e)
+		{
+			new REException(e);
+			
+		}
+	}
 	private void showConfig()
 	{
 		try
@@ -233,6 +245,10 @@ public class MainActivity extends Activity
 					ret = true;
 					break;
 				case R.id.op4:
+					showAbout();
+					ret = true;
+					break;
+				case R.id.op5:
 					finish();
 					ret = true;
 					break;

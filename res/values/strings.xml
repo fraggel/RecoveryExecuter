@@ -33,7 +33,11 @@ Clicking on any item that item will be removed from the list of actions.After th
     <string name="selecarchivo">Select File</string>
     <string name="accionesflashear">Action list flash</string>
     <string name="salirlista">Save the Action List?</string>
-	<string name="busyboxroot">Busybox is necessary but isnt installed, install busybox?</string>
+	<string name="busyboxroot">Busybox is necessary but isn\'t installed, install busybox?</string>
+	<string name="autor">Author: </string>
+    <string name="nomautor">Fraggel</string>
+    <string name="contacto">Email: </string>
+	<string name="email">androidterminales@gmail.com</string>
 	<string-array name="acciones">
         <item>Select action</item>
         <item>Wipe Data</item>

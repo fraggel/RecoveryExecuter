@@ -20,7 +20,7 @@ public class MainActivity extends Activity
 	private SharedPreferences sp;
     AlertDialog diag;
     ArrayList lista;
-	File rutaTmp=new File("/mnt/sdcard/RecoveryExecuter/");
+	File rutaTmp;
 	String items [];
 	String values [];
 	Resources res;
@@ -31,6 +31,8 @@ public class MainActivity extends Activity
 		diag = new AlertDialog.Builder(this).create();
 		try
 		{
+			rutaTmp=new File("/mnt/sdcard/RecoveryExecuter/");
+			controlRootBusybox();
 			res=this.getResources();
 			DisplayMetrics dm=res.getDisplayMetrics();
 			android.content.res.Configuration conf=res.getConfiguration();
@@ -55,6 +57,11 @@ public class MainActivity extends Activity
 		}
 		//showFileChooser();
     }
+
+	private void controlRootBusybox()
+	{
+		// TODO: Implement this method
+	}
     public void Ayuda(View v)
 	{
     	try

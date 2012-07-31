@@ -26,6 +26,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Menu;
@@ -95,9 +96,10 @@ public class MainActivity extends Activity
 				{
 					try
 					{
-						//Instalar busybox
-						diag.setMessage("INSTALANDO...");
-						diag.show();
+						Intent intent = new Intent(Intent.ACTION_VIEW);
+						intent.setData(Uri.parse("market://details?id=stericson.busybox"));
+						startActivity(intent);
+						finish();
 					}
 					catch (Exception e)
 					{

@@ -90,13 +90,10 @@ public final class R {
         public static final int btnFlash=0x7f050008;
         public static final int btnGuardar=0x7f05000b;
         public static final int btnGuardarLista=0x7f05000f;
+        public static final int busyboxroot=0x7f05001a;
         public static final int cancelar=0x7f050012;
         public static final int config=0x7f050013;
         /** <string name="configurl">Selecciona la carpeta que deseas usar como predeterminada, esto hara que cada 
-		vez que quieras flashear un fichero el explorador de archivos se posicione en dicha carpeta\n\nUna 
-		vez seleccionada la carpeta pulsa menu/guardar o el boton de \"Guardar\" para guardar la ruta y volver 
-		a la pantalla anterior.</string>
-<string name="configurl">Selecciona la carpeta que deseas usar como predeterminada, esto hara que cada 
 		vez que quieras flashear un fichero el explorador de archivos se posicione en dicha carpeta\n\nUna 
 		vez seleccionada la carpeta pulsa menu/guardar o el boton de \"Guardar\" para guardar la ruta y volver 
 		a la pantalla anterior.</string>

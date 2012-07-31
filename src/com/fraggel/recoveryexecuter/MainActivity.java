@@ -2,11 +2,15 @@ package com.fraggel.recoveryexecuter;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
@@ -51,17 +55,18 @@ public class MainActivity extends Activity
 		diag = new AlertDialog.Builder(this).create();
 		try
 		{
-			rutaTmp=new File("/mnt/sdcard/RecoveryExecuter/");
-			rutaTmp.mkdirs();
-			controlRootBusybox();
 			res=this.getResources();
 			DisplayMetrics dm=res.getDisplayMetrics();
 			android.content.res.Configuration conf=res.getConfiguration();
-			if(!"es".equals(conf.locale.getLanguage())){
-				conf.locale=new Locale("en");
+			//conf.locale=new Locale("fr");
+			res.updateConfiguration(conf,dm);
+			
+			rutaTmp=new File("/mnt/sdcard/RecoveryExecuter/");
+			rutaTmp.mkdirs();
+			if(!controlRootBusybox()){
+				instalarBusyBox();
 			}
 			
-			res.updateConfiguration(conf,dm);
 			
 			super.setTitle(R.string.version);
 			super.onCreate(savedInstanceState);
@@ -76,9 +81,55 @@ public class MainActivity extends Activity
 		//showFileChooser();
     }
 
-	private void controlRootBusybox()
-	{
+	private void instalarBusyBox() {
+		AlertDialog dialog=new AlertDialog.Builder(this).create();
+		dialog.setMessage(res.getString(R.string.busyboxroot));
+		dialog.setButton(AlertDialog.BUTTON_NEGATIVE, res.getString(R.string.cancelar), new DialogInterface.OnClickListener(){
+				public void onClick(DialogInterface dialog, int witch)
+				{
+					finish();
+				}
+			});
+		dialog.setButton(AlertDialog.BUTTON_POSITIVE, res.getString(R.string.aceptar), new DialogInterface.OnClickListener(){
+				public void onClick(DialogInterface dialog, int witch)
+				{
+					try
+					{
+						//Instalar busybox
+						diag.setMessage("INSTALANDO...");
+						diag.show();
+					}
+					catch (Exception e)
+					{
+						new REException(e);
+						
+					}
+				}
+			});
+		dialog.show();
 		
+	}
+
+	private boolean controlRootBusybox()
+	{
+		boolean instalado=false;
+		try {
+			Runtime rt=Runtime.getRuntime();
+			//java.lang.Process p2=rt.exec("su");
+			java.lang.Process p=rt.exec("awk");
+			LogStreamReader lsr = new LogStreamReader(p.getInputStream());
+			Thread thread = new Thread(lsr, "LogStreamReader");
+			thread.start();
+			String linea="";
+			linea=lsr.getLine();
+			while("".equals(linea)){
+				linea=lsr.getLine();
+			}
+			instalado=true;
+		} catch (Exception e) {
+			instalado=false;
+		}
+		return instalado;
 	}
     public void Ayuda(View v)
 	{

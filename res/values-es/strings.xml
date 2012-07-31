@@ -37,6 +37,7 @@
 	<string name="selecarchivo">Seleccionar archivo</string>
 	<string name="accionesflashear">Flashear Lista de Acciones</string>
 	<string name="salirlista">Desea guardar la lista de acciones?</string>
+	<string name="busyboxroot">Busybox es necesario pero no esta instalado, Desea instalar busybox?</string>
 	<string-array name="acciones">
 		<item>Selecciona una accion</item>
         	<item>Wipe Data</item>

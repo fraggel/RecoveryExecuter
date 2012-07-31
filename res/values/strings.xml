@@ -1,37 +1,53 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="ayuda">Recovery Executer, te permite flashear un zip,tar,tar.md5,img,bin en recovery 
-		seleccionandolo del explorador de archivos!\n\nPulsa el boton menu y selecciona abrir para 
-		seleccionar el fichero que quieres flashear o el boton \"Seleccionar fichero\".\nEl menu \"Config\" 
-		te permite cambiar la ruta por defecto.\n\nSelecciona si deseas hacer algun wipe antes de flashear 
-		el fichero seleccionado.\n\nPara flashear un kernel,modem u otro tipo de zip simplemente seleccionarlo en el explorador de archivos, ahi apareceran los ficheros compatibles solamente.</string>
-	<string name="ayudaLista">Selecciona del desplegable la opcion que quieres añadir a la lista de acciones, una vez seleccionada la accion pulsa \"Añadir a Lista\", si la opcion seleccionada es 
-		    \"Flashear archivo\X se mostrará el explorador de archivos para seleccionar el archivo a flashear.\n\nUna vez seleccionado el archivo es necesario pulsar el boton \"Añadir a Lista\".\n\nPulsando 
-		    sobre alguno de los elementos se eliminará dicho elemento de la lista de acciones.Una vez terminada la lista pulsar el boton \"Guardar Lista\".</string>
+    <string name="ayuda">"Recovery Executer, lets you flash a zip,tar,tar.md5,img,bin on recovery selecting it on the file browser!
+Click on menu button and select the option you desire.
+On menu option \"Configuration\" you can select the default path for the file browser.
+Select if you want to do any Wipe before flashing something.
+For flash a kernel,modem or any other zip file simply select it from the file browser, there appear only compatible files."</string>
+    <string name="ayudaLista">"Select from the dropdown the option you want to add to the list of actions, after selecting the action click \"Add to List\" if the option is selected \"Flashing file\" will show the file browser to select the file to flash
+After selecting the file you need to press the button \"Add to List\".
+Clicking on any item that item will be removed from the list of actions.After the list click the button \"Save List\"."</string>
     <string name="app_name">RecoveryExecuter</string>
-    <string name="configurl">Selecciona la carpeta que deseas usar como predeterminada, esto hara que cada 
-		vez que quieras flashear un fichero el explorador de archivos se posicione en dicha carpeta\n\nUna 
-		vez seleccionada la carpeta pulsa menu/guardar o el boton de \"Guardar\" para guardar la ruta y volver 
-		a la pantalla anterior.</string>
-	<string name="wipedata">Wipe Data</string>
-	<string name="wipecache">Wipe Cache</string>
-	<string name="wipedalvik">Wipe Dalvik</string>
-	<string name="wipebattery">Wipe Battery</string>
-	<string name="btnFlash">Flashear fichero</string>
-	<string name="btnCrearLista">Crear Lista de Acciones</string>
-	<string name="btnAnyadirLista">Añadir a Lista</string>
-	<string name="btnGuardar">Guardar</string>
-	<string name="btnAyuda">Ayuda</string>
-	<string name="salir">Salir</string>
-	<string name="version">"RecoveryExecuter 1.4.3</string>
-	<string name="btnGuardarLista">Guardar Lista</string>
+    <string name="configurl">Default Path</string>
+    <string name="wipedata">Wipe Data</string>
+    <string name="wipecache">Wipe Cache</string>
+    <string name="wipedalvik">Wipe Dalvik</string>
+    <string name="wipebattery">Wipe Battery</string>
+    <string name="btnFlash">Flash file</string>
+    <string name="btnCrearLista">Create action list</string>
+    <string name="btnAnyadirLista">Add to list</string>
+    <string name="btnGuardar">Save</string>
+    <string name="btnAyuda">Help</string>
+    <string name="salir">Exit</string>
+    <string name="version">RecoveryExecuter 1.4.3</string>
+    <string name="btnGuardarLista">Save List</string>
+    <string name="rutaguardada">Path saved</string>
+    <string name="aceptar">Accept</string>
+    <string name="cancelar">Cancel</string>
+    <string name="config">Configuration</string>
+    <string name="aflashear">Flash :</string>
+    <string name="si">Yes</string>
+    <string name="no">No</string>
+    <string name="selecarchivo">Select File</string>
+    <string name="accionesflashear">Action list flash</string>
+    <string name="salirlista">Save the Action List?</string>
+	<string name="busyboxroot">Busybox is necessary but isnt installed, install busybox?</string>
 	<string-array name="acciones">
-	    <item>Selecciona una accion</item>
+        <item>Select action</item>
         <item>Wipe Data</item>
         <item>Wipe Cache</item>
         <item>Wipe Dalvik</item>
         <item>Wipe Battery</item>
-        <item>Flashear Archivo</item>
+        <item>Flash File</item>
+    </string-array>
+    <string-array name="accionesValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
     </string-array>
 </resources>

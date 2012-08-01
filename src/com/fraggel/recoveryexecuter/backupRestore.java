@@ -5,15 +5,17 @@ import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 
-public class backupRestore extends Activity{
+public class backupRestore extends Activity {
 	AlertDialog diag;
-	 public void onCreate(Bundle savedInstanceState) {
-		 super.onCreate(savedInstanceState);
-		 setContentView(R.layout.backuprestore);
-		 diag=new AlertDialog.Builder(this).create();
-	 }
-	 public void salir(View v){
-		 finish();
-		 
-	 }
+
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.backuprestore);
+		diag = new AlertDialog.Builder(this).create();
+	}
+
+	public void salir(View v) {
+		finish();
+
+	}
 }

@@ -3,19 +3,17 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-    
-	<TextView
+
+    <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/ayudaLista" />
 
-	<Button
-	    android:id="@+id/button1"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:text="@string/salir" 
-	    android:onClick="salir"/>
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="salir"
+        android:text="@string/salir" />
 
-	</LinearLayout>
-
-
+</LinearLayout>

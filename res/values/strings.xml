@@ -35,26 +35,27 @@ Clicking on any item that item will be removed from the list of actions.After th
     <string name="selecarchivo">Select File</string>
     <string name="accionesflashear">Action list flash</string>
     <string name="salirlista">Save the Action List?</string>
-	<string name="autor">Author: </string>
+    <string name="autor">Author: </string>
     <string name="nomautor">Fraggel</string>
     <string name="contacto">Email: </string>
-	<string name="email">androidterminales@gmail.com</string>
-	<string name="enviaEmail">Send Email</string>
-	<string name="noEmailCliente">There are no email clients installed.</string>
-	<string name="envioErrores">Send Error Log</string>
-	<string name="noerrorlog">Error log didn\'t exist</string>
-	<string name="txtinstalar">Install APK</string>
-	<string name="rdbtxtinstalar">Mode APK</string>
-	<string name="rdbTxtNormal">Normal</string>
-	<string name="rdbTxtSistema">System</string>
-	<string name="msgNoRoot">You aren´t root, for use this application you need root first</string>
-	<string name="msgNoBusybox">Busybox is necessary but isn\'t installed, install busybox?</string>
-	<string name="msgApkInstalada">Application installed</string>
-	<string name="txtDonacion">Contribute if you want</string>
-	<string name="btnTxtDonacion">Donate</string>
-	<string name="txtCreditos">Thanks to el_liberator from Criskelo Team for English and French translation</string>
-	<string name="msgFileErroneo">The specified file is not valid</string>
-	<string-array name="arrayAcciones">
+    <string name="email">androidterminales@gmail.com</string>
+    <string name="enviaEmail">Send Email</string>
+    <string name="noEmailCliente">There are no email clients installed.</string>
+    <string name="envioErrores">Send Error Log</string>
+    <string name="noerrorlog">Error log didn\'t exist</string>
+    <string name="txtinstalar">Install APK</string>
+    <string name="rdbtxtinstalar">Mode APK</string>
+    <string name="rdbTxtNormal">Normal</string>
+    <string name="rdbTxtSistema">System</string>
+    <string name="msgNoRoot">You aren´t root, for use this application you need root first</string>
+    <string name="msgNoBusybox">Busybox is necessary but isn\'t installed, install busybox?</string>
+    <string name="msgApkInstalada">Application installed</string>
+    <string name="txtDonacion">Contribute if you want</string>
+    <string name="btnTxtDonacion">Donate</string>
+    <string name="txtCreditos">Thanks to el_liberator from Criskelo Team for English and French translation</string>
+    <string name="msgFileErroneo">The specified file is not valid</string>
+
+    <string-array name="arrayAcciones">
         <item>Select action</item>
         <item>Wipe Data</item>
         <item>Wipe Cache</item>
@@ -70,4 +71,5 @@ Clicking on any item that item will be removed from the list of actions.After th
         <item>4</item>
         <item>5</item>
     </string-array>
+
 </resources>

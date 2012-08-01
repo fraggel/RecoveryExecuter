@@ -1,10 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-	<item android:id="@+id/op1" android:title="Flashear Archivo"></item>
-	<item android:id="@+id/op2" android:title="Crear Lista Acciones"></item>
-	<item android:id="@+id/op3" android:title="Instalar Apk"></item>
-	<item android:id="@+id/op4" android:title="Configuración"></item>
-    <item android:id="@+id/op5" android:title="Acerca de..." />
-    <item android:id="@+id/op6" android:title="Salir" />
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/op1"
+        android:title="Flashear Archivo">
+    </item>
+    <item
+        android:id="@+id/op2"
+        android:title="Crear Lista Acciones">
+    </item>
+    <item
+        android:id="@+id/op3"
+        android:title="Instalar Apk">
+    </item>
+    <item
+        android:id="@+id/op4"
+        android:title="Configuración">
+    </item>
+    <item
+        android:id="@+id/op5"
+        android:title="Acerca de..."/>
+    <item
+        android:id="@+id/op6"
+        android:title="Salir"/>
+
 </menu>
-	

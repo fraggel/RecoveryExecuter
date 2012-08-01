@@ -3,44 +3,54 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    	android:layout_width="fill_parent"
-		android:layout_height="wrap_content">
-		<com.fraggel.recoveryexecuter.installLayout 
-			android:layout_width="fill_parent"
-			android:layout_height="400dp"
-			layout="@layout/apkfolderview" android:id="@+id/apkfilefolders">
-		</com.fraggel.recoveryexecuter.installLayout>
-	</LinearLayout>
-	<TextView
-	    android:id="@+id/rdbinstalar"
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <com.fraggel.recoveryexecuter.installLayout
+            android:id="@+id/apkfilefolders"
+            android:layout_width="fill_parent"
+            android:layout_height="400dp"
+            layout="@layout/apkfolderview" >
+        </com.fraggel.recoveryexecuter.installLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/rdbinstalar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/rdbtxtinstalar"/>	
-	<RadioGroup android:id="@+id/grptipoinst"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:text="@string/rdbtxtinstalar" >
-		<RadioButton
-	        android:id="@+id/rdbnormal"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:text="@string/rdbTxtNormal" android:checked="true">
-	    </RadioButton>
-	
-	    <RadioButton
-	        android:id="@+id/rdbsystem"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:text="@string/rdbTxtSistema" >
-	    </RadioButton>
+        android:text="@string/rdbtxtinstalar" />
+
+    <RadioGroup
+        android:id="@+id/grptipoinst"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/rdbtxtinstalar" >
+
+        <RadioButton
+            android:id="@+id/rdbnormal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/rdbTxtNormal" >
+        </RadioButton>
+
+        <RadioButton
+            android:id="@+id/rdbsystem"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/rdbTxtSistema" >
+        </RadioButton>
     </RadioGroup>
-    <Button android:id="@+id/btninstalar"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:text="@string/txtinstalar" 
-	        android:onClick="instalarAPK">
+
+    <Button
+        android:id="@+id/btninstalar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:onClick="instalarAPK"
+        android:text="@string/txtinstalar" >
     </Button>
+
 </LinearLayout>
-
-

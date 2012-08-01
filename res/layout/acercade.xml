@@ -3,50 +3,73 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
+
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/version" android:textSize="22dp"/>
-	<TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/autor" android:textSize="18dp"/>
-	<TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/nomautor" android:textSize="20dp" android:layout_marginLeft="20dp"/>
-	<TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/contacto" android:textSize="18dp"/>
-	<Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/email" android:textSize="20dp" android:layout_marginLeft="20dp" android:onClick="enviarEmail"/>
-	<TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/envioErrores" android:textSize="18dp"/>
-	<Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/email" android:textSize="20dp" android:layout_marginLeft="20dp" android:onClick="enviarEmailErrores"/>
-	<TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/txtDonacion" android:textSize="18dp"/>
-	<Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btnTxtDonacion" android:textSize="20dp" android:layout_marginLeft="20dp" android:onClick="donacion"/>
+        android:text="@string/version"
+        android:textSize="22dp" />
 
-	<TextView
-	    android:layout_marginTop="30dp"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:text="@string/txtCreditos"
-	    android:textSize="18dp" />
-	
-	</LinearLayout>
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/autor"
+        android:textSize="18dp" />
 
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:text="@string/nomautor"
+        android:textSize="20dp" />
 
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/contacto"
+        android:textSize="18dp" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:onClick="enviarEmail"
+        android:text="@string/email"
+        android:textSize="20dp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/envioErrores"
+        android:textSize="18dp" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:onClick="enviarEmailErrores"
+        android:text="@string/email"
+        android:textSize="20dp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/txtDonacion"
+        android:textSize="18dp" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:onClick="donacion"
+        android:text="@string/btnTxtDonacion"
+        android:textSize="20dp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/txtCreditos"
+        android:textSize="18dp" />
+
+</LinearLayout>

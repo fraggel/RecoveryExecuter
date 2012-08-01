@@ -4,12 +4,14 @@
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
-    <!--<Button
+    <!--
+        <Button
         android:id="@+id/btnAyuda"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="Ayuda"
-        android:text="@string/btnAyuda" />-->
+        android:text="@string/btnAyuda" />
+    -->
 
     <CheckBox
         android:id="@+id/wipedata"
@@ -31,12 +33,14 @@
         android:layout_height="wrap_content"
         android:text="@string/wipedalvik" >
     </CheckBox>
+
     <CheckBox
         android:id="@+id/wipebattery"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/wipebattery" >
     </CheckBox>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -56,11 +60,13 @@
         android:layout_height="wrap_content"
         android:onClick="installApk"
         android:text="@string/btnInstallApk" />
-    <!-- <Button
+    <!--
+         <Button
         android:id="@+id/btnNandroid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="nandroid"
-        android:text="@string/btnNandroid" />-->
+        android:text="@string/btnNandroid" />
+    -->
 
 </LinearLayout>

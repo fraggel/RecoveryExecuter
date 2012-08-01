@@ -6,72 +6,76 @@
 		seleccionar el fichero que quieres flashear o el botón \"Seleccionar fichero\".\nEl menú \"Config\" 
 		te permite cambiar la ruta por defecto.\n\nSelecciona si deseas hacer algún wipe antes de flashear 
 		el fichero seleccionado.\n\nPara flashear un kernel,modem u otro tipo de zip simplemente seleccionarlo en el explorador de archivos, ahí aparecerán los ficheros compatibles solamente.</string>
-	<string name="ayudaLista">Selecciona del desplegable la opción que quieres añadir a la lista de acciones, una vez seleccionada la acción pulsa \"Añadir a Lista\", si la opción seleccionada es 
+    <string name="ayudaLista">Selecciona del desplegable la opción que quieres añadir a la lista de acciones, una vez seleccionada la acción pulsa \"Añadir a Lista\", si la opción seleccionada es 
 		    \"Flashear archivo\"" se mostrará el explorador de archivos para seleccionar el archivo a flashear.\n\nUna vez seleccionado el archivo es necesario pulsar el botón \"Añadir a Lista\".\n\nPulsando 
 		    sobre alguno de los elementos se eliminará dicho elemento de la lista de acciones.Una vez terminada la lista pulsar el boton \"Guardar Lista\".</string>
     <string name="app_name">RecoveryExecuter</string>
-    <!--<string name="configurl">Selecciona la carpeta que deseas usar como predeterminada, esto hara que cada 
+    <!--
+        <string name="configurl">Selecciona la carpeta que deseas usar como predeterminada, esto hara que cada 
 		vez que quieras flashear un fichero el explorador de archivos se posicione en dicha carpeta\n\nUna 
 		vez seleccionada la carpeta pulsa menu/guardar o el boton de \"Guardar\" para guardar la ruta y volver 
-		a la pantalla anterior.</string>-->
-	<string name="configurl">Ruta por defecto</string>
-	<string name="wipedata">Wipe Data</string>
-	<string name="wipecache">Wipe Cache</string>
-	<string name="wipedalvik">Wipe Dalvik</string>
-	<string name="wipebattery">Wipe Battery</string>
-	<string name="btnFlash">Flashear fichero</string>
-	<string name="btnCrearLista">Crear Lista de Acciones</string>
-	<string name="btnAnyadirLista">Añadir a Lista</string>
-	<string name="btnGuardar">Guardar</string>
-	<string name="btnAyuda">Ayuda</string>
-	<string name="btnInstallApk">Instalar Apk</string>
-	<string name="btnNandroid">Backup/Restore</string>
-	<string name="salir">Salir</string>
-	<string name="version">RecoveryExecuter 1.4.5</string>
-	<string name="btnGuardarLista">Guardar Lista</string>
-	<string name="rutaguardada">Ruta guardada</string>
-	<string name="aceptar">Aceptar</string>
-	<string name="cancelar">Cancelar</string>
-	<string name="config">Configuración</string>
-	<string name="aflashear">Flashear :</string>
-	<string name="si">Si</string>
-	<string name="no">No</string>
-	<string name="selecarchivo">Seleccionar archivo</string>
-	<string name="accionesflashear">Flashear Lista de Acciones</string>
-	<string name="salirlista">Desea guardar la lista de acciones?</string>
-	<string name="autor">Autor: </string>
+		a la pantalla anterior.</string>
+    -->
+    <string name="configurl">Ruta por defecto</string>
+    <string name="wipedata">Wipe Data</string>
+    <string name="wipecache">Wipe Cache</string>
+    <string name="wipedalvik">Wipe Dalvik</string>
+    <string name="wipebattery">Wipe Battery</string>
+    <string name="btnFlash">Flashear fichero</string>
+    <string name="btnCrearLista">Crear Lista de Acciones</string>
+    <string name="btnAnyadirLista">Añadir a Lista</string>
+    <string name="btnGuardar">Guardar</string>
+    <string name="btnAyuda">Ayuda</string>
+    <string name="btnInstallApk">Instalar Apk</string>
+    <string name="btnNandroid">Backup/Restore</string>
+    <string name="salir">Salir</string>
+    <string name="version">RecoveryExecuter 1.4.5</string>
+    <string name="btnGuardarLista">Guardar Lista</string>
+    <string name="rutaguardada">Ruta guardada</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="config">Configuración</string>
+    <string name="aflashear">Flashear :</string>
+    <string name="si">Si</string>
+    <string name="no">No</string>
+    <string name="selecarchivo">Seleccionar archivo</string>
+    <string name="accionesflashear">Flashear Lista de Acciones</string>
+    <string name="salirlista">Desea guardar la lista de acciones?</string>
+    <string name="autor">Autor: </string>
     <string name="nomautor">Fraggel</string>
     <string name="contacto">Email: </string>
-	<string name="email">androidterminales@gmail.com</string>
-	<string name="enviaEmail">Enviar Email</string>
-	<string name="noEmailCliente">No hay clientes de email instalados.</string>
-	<string name="envioErrores">Enviar log de errores</string>
-	<string name="noerrorlog">No existe fichero de errores</string>
-	<string name="txtinstalar">Instalar APK</string>
-	<string name="rdbtxtinstalar">Modo APK</string>
-	<string name="rdbTxtNormal">Normal</string>
-	<string name="rdbTxtSistema">Sistema</string>
-	<string name="msgNoRoot">No eres root, para usar esta aplicación necesitas ser root primero</string>
-	<string name="msgNoBusybox">Busybox es necesario pero no está instalado, Desea instalar busybox?</string>
-	<string name="msgApkInstalada">Aplicacion instalada</string>
-	<string name="txtDonacion">Contribuye si quieres</string>
-	<string name="btnTxtDonacion">Donar</string>
-	<string name="txtCreditos">Gracias a el_liberator del Equipo Criskelo por la traducción Inglés y Francés</string>
-	<string name="msgFileErroneo">El fichero especificado no es válido</string>
-	<string-array name="arrayAcciones">
-		<item>Selecciona una acción</item>
-        	<item>Wipe Data</item>
-        	<item>Wipe Cache</item>
-        	<item>Wipe Dalvik</item>
-        	<item>Wipe Battery</item>
-        	<item>Flashear Archivo</item>
-    	</string-array>
-    	<string-array name="arrayAccionesValues">
-		<item>0</item>
-	        <item>1</item>
-	        <item>2</item>
-	        <item>3</item>
-	        <item>4</item>
-	        <item>5</item>
-    	</string-array>
+    <string name="email">androidterminales@gmail.com</string>
+    <string name="enviaEmail">Enviar Email</string>
+    <string name="noEmailCliente">No hay clientes de email instalados.</string>
+    <string name="envioErrores">Enviar log de errores</string>
+    <string name="noerrorlog">No existe fichero de errores</string>
+    <string name="txtinstalar">Instalar APK</string>
+    <string name="rdbtxtinstalar">Modo APK</string>
+    <string name="rdbTxtNormal">Normal</string>
+    <string name="rdbTxtSistema">Sistema</string>
+    <string name="msgNoRoot">No eres root, para usar esta aplicación necesitas ser root primero</string>
+    <string name="msgNoBusybox">Busybox es necesario pero no está instalado, Desea instalar busybox?</string>
+    <string name="msgApkInstalada">Aplicacion instalada</string>
+    <string name="txtDonacion">Contribuye si quieres</string>
+    <string name="btnTxtDonacion">Donar</string>
+    <string name="txtCreditos">Gracias a el_liberator del Equipo Criskelo por la traducción Inglés y Francés</string>
+    <string name="msgFileErroneo">El fichero especificado no es válido</string>
+
+    <string-array name="arrayAcciones">
+        <item>Selecciona una acción</item>
+        <item>Wipe Data</item>
+        <item>Wipe Cache</item>
+        <item>Wipe Dalvik</item>
+        <item>Wipe Battery</item>
+        <item>Flashear Archivo</item>
+    </string-array>
+    <string-array name="arrayAccionesValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
 </resources>

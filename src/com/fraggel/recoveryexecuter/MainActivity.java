@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.Locale;
 import java.util.Stack;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -33,644 +32,623 @@ import android.widget.CheckBox;
 
 import com.ice.tar.Tar;
 
-public class MainActivity extends Activity
-{
-    private static final int FILE_SELECT_CODE=0;
-	private String file="";
-	private String initialDir="/mnt/sdcard/Download/";
+public class MainActivity extends Activity {
+	private static final int FILE_SELECT_CODE = 0;
+	private String file = "";
+	private String initialDir = "/mnt/sdcard/Download/";
 	private SharedPreferences sp;
-    AlertDialog diag;
-    ArrayList lista;
+	AlertDialog diag;
+	ArrayList lista;
 	File rutaTmp;
-	String items [];
-	String values [];
+	String items[];
+	String values[];
 	Resources res;
-    /** Called when the activity is first created. */
-    @Override
-    public void onCreate(Bundle savedInstanceState)
-	{
+
+	/** Called when the activity is first created. */
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
 		diag = new AlertDialog.Builder(this).create();
-		try
-		{
-			res=this.getResources();
-			DisplayMetrics dm=res.getDisplayMetrics();
-			android.content.res.Configuration conf=res.getConfiguration();
-			//conf.locale=new Locale("fr");
-			res.updateConfiguration(conf,dm);
-			
-			rutaTmp=new File("/mnt/sdcard/RecoveryExecuter/");
+		try {
+			res = this.getResources();
+			DisplayMetrics dm = res.getDisplayMetrics();
+			android.content.res.Configuration conf = res.getConfiguration();
+			// conf.locale=new Locale("fr");
+			res.updateConfiguration(conf, dm);
+
+			rutaTmp = new File("/mnt/sdcard/RecoveryExecuter/");
 			rutaTmp.mkdirs();
-			if(controlRoot()){
-				if(!controlBusybox()){
+			if (controlRoot()) {
+				if (!controlBusybox()) {
 					instalarBusyBox();
 				}
 			}
-			
-			
+
 			super.setTitle(R.string.version);
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.main);
-		
-			items=  res.getStringArray(R.array.arrayAcciones);
-			values= res.getStringArray(R.array.arrayAccionesValues);
+
+			items = res.getStringArray(R.array.arrayAcciones);
+			values = res.getStringArray(R.array.arrayAccionesValues);
 			borrarDirectorio(rutaTmp);
-		}catch(Exception e){
+		} catch (Exception e) {
 			new REException(e);
 		}
-		//showFileChooser();
-    }
-    private boolean controlRoot() {
-    	boolean root=false;
-		File f=new File("/system/bin/su");
-		if(!f.exists()){
-			f=new File("/system/xbin/su");
-			if(!f.exists()){
-				root=false;
+		// showFileChooser();
+	}
+
+	private boolean controlRoot() {
+		boolean root = false;
+		File f = new File("/system/bin/su");
+		if (!f.exists()) {
+			f = new File("/system/xbin/su");
+			if (!f.exists()) {
+				root = false;
 				diag.setMessage(res.getString(R.string.msgNoRoot));
-			}else{
-				root=true;
+			} else {
+				root = true;
 			}
-		}else{
-			root=true;
+		} else {
+			root = true;
 		}
-		if(root){
+		if (root) {
 			try {
-				Runtime rt=Runtime.getRuntime();
+				Runtime rt = Runtime.getRuntime();
 				rt.exec("su");
 			} catch (Exception e) {
 				new REException(e);
 			}
-			
+
 		}
 		return root;
 	}
-	public void installApk(View v){
-    	try{
-    		Intent intent=new Intent(this, install.class);
-    		startActivity(intent);
-    	}catch(Exception e){
-    		new REException(e);
-    	}
-    }
-    public void nandroid(){
-    	try{
-    		Intent intent=new Intent(this, backupRestore.class);
-    		startActivity(intent);
-    	}catch(Exception e){
-    		new REException(e);
-    	}
-    }
-	private void instalarBusyBox() {
-		AlertDialog dialog=new AlertDialog.Builder(this).create();
-		dialog.setMessage(res.getString(R.string.msgNoBusybox));
-		dialog.setButton(AlertDialog.BUTTON_NEGATIVE, res.getString(R.string.cancelar), new DialogInterface.OnClickListener(){
-				public void onClick(DialogInterface dialog, int witch)
-				{
-					finish();
-				}
-			});
-		dialog.setButton(AlertDialog.BUTTON_POSITIVE, res.getString(R.string.aceptar), new DialogInterface.OnClickListener(){
-				public void onClick(DialogInterface dialog, int witch)
-				{
-					try
-					{
-						Intent intent = new Intent(Intent.ACTION_VIEW);
-						intent.setData(Uri.parse("market://details?id=com.jrummy.busybox.installer"));
-						startActivity(intent);
-						finish();
-					}
-					catch (Exception e)
-					{
-						new REException(e);
-						
-					}
-				}
-			});
-		dialog.show();
-		
+
+	public void installApk(View v) {
+		try {
+			Intent intent = new Intent(this, install.class);
+			startActivity(intent);
+		} catch (Exception e) {
+			new REException(e);
+		}
 	}
 
-	private boolean controlBusybox()
-	{
-		boolean busybox=false;
-		File f=new File("/system/bin/busybox");
-		if(!f.exists()){
-			f=new File("/system/xbin/busybox");
-			if(!f.exists()){
-				busybox=false;
+	public void nandroid() {
+		try {
+			Intent intent = new Intent(this, backupRestore.class);
+			startActivity(intent);
+		} catch (Exception e) {
+			new REException(e);
+		}
+	}
+
+	private void instalarBusyBox() {
+		AlertDialog dialog = new AlertDialog.Builder(this).create();
+		dialog.setMessage(res.getString(R.string.msgNoBusybox));
+		dialog.setButton(AlertDialog.BUTTON_NEGATIVE,
+				res.getString(R.string.cancelar),
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int witch) {
+						finish();
+					}
+				});
+		dialog.setButton(AlertDialog.BUTTON_POSITIVE,
+				res.getString(R.string.aceptar),
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int witch) {
+						try {
+							Intent intent = new Intent(Intent.ACTION_VIEW);
+							intent.setData(Uri
+									.parse("market://details?id=com.jrummy.busybox.installer"));
+							startActivity(intent);
+							finish();
+						} catch (Exception e) {
+							new REException(e);
+
+						}
+					}
+				});
+		dialog.show();
+
+	}
+
+	private boolean controlBusybox() {
+		boolean busybox = false;
+		File f = new File("/system/bin/busybox");
+		if (!f.exists()) {
+			f = new File("/system/xbin/busybox");
+			if (!f.exists()) {
+				busybox = false;
 				diag.setMessage(res.getString(R.string.msgNoBusybox));
-			}else{
-				busybox=true;
+			} else {
+				busybox = true;
 			}
-		}else{
-			busybox=true;
+		} else {
+			busybox = true;
 		}
 		return busybox;
 	}
-    public void Ayuda(View v)
-	{
-    	try
-		{
-			Intent intent=new Intent(this, ayuda.class);
+
+	public void Ayuda(View v) {
+		try {
+			Intent intent = new Intent(this, ayuda.class);
 			startActivity(intent);
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			new REException(e);
-			
+
 		}
-    }
-	public void creaLista(View v)
-	{
-		try
-		{
+	}
+
+	public void creaLista(View v) {
+		try {
 			borrarDirectorio(rutaTmp);
 			sp = getSharedPreferences("recexec", Context.MODE_WORLD_WRITEABLE);
 			initialDir = sp.getString("url", "/mnt/sdcard/Download/");
 
-			Intent intent=new Intent(this, crearLista.class);
+			Intent intent = new Intent(this, crearLista.class);
 			intent.putStringArrayListExtra("lista", lista);
 			startActivityForResult(intent, FILE_SELECT_CODE);
-		}
-		catch (Exception e)
-		{
-			 new REException(e);
+		} catch (Exception e) {
+			new REException(e);
 		}
 
 	}
-	public void Flash(View v)
-	{
+
+	public void Flash(View v) {
 		borrarDirectorio(rutaTmp);
 		showFileChooser();
 	}
 
-	private void showFileChooser()
-	{
-		try
-		{
+	private void showFileChooser() {
+		try {
 			sp = getSharedPreferences("recexec", Context.MODE_WORLD_WRITEABLE);
 			initialDir = sp.getString("url", "/mnt/sdcard/Download/");
 
-        	Intent intent=new Intent(this, fileselect.class);
+			Intent intent = new Intent(this, fileselect.class);
 			startActivityForResult(intent, FILE_SELECT_CODE);
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			new REException(e);
-			
+
 		}
 	}
-	private void showAbout()
-	{
-		try
-		{
-			Intent intent=new Intent(this, acercade.class);
+
+	private void showAbout() {
+		try {
+			Intent intent = new Intent(this, acercade.class);
 			startActivity(intent);
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			new REException(e);
-			
+
 		}
 	}
-	private void showConfig()
-	{
-		try
-		{
-			Intent intent=new Intent(this, config.class);
+
+	private void showConfig() {
+		try {
+			Intent intent = new Intent(this, config.class);
 			startActivity(intent);
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			new REException(e);
-			
+
 		}
 	}
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-		try
-		{
-			MenuInflater inflater=getMenuInflater();
+
+	public boolean onCreateOptionsMenu(Menu menu) {
+		try {
+			MenuInflater inflater = getMenuInflater();
 			inflater.inflate(R.menu.menuflasher, menu);
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			new REException(e);
-			
+
 		}
 		return true;
 	}
-	public boolean onOptionsItemSelected(MenuItem menuitem)
-	{
-		boolean ret =false;
-		try
-		{
-			switch (menuitem.getItemId())
-			{
-				case R.id.op1:
+
+	public boolean onOptionsItemSelected(MenuItem menuitem) {
+		boolean ret = false;
+		try {
+			switch (menuitem.getItemId()) {
+			case R.id.op1:
 				borrarDirectorio(rutaTmp);
-					showFileChooser();
-					ret = true;
-					break;
-				case R.id.op2:
-					creaLista(null);
-					ret=true;
-					break;
-				case R.id.op3:
-					installApk(null);
-					ret=true;
-					break;
-				case R.id.op4:
-					showConfig();
-					ret = true;
-					break;
-				case R.id.op5:
-					showAbout();
-					ret = true;
-					break;
-				case R.id.op6:
-					finish();
-					ret = true;
-					break;
-				default:
-					ret = false;
-					break;
+				showFileChooser();
+				ret = true;
+				break;
+			case R.id.op2:
+				creaLista(null);
+				ret = true;
+				break;
+			case R.id.op3:
+				installApk(null);
+				ret = true;
+				break;
+			case R.id.op4:
+				showConfig();
+				ret = true;
+				break;
+			case R.id.op5:
+				showAbout();
+				ret = true;
+				break;
+			case R.id.op6:
+				finish();
+				ret = true;
+				break;
+			default:
+				ret = false;
+				break;
 			}
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			new REException(e);
-			
+
 		}
 		return ret;
 	}
-	protected void onActivityResult(int request, int result, Intent data)
-	{
-		try
-		{
-			switch (request)
-			{
-				case FILE_SELECT_CODE:
-					if (result == RESULT_OK)
-					{
-						file = data.getStringExtra("file");
-						lista = data.getStringArrayListExtra("lista");
 
-						/*Uri uri=data.getData();
-						 file=uri.getPath();*/
-						if (file != null && !"".equals(file))
-						{
-							AlertDialog dialog=new AlertDialog.Builder(this).create();
-							dialog.setMessage(res.getString(R.string.aflashear) +" "+ file);
-							dialog.setButton(AlertDialog.BUTTON_NEGATIVE, res.getString(R.string.cancelar), new DialogInterface.OnClickListener(){
-									public void onClick(DialogInterface dialog, int witch)
-									{
-										//finish();
+	protected void onActivityResult(int request, int result, Intent data) {
+		try {
+			switch (request) {
+			case FILE_SELECT_CODE:
+				if (result == RESULT_OK) {
+					file = data.getStringExtra("file");
+					lista = data.getStringArrayListExtra("lista");
+
+					/*
+					 * Uri uri=data.getData(); file=uri.getPath();
+					 */
+					if (file != null && !"".equals(file)) {
+						AlertDialog dialog = new AlertDialog.Builder(this)
+								.create();
+						dialog.setMessage(res.getString(R.string.aflashear)
+								+ " " + file);
+						dialog.setButton(AlertDialog.BUTTON_NEGATIVE,
+								res.getString(R.string.cancelar),
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int witch) {
+										// finish();
 									}
 								});
-							dialog.setButton(AlertDialog.BUTTON_POSITIVE, res.getString(R.string.aceptar), new DialogInterface.OnClickListener(){
-									public void onClick(DialogInterface dialog, int witch)
-									{
-										try
-										{
-											if (!"".equals(file))
-											{
-												boolean erroneo=false;
-												erroneo=crearZipCwm(file);
-												if(!erroneo){
+						dialog.setButton(AlertDialog.BUTTON_POSITIVE,
+								res.getString(R.string.aceptar),
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int witch) {
+										try {
+											if (!"".equals(file)) {
+												boolean erroneo = false;
+												erroneo = crearZipCwm(file);
+												if (!erroneo) {
 													escribirRecovery();
-												}else{
-													diag.setMessage(res.getString(R.string.msgFileErroneo));
+												} else {
+													diag.setMessage(res
+															.getString(R.string.msgFileErroneo));
 													diag.show();
 												}
 											}
-										}
-										catch (Exception e)
-										{
+										} catch (Exception e) {
 											new REException(e);
-											
+
 										}
 									}
 								});
-							dialog.show();
-						}
-						else if (lista != null && lista.size() > 0)
-						{
-							AlertDialog dialog=new AlertDialog.Builder(this).create();
-							dialog.setMessage(res.getString(R.string.accionesflashear));
-							dialog.setButton(AlertDialog.BUTTON_NEGATIVE, res.getString(R.string.cancelar), new DialogInterface.OnClickListener(){
-									public void onClick(DialogInterface dialog, int witch)
-									{
-										//finish();
+						dialog.show();
+					} else if (lista != null && lista.size() > 0) {
+						AlertDialog dialog = new AlertDialog.Builder(this)
+								.create();
+						dialog.setMessage(res
+								.getString(R.string.accionesflashear));
+						dialog.setButton(AlertDialog.BUTTON_NEGATIVE,
+								res.getString(R.string.cancelar),
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int witch) {
+										// finish();
 									}
 								});
-							dialog.setButton(AlertDialog.BUTTON_POSITIVE, res.getString(R.string.aceptar), new DialogInterface.OnClickListener(){
-									public void onClick(DialogInterface dialog, int witch)
-									{
-										try
-										{
-											Runtime rt=Runtime.getRuntime();
-											java.lang.Process p=rt.exec("su");
-											BufferedOutputStream bos=new BufferedOutputStream(p.getOutputStream());
-											bos.write(("rm /cache/recovery/extendedcommand\n").getBytes());
-											boolean algoSelect=false;
-											boolean algoSelectRebootNormal=false;
-											boolean erroneo=false;
-											for (int i = 0; i < lista.size(); i++)
-											{
-												String string = (String)lista.get(i);
+						dialog.setButton(AlertDialog.BUTTON_POSITIVE,
+								res.getString(R.string.aceptar),
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int witch) {
+										try {
+											Runtime rt = Runtime.getRuntime();
+											java.lang.Process p = rt.exec("su");
+											BufferedOutputStream bos = new BufferedOutputStream(
+													p.getOutputStream());
+											bos.write(("rm /cache/recovery/extendedcommand\n")
+													.getBytes());
+											boolean algoSelect = false;
+											boolean algoSelectRebootNormal = false;
+											boolean erroneo = false;
+											for (int i = 0; i < lista.size(); i++) {
+												String string = (String) lista
+														.get(i);
 												System.out.println(string);
-												if ("1".equals(string))
-												{
-													bos.write(("echo 'Wipe Data'\n").getBytes());
-													bos.write(("echo 'format (\"/data\");' >> /cache/recovery/extendedcommand\n").getBytes());
-													algoSelect=true;
-												}
-												else if ("2".equals(string))
-												{
-													bos.write(("echo 'Wipe Cache'\n").getBytes());
-													bos.write(("echo 'format (\"/cache\");' >> /cache/recovery/extendedcommand\n").getBytes());
-													algoSelect=true;
-												}
-												else if ("3".equals(string))
-												{
-													bos.write(("rm -r \"/data/dalvik-cache\"\n").getBytes());
-													algoSelectRebootNormal=true;
-												}
-												else if ("4".equals(string))
-												{
-													bos.write(("rm \"/data/system/batterystats.bin\"\n").getBytes());
-												}
-												else if ("0".equals(string))
-												{
+												if ("1".equals(string)) {
+													bos.write(("echo 'Wipe Data'\n")
+															.getBytes());
+													bos.write(("echo 'format (\"/data\");' >> /cache/recovery/extendedcommand\n")
+															.getBytes());
+													algoSelect = true;
+												} else if ("2".equals(string)) {
+													bos.write(("echo 'Wipe Cache'\n")
+															.getBytes());
+													bos.write(("echo 'format (\"/cache\");' >> /cache/recovery/extendedcommand\n")
+															.getBytes());
+													algoSelect = true;
+												} else if ("3".equals(string)) {
+													bos.write(("rm -r \"/data/dalvik-cache\"\n")
+															.getBytes());
+													algoSelectRebootNormal = true;
+												} else if ("4".equals(string)) {
+													bos.write(("rm \"/data/system/batterystats.bin\"\n")
+															.getBytes());
+												} else if ("0".equals(string)) {
 
-												}else if (!"".equals(string))
-												{
-													erroneo=crearZipCwm(string);
-													if(erroneo){
-														diag.setMessage(res.getString(R.string.msgFileErroneo));
+												} else if (!"".equals(string)) {
+													erroneo = crearZipCwm(string);
+													if (erroneo) {
+														diag.setMessage(res
+																.getString(R.string.msgFileErroneo));
 														diag.show();
 														break;
 													}
-													if(!"".equals(file)){
-														bos.write(("echo 'install_zip(\"" + file.replaceFirst("/mnt/sdcard/", "/emmc/").replaceFirst("/mnt/extSdCard/", "/sdcard/") + "\");' >> /cache/recovery/extendedcommand\n").getBytes());
-														algoSelect=true;
+													if (!"".equals(file)) {
+														bos.write(("echo 'install_zip(\""
+																+ file.replaceFirst(
+																		"/mnt/sdcard/",
+																		"/emmc/")
+																		.replaceFirst(
+																				"/mnt/extSdCard/",
+																				"/sdcard/") + "\");' >> /cache/recovery/extendedcommand\n")
+																.getBytes());
+														algoSelect = true;
 													}
 												}
 
 											}
-											if(algoSelect){
-												bos.write(("reboot recovery").getBytes());
-											}else if(algoSelectRebootNormal){
+											if (algoSelect) {
+												bos.write(("reboot recovery")
+														.getBytes());
+											} else if (algoSelectRebootNormal) {
 												bos.write(("reboot").getBytes());
 											}
 											bos.flush();
 											bos.close();
-										}
-										catch (Exception e)
-										{
+										} catch (Exception e) {
 											new REException(e);
-											
+
 										}
 									}
 								});
-							dialog.show();
-						}
+						dialog.show();
 					}
-					break;
+				}
+				break;
 			}
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			new REException(e);
-			
+
 		}
 		super.onActivityResult(request, result, data);
 	}
-	public void escribirRecovery() throws Exception
-	{
 
-		Runtime rt=Runtime.getRuntime();
-		java.lang.Process p=rt.exec("su");
-		CheckBox chkdata=(CheckBox)findViewById(R.id.wipedata);
-		CheckBox chkcache=(CheckBox)findViewById(R.id.wipecache);
-		CheckBox chkdalvik=(CheckBox)findViewById(R.id.wipedalvik);
-		CheckBox chkbattery=(CheckBox)findViewById(R.id.wipebattery);
-		BufferedOutputStream bos=new BufferedOutputStream(p.getOutputStream());
+	public void escribirRecovery() throws Exception {
+
+		Runtime rt = Runtime.getRuntime();
+		java.lang.Process p = rt.exec("su");
+		CheckBox chkdata = (CheckBox) findViewById(R.id.wipedata);
+		CheckBox chkcache = (CheckBox) findViewById(R.id.wipecache);
+		CheckBox chkdalvik = (CheckBox) findViewById(R.id.wipedalvik);
+		CheckBox chkbattery = (CheckBox) findViewById(R.id.wipebattery);
+		BufferedOutputStream bos = new BufferedOutputStream(p.getOutputStream());
 		bos.write(("rm /cache/recovery/extendedcommand\n").getBytes());
-		boolean algoSelect=false;
-		boolean algoSelectRebootNormal=false;
-		if (chkdata.isChecked())
-		{
+		boolean algoSelect = false;
+		boolean algoSelectRebootNormal = false;
+		if (chkdata.isChecked()) {
 			bos.write(("echo 'Wipe Data'\n").getBytes());
-			bos.write(("echo 'format (\"/data\");' > /cache/recovery/extendedcommand\n").getBytes());
-			algoSelect=true;
+			bos.write(("echo 'format (\"/data\");' > /cache/recovery/extendedcommand\n")
+					.getBytes());
+			algoSelect = true;
 		}
-		if (chkcache.isChecked())
-		{
+		if (chkcache.isChecked()) {
 			bos.write(("echo 'Wipe Cache'\n").getBytes());
-			bos.write(("echo 'format (\"/cache\");' >> /cache/recovery/extendedcommand\n").getBytes());
-			algoSelect=true;
+			bos.write(("echo 'format (\"/cache\");' >> /cache/recovery/extendedcommand\n")
+					.getBytes());
+			algoSelect = true;
 		}
-		if (chkdalvik.isChecked())
-		{
+		if (chkdalvik.isChecked()) {
 			bos.write(("rm -r \"/data/dalvik-cache\"\n").getBytes());
-			algoSelectRebootNormal=true;
+			algoSelectRebootNormal = true;
 		}
-		if (chkbattery.isChecked())
-		{
+		if (chkbattery.isChecked()) {
 			bos.write(("rm \"/data/system/batterystats.bin\"\n").getBytes());
 		}
-		if(!"".equals(file)){
-			bos.write(("echo 'install_zip(\"" + file.replaceFirst("/mnt/sdcard/", "/emmc/").replaceFirst("/mnt/extSdCard/", "/sdcard/") + "\");' >> /cache/recovery/extendedcommand\n").getBytes());
-			algoSelect=true;
+		if (!"".equals(file)) {
+			bos.write(("echo 'install_zip(\""
+					+ file.replaceFirst("/mnt/sdcard/", "/emmc/").replaceFirst(
+							"/mnt/extSdCard/", "/sdcard/") + "\");' >> /cache/recovery/extendedcommand\n")
+					.getBytes());
+			algoSelect = true;
 		}
-		if(algoSelect){
+		if (algoSelect) {
 			bos.write(("reboot recovery").getBytes());
-		}else if(algoSelectRebootNormal){
+		} else if (algoSelectRebootNormal) {
 			bos.write(("reboot").getBytes());
 		}
 		bos.flush();
 		bos.close();
 	}
-	public boolean crearZipCwm(String f) throws Exception
-	{
-		File rutaTmpKernel=new File("/mnt/sdcard/RecoveryExecuter/kernel/");
-		File rutaTmpModem=new File("/mnt/sdcard/RecoveryExecuter/modem/");
+
+	public boolean crearZipCwm(String f) throws Exception {
+		File rutaTmpKernel = new File("/mnt/sdcard/RecoveryExecuter/kernel/");
+		File rutaTmpModem = new File("/mnt/sdcard/RecoveryExecuter/modem/");
 		rutaTmp.mkdirs();
 		rutaTmpKernel.mkdirs();
 		rutaTmpModem.mkdirs();
-		boolean erroneo=false;
-		String  ext=f.substring(f.length() - 4, f.length()).toLowerCase();
-		if (".md5".equals(ext))
-		{
-			//copiar a rutaTmp quitando el .md5
-			//asignar ext nuevo file
-			//asignar f nuevo File
-			try
-			{
-		    	File tmp=new File(f);
-		    	String renamed=tmp.getName().substring(0, tmp.getName().length() - 4);
-		    	copiarFichero(tmp, new File(rutaTmp.getPath() + "/" + renamed));
+		boolean erroneo = false;
+		String ext = f.substring(f.length() - 4, f.length()).toLowerCase();
+		if (".md5".equals(ext)) {
+			// copiar a rutaTmp quitando el .md5
+			// asignar ext nuevo file
+			// asignar f nuevo File
+			try {
+				File tmp = new File(f);
+				String renamed = tmp.getName().substring(0,
+						tmp.getName().length() - 4);
+				copiarFichero(tmp, new File(rutaTmp.getPath() + "/" + renamed));
 				f = rutaTmp.getPath() + "/" + renamed;
 				ext = f.substring(f.length() - 4, f.length()).toLowerCase();
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				new REException(e);
 				f = "";
-		
+
 			}
 		}
-		if (".tar".equals(ext))
-		{
-			//unzip
-			//asignar ext file extracted
-			//asignar f nuevo file
-			try
-			{
-				Tar tar=new Tar();
-				File g=new File(rutaTmp + "/" + new File(f).getName());
-				if (g.exists())
-				{
+		if (".tar".equals(ext)) {
+			// unzip
+			// asignar ext file extracted
+			// asignar f nuevo file
+			try {
+				Tar tar = new Tar();
+				File g = new File(rutaTmp + "/" + new File(f).getName());
+				if (g.exists()) {
 					g.delete();
 				}
-				copiarFichero(new File(f), g);	
+				copiarFichero(new File(f), g);
 
 				tar.extractFiles(g, rutaTmp);
-				File[] fichers=rutaTmp.listFiles();
-				for (int x=0;x < fichers.length;x++)
-				{
-					File r=fichers[x];
-					if (r.isFile())
-					{
-						String ex= r.getName().substring(r.getName().length() - 4, r.getName().length()).toLowerCase();
+				File[] fichers = rutaTmp.listFiles();
+				for (int x = 0; x < fichers.length; x++) {
+					File r = fichers[x];
+					if (r.isFile()) {
+						String ex = r
+								.getName()
+								.substring(r.getName().length() - 4,
+										r.getName().length()).toLowerCase();
 						ext = ex;
 						f = r.getPath();
 						g.delete();
 					}
 				}
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				new REException(e);
 				f = "";
-				
+
 			}
 		}
-		if (".img".equals(ext))
-		{
+		if (".img".equals(ext)) {
 
-			try
-			{
-				if (validaCabeceraKernel(f))
-				{
+			try {
+				if (validaCabeceraKernel(f)) {
 					copiarFicheroKernel(f, rutaTmpKernel);
-					kernel k=new kernel();
-					k.writeKernel(rutaTmpKernel.getPath(), getResources().openRawResource(R.raw.updatebinarykernel), getResources().openRawResource(R.raw.updaterscriptkernel));
-					crearZip(rutaTmp.getPath() + "/kernel.zip", new File(rutaTmpKernel.getPath() + "/META-INF/"), "boot.img", "");
+					kernel k = new kernel();
+					k.writeKernel(
+							rutaTmpKernel.getPath(),
+							getResources().openRawResource(
+									R.raw.updatebinarykernel),
+							getResources().openRawResource(
+									R.raw.updaterscriptkernel));
+					crearZip(rutaTmp.getPath() + "/kernel.zip", new File(
+							rutaTmpKernel.getPath() + "/META-INF/"),
+							"boot.img", "");
 					f = rutaTmp.getPath() + "/kernel.zip";
 				}
-	    	}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				new REException(e);
 				f = "";
-			
+
 			}
 		}
-		if (".bin".equals(ext))
-		{
-		
-			try
-			{
-				if (validacabeceraModem(f))
-				{
+		if (".bin".equals(ext)) {
+
+			try {
+				if (validacabeceraModem(f)) {
 					copiarFicheroModem(f, rutaTmpModem);
-					modem m=new modem();
-					m.writeModem(rutaTmpModem.getPath(), getResources().openRawResource(R.raw.updatebinarymodem), getResources().openRawResource(R.raw.updaterscriptmodem), getResources().openRawResource(R.raw.flash_imagemodem));
-					crearZip(rutaTmp.getPath() + "/modem.zip", new File(rutaTmpModem.getPath() + "/META-INF/"), "modem.bin", "flash_image");
+					modem m = new modem();
+					m.writeModem(
+							rutaTmpModem.getPath(),
+							getResources().openRawResource(
+									R.raw.updatebinarymodem),
+							getResources().openRawResource(
+									R.raw.updaterscriptmodem), getResources()
+									.openRawResource(R.raw.flash_imagemodem));
+					crearZip(rutaTmp.getPath() + "/modem.zip", new File(
+							rutaTmpModem.getPath() + "/META-INF/"),
+							"modem.bin", "flash_image");
 					f = rutaTmp.getPath() + "/modem.zip";
 				}
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				new REException(e);
 				f = "";
-				
+
 			}
 		}
-		if(".zip".equals(ext)){
-			if (!validaCabeceraZip(f))
-			{
-				f="";
+		if (".zip".equals(ext)) {
+			if (!validaCabeceraZip(f)) {
+				f = "";
 			}
 		}
-		if("".equals(f)){
-			erroneo=true;
+		if ("".equals(f)) {
+			erroneo = true;
 		}
-        file = f;
-        return erroneo;
+		file = f;
+		return erroneo;
 	}
-	private boolean validaCabeceraZip(String f) throws Exception
-	{
-		boolean ret=false;
+
+	private boolean validaCabeceraZip(String f) throws Exception {
+		boolean ret = false;
 		File fSourceZip = new File(f);
 		ZipFile zipFile = new ZipFile(fSourceZip);
 		Enumeration e = zipFile.entries();
 
-		while (e.hasMoreElements())
-		{
-			ZipEntry entry = (ZipEntry)e.nextElement();
+		while (e.hasMoreElements()) {
+			ZipEntry entry = (ZipEntry) e.nextElement();
 
-			if (entry.isDirectory())
-			{
-				if((entry.getName().endsWith("META-INF"))){
-					ret=true;
+			if (entry.isDirectory()) {
+				if ((entry.getName().endsWith("META-INF"))) {
+					ret = true;
 					break;
 				}
 			}
 		}
 		return ret;
 	}
-	private boolean validacabeceraModem(String f) throws Exception
-	{
-		boolean ret=false;
-		BufferedInputStream bis =new BufferedInputStream(new FileInputStream(f));
-		byte[] cabecera=new byte[6];
+
+	private boolean validacabeceraModem(String f) throws Exception {
+		boolean ret = false;
+		BufferedInputStream bis = new BufferedInputStream(
+				new FileInputStream(f));
+		byte[] cabecera = new byte[6];
 		bis.read(cabecera);
 		bis.close();
-		if ("PSIRAM".equals(new String(cabecera)))
-		{
+		if ("PSIRAM".equals(new String(cabecera))) {
 			ret = true;
 		}
 		return ret;
 	}
 
-	private boolean validaCabeceraKernel(String f) throws Exception
-	{
-		boolean ret=false;
-		BufferedInputStream bis =new BufferedInputStream(new FileInputStream(f));
-		byte[] cabecera=new byte[7];
+	private boolean validaCabeceraKernel(String f) throws Exception {
+		boolean ret = false;
+		BufferedInputStream bis = new BufferedInputStream(
+				new FileInputStream(f));
+		byte[] cabecera = new byte[7];
 		bis.read(cabecera);
 		bis.close();
-		if ("ANDROID".equals(new String(cabecera)))
-		{
+		if ("ANDROID".equals(new String(cabecera))) {
 			ret = true;
 		}
 		return ret;
 	}
 
-	private void copiarFicheroKernel(String f, File rutaTmpKernel) throws Exception
-	{
-		File g=new File(rutaTmpKernel + "/boot.img");
-		BufferedOutputStream bos=new BufferedOutputStream(new FileOutputStream(g));
-		BufferedInputStream bis=new BufferedInputStream(new FileInputStream(f));
-		int x=-1;
+	private void copiarFicheroKernel(String f, File rutaTmpKernel)
+			throws Exception {
+		File g = new File(rutaTmpKernel + "/boot.img");
+		BufferedOutputStream bos = new BufferedOutputStream(
+				new FileOutputStream(g));
+		BufferedInputStream bis = new BufferedInputStream(
+				new FileInputStream(f));
+		int x = -1;
 
 		x = bis.read();
-		while (x != -1)
-		{
+		while (x != -1) {
 			bos.write(x);
 			x = bis.read();
 		}
@@ -678,70 +656,73 @@ public class MainActivity extends Activity
 		bos.close();
 
 	}
-	private void copiarFicheroModem(String f, File rutaTmpModem) throws Exception
-	{
 
-		File g=new File(rutaTmpModem + "/modem.bin");
+	private void copiarFicheroModem(String f, File rutaTmpModem)
+			throws Exception {
 
-		BufferedOutputStream bos=new BufferedOutputStream(new FileOutputStream(g));
-		BufferedInputStream bis=new BufferedInputStream(new FileInputStream(f));
-		int x=-1;
+		File g = new File(rutaTmpModem + "/modem.bin");
+
+		BufferedOutputStream bos = new BufferedOutputStream(
+				new FileOutputStream(g));
+		BufferedInputStream bis = new BufferedInputStream(
+				new FileInputStream(f));
+		int x = -1;
 
 		x = bis.read();
-		while (x != -1)
-		{
+		while (x != -1) {
 			bos.write(x);
 			x = bis.read();
 		}
 		bos.flush();
 		bos.close();
 	}
-	private void copiarFichero(File origen, File destino) throws Exception
-	{
 
-		BufferedOutputStream bos=new BufferedOutputStream(new FileOutputStream(destino));
-		BufferedInputStream bis=new BufferedInputStream(new FileInputStream(origen));
-		int x=-1;
+	private void copiarFichero(File origen, File destino) throws Exception {
+
+		BufferedOutputStream bos = new BufferedOutputStream(
+				new FileOutputStream(destino));
+		BufferedInputStream bis = new BufferedInputStream(new FileInputStream(
+				origen));
+		int x = -1;
 
 		x = bis.read();
-		while (x != -1)
-		{
+		while (x != -1) {
 			bos.write(x);
 			x = bis.read();
 		}
 		bos.flush();
 		bos.close();
 	}
-	public void borrarDirectorio(File directorio)
-	{
+
+	public void borrarDirectorio(File directorio) {
 		File[] ficheros = directorio.listFiles();
 
-		for (int x=0;x < ficheros.length;x++)
-		{
-			if (ficheros[x].isDirectory())
-			{
+		for (int x = 0; x < ficheros.length; x++) {
+			if (ficheros[x].isDirectory()) {
 				borrarDirectorio(ficheros[x]);
 			}
-			if(!"exceptions.log".equals(ficheros[x].getName()) || ("exceptions.log".equals(ficheros[x].getName())&& ficheros[x].length()>(512*1024))){
+			if (!"exceptions.log".equals(ficheros[x].getName())
+					|| ("exceptions.log".equals(ficheros[x].getName()) && ficheros[x]
+							.length() > (512 * 1024))) {
 				ficheros[x].delete();
 			}
-		}               
+		}
 	}
-	public static void crearZip(String ficheroDest, File srcDir, String objeto, String objeto2) throws Exception
-	{
-		BufferedOutputStream out=new BufferedOutputStream(new FileOutputStream(ficheroDest));
+
+	public static void crearZip(String ficheroDest, File srcDir, String objeto,
+			String objeto2) throws Exception {
+		BufferedOutputStream out = new BufferedOutputStream(
+				new FileOutputStream(ficheroDest));
 		List<String> fileList = listDirectory(srcDir);
 		ZipOutputStream zout = new ZipOutputStream(out);
 		fileList.add(objeto);
-		if (!"".equals(objeto2.trim()))
-		{
+		if (!"".equals(objeto2.trim())) {
 			fileList.add(objeto2);
 		}
 		zout.setLevel(9);
 		zout.setComment("Zipper v1.2");
 
-		for (String fileName : fileList)
-		{
+		for (String fileName : fileList) {
 			File file = new File(srcDir.getParent(), fileName);
 
 			// Zip always use / as separator
@@ -749,8 +730,7 @@ public class MainActivity extends Activity
 			if (File.separatorChar != '/')
 				zipName = fileName.replace(File.separatorChar, '/');
 			ZipEntry ze;
-			if (file.isFile())
-			{
+			if (file.isFile()) {
 				ze = new ZipEntry(zipName);
 				ze.setTime(file.lastModified());
 				zout.putNextEntry(ze);
@@ -759,9 +739,7 @@ public class MainActivity extends Activity
 				for (int n; (n = fin.read(buffer)) > 0;)
 					zout.write(buffer, 0, n);
 				fin.close();
-			}
-			else
-			{
+			} else {
 				ze = new ZipEntry(zipName + '/');
 				ze.setTime(file.lastModified());
 				zout.putNextEntry(ze);
@@ -770,16 +748,13 @@ public class MainActivity extends Activity
 		zout.close();
 	}
 
-	public static List<String> listDirectory(File directory)
-	throws IOException
-	{
+	public static List<String> listDirectory(File directory) throws IOException {
 
 		Stack<String> stack = new Stack<String>();
 		List<String> list = new ArrayList<String>();
 
 		// If it's a file, just return itself
-		if (directory.isFile())
-		{
+		if (directory.isFile()) {
 			if (directory.canRead())
 				list.add(directory.getName());
 			return list;
@@ -788,37 +763,26 @@ public class MainActivity extends Activity
 		// Traverse the directory in width-first manner, no-recursively
 		String root = directory.getParent();
 		stack.push(directory.getName());
-		while (!stack.empty())
-		{
+		while (!stack.empty()) {
 			String current = (String) stack.pop();
 			File curDir = new File(root, current);
 			String[] fileList = curDir.list();
-			if (fileList != null)
-			{
-				for (String entry : fileList)
-				{
+			if (fileList != null) {
+				for (String entry : fileList) {
 					File f = new File(curDir, entry);
-					if (f.isFile())
-					{
-						if (f.canRead())
-						{
+					if (f.isFile()) {
+						if (f.canRead()) {
 							list.add(current + File.separator + entry);
-						}
-						else
-						{
+						} else {
 							System.err.println("File " + f.getPath()
-											   + " is unreadable");
+									+ " is unreadable");
 							throw new IOException("Can't read file: "
-												  + f.getPath());
+									+ f.getPath());
 						}
-					}
-					else if (f.isDirectory())
-					{
+					} else if (f.isDirectory()) {
 						list.add(current + File.separator + entry);
 						stack.push(current + File.separator + f.getName());
-					}
-					else
-					{
+					} else {
 						throw new IOException("Unknown entry: " + f.getPath());
 					}
 				}
@@ -826,74 +790,64 @@ public class MainActivity extends Activity
 		}
 		return list;
 	}
-	private static void unZip(String strZipFile) throws Exception
-	{
+
+	private static void unZip(String strZipFile) throws Exception {
 
 		File fSourceZip = new File(strZipFile);
 		String zipPath = strZipFile.substring(0, strZipFile.length() - 4);
 		File temp = new File(zipPath);
 		temp.mkdir();
 
-
 		/*
-		 * STEP 2 : Extract entries while creating required
-		 * sub-directories
-		 *
+		 * STEP 2 : Extract entries while creating required sub-directories
 		 */
 		ZipFile zipFile = new ZipFile(fSourceZip);
 		Enumeration e = zipFile.entries();
 
-		while (e.hasMoreElements())
-		{
-			ZipEntry entry = (ZipEntry)e.nextElement();
+		while (e.hasMoreElements()) {
+			ZipEntry entry = (ZipEntry) e.nextElement();
 			File destinationFilePath = new File(zipPath, entry.getName());
 
-			//create directories if required.
+			// create directories if required.
 			destinationFilePath.getParentFile().mkdirs();
 
-			//if the entry is directory, leave it. Otherwise extract it.
-			if (entry.isDirectory())
-			{
+			// if the entry is directory, leave it. Otherwise extract it.
+			if (entry.isDirectory()) {
 				continue;
-			}
-			else
-			{
+			} else {
 				System.out.println("Extracting " + destinationFilePath);
 
 				/*
-				 * Get the InputStream for current entry
-				 * of the zip file using
-				 *
+				 * Get the InputStream for current entry of the zip file using
+				 * 
 				 * InputStream getInputStream(Entry entry) method.
 				 */
-				BufferedInputStream bis = new BufferedInputStream(zipFile
-																  .getInputStream(entry));
+				BufferedInputStream bis = new BufferedInputStream(
+						zipFile.getInputStream(entry));
 
 				int b;
 				byte buffer[] = new byte[1024];
 
 				/*
-				 * read the current entry from the zip file, extract it
-				 * and write the extracted file.
+				 * read the current entry from the zip file, extract it and
+				 * write the extracted file.
 				 */
 				FileOutputStream fos = new FileOutputStream(destinationFilePath);
-				BufferedOutputStream bos = new BufferedOutputStream(fos,
-																	1024);
+				BufferedOutputStream bos = new BufferedOutputStream(fos, 1024);
 
-				while ((b = bis.read(buffer, 0, 1024)) != -1)
-				{
+				while ((b = bis.read(buffer, 0, 1024)) != -1) {
 					bos.write(buffer, 0, b);
 				}
 
-				//flush the output stream and close it.
+				// flush the output stream and close it.
 				bos.flush();
 				bos.close();
 
-				//close the input stream.
+				// close the input stream.
 				bis.close();
 			}
 		}
 
 	}
-	
+
 }

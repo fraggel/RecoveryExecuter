@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="ayuda">"vous permet de flasher un zip, tar, tar.md5, img, bin dans le Recovery en le sélectionnant dans ​​l\'explorateur de fichiers !
 
 Cliquez sur le bouton menu et sélectionnez l\'option que vous désirez.
@@ -13,7 +14,6 @@ Après avoir sélectionné le fichier, vous devez appuyer sur le bouton \ "Ajout
 
 
 En cliquant sur n\'importe quel élément il sera retiré de la liste des actions. Après cliquez sur le bouton \"Sauver la Liste\".."</string>
-
     <string name="app_name">RecoveryExecuter</string>
     <string name="configurl">Chemin par défaut</string>
     <string name="wipedata">Wipe Data</string>
@@ -43,22 +43,23 @@ En cliquant sur n\'importe quel élément il sera retiré de la liste des action
     <string name="autor">Auteur: </string>
     <string name="nomautor">Fraggel</string>
     <string name="contacto">Email: </string>
-	<string name="email">androidterminales@gmail.com</string>
-	<string name="enviaEmail">Envoyer un email</string>
-	<string name="noEmailCliente">Il n\'y a pas les clients de messagerie installés.</string>
-	<string name="envioErrores">Envoyer journal des erreurs</string>
-	<string name="noerrorlog">Pas de fichier d\'erreur</string>
-	<string name="txtinstalar">Installer APK</string>
-	<string name="rdbtxtinstalar">Mode APK</string>
-	<string name="rdbTxtNormal">Normal</string>
-	<string name="rdbTxtSistema">Système</string>
-	<string name="msgNoRoot">Vous n\'êtes pas root, pour utiliser cette application vous devez premiere root</string>
-	<string name="msgNoBusybox">Busybox est nécessaire, mais n\'est pas installé, installez busybox?</string>
-	<string name="msgApkInstalada">Application installée</string>
-	<string name="txtDonacion">Contribuer si vous voulez</string>
-	<string name="btnTxtDonacion">Donner</string>
-	<string name="txtCreditos">Merci à el_liberator de la Team Criskelo pour la traduction Anglais et Français</string>
-	<string name="msgFileErroneo">Le fichier spécifié n\'est pas valide</string>
+    <string name="email">androidterminales@gmail.com</string>
+    <string name="enviaEmail">Envoyer un email</string>
+    <string name="noEmailCliente">Il n\'y a pas les clients de messagerie installés.</string>
+    <string name="envioErrores">Envoyer journal des erreurs</string>
+    <string name="noerrorlog">Pas de fichier d\'erreur</string>
+    <string name="txtinstalar">Installer APK</string>
+    <string name="rdbtxtinstalar">Mode APK</string>
+    <string name="rdbTxtNormal">Normal</string>
+    <string name="rdbTxtSistema">Système</string>
+    <string name="msgNoRoot">Vous n\'êtes pas root, pour utiliser cette application vous devez premiere root</string>
+    <string name="msgNoBusybox">Busybox est nécessaire, mais n\'est pas installé, installez busybox?</string>
+    <string name="msgApkInstalada">Application installée</string>
+    <string name="txtDonacion">Contribuer si vous voulez</string>
+    <string name="btnTxtDonacion">Donner</string>
+    <string name="txtCreditos">Merci à el_liberator de la Team Criskelo pour la traduction Anglais et Français</string>
+    <string name="msgFileErroneo">Le fichier spécifié n\'est pas valide</string>
+
     <string-array name="arrayAcciones">
         <item>Sélectioner une Action</item>
         <item>Wipe Data</item>
@@ -75,4 +76,5 @@ En cliquant sur n\'importe quel élément il sera retiré de la liste des action
         <item>4</item>
         <item>5</item>
     </string-array>
+
 </resources>

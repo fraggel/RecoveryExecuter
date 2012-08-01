@@ -66,18 +66,19 @@ public class install extends Activity implements IAPKItemListener
 				startActivity(intent);  
 			}else if(rdbSistema.isChecked()){
 				Runtime runtime=Runtime.getRuntime();
-				Process exec = runtime.exec("su\n");
+				Process exec = runtime.exec("su");
 				BufferedOutputStream outputStream =new BufferedOutputStream(exec.getOutputStream());
-				outputStream.write(("mount -o rw,remount /system/app\n").getBytes());
-				outputStream.flush();
-				File rr=new File(ficheroAPK);
-				diag.setMessage("/system/app/"+rr.getName());
-				diag.show();
-				File ff=new File("/system/app/"+rr.getName());
-				copiarFichero(rr,ff);
-				outputStream.write(("mount -o ro,remount /system/app\n").getBytes());
+				outputStream.write(("mount -o rw remount /system\n").getBytes());
 				outputStream.flush();
 				outputStream.close();
+				File rr=new File(ficheroAPK);
+				File ff=new File("/system/app/"+rr.getName());
+				copiarFichero(rr,ff);
+				Process exec2 = runtime.exec("su");
+				BufferedOutputStream outputStream2 =new BufferedOutputStream(exec2.getOutputStream());
+				outputStream2.write(("mount -o ro remount /system\n").getBytes());
+				outputStream2.flush();
+				outputStream2.close();
 			}
 	   } catch (Exception e) {
 			new REException(e);

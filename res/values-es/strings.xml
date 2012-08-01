@@ -24,6 +24,8 @@
 	<string name="btnAnyadirLista">Añadir a Lista</string>
 	<string name="btnGuardar">Guardar</string>
 	<string name="btnAyuda">Ayuda</string>
+	<string name="btnInstallApk">Instalar Apk</string>
+	<string name="btnNandroid">Backup/Restore</string>
 	<string name="salir">Salir</string>
 	<string name="version">RecoveryExecuter 1.4.4</string>
 	<string name="btnGuardarLista">Guardar Lista</string>
@@ -37,7 +39,6 @@
 	<string name="selecarchivo">Seleccionar archivo</string>
 	<string name="accionesflashear">Flashear Lista de Acciones</string>
 	<string name="salirlista">Desea guardar la lista de acciones?</string>
-	<string name="busyboxroot">Busybox es necesario pero no está instalado, Desea instalar busybox?</string>
 	<string name="autor">Autor: </string>
     <string name="nomautor">Fraggel</string>
     <string name="contacto">Email: </string>
@@ -46,7 +47,14 @@
 	<string name="noEmailCliente">No hay clientes de email instalados.</string>
 	<string name="envioErrores">Enviar log de errores</string>
 	<string name="noerrorlog">No existe fichero de errores</string>
-	<string-array name="acciones">
+	<string name="txtinstalar">Instalar APK</string>
+	<string name="rdbtxtinstalar">Modo APK</string>
+	<string name="rdbTxtNormal">Normal</string>
+	<string name="rdbTxtSistema">Sistema</string>
+	<string name="msgNoRoot">No eres root, para usar esta aplicación necesitas ser root primero</string>
+	<string name="msgNoBusybox">Busybox es necesario pero no está instalado, Desea instalar busybox?</string>
+	
+	<string-array name="arrayAcciones">
 		<item>Selecciona una acción</item>
         	<item>Wipe Data</item>
         	<item>Wipe Cache</item>
@@ -54,7 +62,7 @@
         	<item>Wipe Battery</item>
         	<item>Flashear Archivo</item>
     	</string-array>
-    	<string-array name="accionesValues">
+    	<string-array name="arrayAccionesValues">
 		<item>0</item>
 	        <item>1</item>
 	        <item>2</item>

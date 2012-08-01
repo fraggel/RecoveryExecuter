@@ -20,6 +20,8 @@ Clicking on any item that item will be removed from the list of actions.After th
     <string name="btnAnyadirLista">Add to list</string>
     <string name="btnGuardar">Save</string>
     <string name="btnAyuda">Help</string>
+    <string name="btnInstallApk">Install Apk</string>
+    <string name="btnNandroid">Backup/Restore</string>
     <string name="salir">Exit</string>
     <string name="version">RecoveryExecuter 1.4.4</string>
     <string name="btnGuardarLista">Save List</string>
@@ -33,7 +35,6 @@ Clicking on any item that item will be removed from the list of actions.After th
     <string name="selecarchivo">Select File</string>
     <string name="accionesflashear">Action list flash</string>
     <string name="salirlista">Save the Action List?</string>
-	<string name="busyboxroot">Busybox is necessary but isn\'t installed, install busybox?</string>
 	<string name="autor">Author: </string>
     <string name="nomautor">Fraggel</string>
     <string name="contacto">Email: </string>
@@ -42,7 +43,14 @@ Clicking on any item that item will be removed from the list of actions.After th
 	<string name="noEmailCliente">There are no email clients installed.</string>
 	<string name="envioErrores">Send Error Log</string>
 	<string name="noerrorlog">Error log didn\'t exist</string>
-	<string-array name="acciones">
+	<string name="txtinstalar">Install APK</string>
+	<string name="rdbtxtinstalar">Mode APK</string>
+	<string name="rdbTxtNormal">Normal</string>
+	<string name="rdbTxtSistema">System</string>
+	<string name="msgNoRoot">You aren´t root, for use this application you need root first</string>
+	<string name="msgNoBusybox">Busybox is necessary but isn\'t installed, install busybox?</string>
+	
+	<string-array name="arrayAcciones">
         <item>Select action</item>
         <item>Wipe Data</item>
         <item>Wipe Cache</item>
@@ -50,7 +58,7 @@ Clicking on any item that item will be removed from the list of actions.After th
         <item>Wipe Battery</item>
         <item>Flash File</item>
     </string-array>
-    <string-array name="accionesValues">
+    <string-array name="arrayAccionesValues">
         <item>0</item>
         <item>1</item>
         <item>2</item>

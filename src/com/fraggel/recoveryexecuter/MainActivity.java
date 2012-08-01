@@ -2,18 +2,13 @@ package com.fraggel.recoveryexecuter;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.Locale;
 import java.util.Stack;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -64,8 +59,10 @@ public class MainActivity extends Activity
 			
 			rutaTmp=new File("/mnt/sdcard/RecoveryExecuter/");
 			rutaTmp.mkdirs();
-			if(!controlRootBusybox()){
-				instalarBusyBox();
+			if(controlRoot()){
+				if(!controlBusybox()){
+					instalarBusyBox();
+				}
 			}
 			
 			
@@ -73,18 +70,58 @@ public class MainActivity extends Activity
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.main);
 		
-			items=  res.getStringArray(R.array.acciones);
-			values= res.getStringArray(R.array.accionesValues);
+			items=  res.getStringArray(R.array.arrayAcciones);
+			values= res.getStringArray(R.array.arrayAccionesValues);
 			borrarDirectorio(rutaTmp);
 		}catch(Exception e){
 			new REException(e);
 		}
 		//showFileChooser();
     }
-
+    private boolean controlRoot() {
+    	boolean root=false;
+		File f=new File("/system/bin/su");
+		if(!f.exists()){
+			f=new File("/system/xbin/su");
+			if(!f.exists()){
+				root=false;
+				diag.setMessage(res.getString(R.string.msgNoRoot));
+			}else{
+				root=true;
+			}
+		}else{
+			root=true;
+		}
+		if(root){
+			try {
+				Runtime rt=Runtime.getRuntime();
+				rt.exec("su");
+			} catch (Exception e) {
+				new REException(e);
+			}
+			
+		}
+		return root;
+	}
+	public void installApk(View v){
+    	try{
+    		Intent intent=new Intent(this, install.class);
+    		startActivity(intent);
+    	}catch(Exception e){
+    		new REException(e);
+    	}
+    }
+    public void nandroid(){
+    	try{
+    		Intent intent=new Intent(this, backupRestore.class);
+    		startActivity(intent);
+    	}catch(Exception e){
+    		new REException(e);
+    	}
+    }
 	private void instalarBusyBox() {
 		AlertDialog dialog=new AlertDialog.Builder(this).create();
-		dialog.setMessage(res.getString(R.string.busyboxroot));
+		dialog.setMessage(res.getString(R.string.msgNoBusybox));
 		dialog.setButton(AlertDialog.BUTTON_NEGATIVE, res.getString(R.string.cancelar), new DialogInterface.OnClickListener(){
 				public void onClick(DialogInterface dialog, int witch)
 				{
@@ -97,7 +134,7 @@ public class MainActivity extends Activity
 					try
 					{
 						Intent intent = new Intent(Intent.ACTION_VIEW);
-						intent.setData(Uri.parse("market://details?id=stericson.busybox"));
+						intent.setData(Uri.parse("market://details?id=com.jrummy.busybox.installer"));
 						startActivity(intent);
 						finish();
 					}
@@ -112,26 +149,22 @@ public class MainActivity extends Activity
 		
 	}
 
-	private boolean controlRootBusybox()
+	private boolean controlBusybox()
 	{
-		boolean instalado=false;
-		try {
-			Runtime rt=Runtime.getRuntime();
-			java.lang.Process p=rt.exec("awk");
-			LogStreamReader lsr = new LogStreamReader(p.getInputStream());
-			Thread thread = new Thread(lsr, "LogStreamReader");
-			thread.start();
-			String linea="";
-			linea=lsr.getLine();
-			while("".equals(linea)){
-				linea=lsr.getLine();
+		boolean busybox=false;
+		File f=new File("/system/bin/busybox");
+		if(!f.exists()){
+			f=new File("/system/xbin/busybox");
+			if(!f.exists()){
+				busybox=false;
+				diag.setMessage(res.getString(R.string.msgNoBusybox));
+			}else{
+				busybox=true;
 			}
-			instalado=true;
-			java.lang.Process p2=rt.exec("su");
-		} catch (Exception e) {
-			instalado=false;
+		}else{
+			busybox=true;
 		}
-		return instalado;
+		return busybox;
 	}
     public void Ayuda(View v)
 	{

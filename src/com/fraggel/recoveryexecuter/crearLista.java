@@ -35,8 +35,8 @@ public class crearLista extends Activity implements OnItemSelectedListener, Adap
 			
 			fillMaps = new ArrayList<HashMap<String, String>>();
 			
-			items=  getResources().getStringArray(R.array.acciones);
-			values=getResources().getStringArray(R.array.accionesValues);
+			items=  getResources().getStringArray(R.array.arrayAcciones);
+			values=getResources().getStringArray(R.array.arrayAccionesValues);
 			
 			Intent intent = this.getIntent();
 			ArrayList<String> stringArrayListExtra = intent.getStringArrayListExtra("lista");
@@ -49,7 +49,7 @@ public class crearLista extends Activity implements OnItemSelectedListener, Adap
 			lista.setOnItemClickListener(this);
 			spinner = (Spinner) findViewById(R.id.comboAcciones);
 			ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-					this, R.array.acciones, android.R.layout.simple_spinner_item);
+					this, R.array.arrayAcciones, android.R.layout.simple_spinner_item);
 			// Specify the layout to use when the list of choices appears
 	
 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -115,8 +115,7 @@ public class crearLista extends Activity implements OnItemSelectedListener, Adap
 				
 			}
 		}
-		
-		
+		spinner.setSelection(0);
 	}
 	private void showFileChooser()throws Exception
 	{
@@ -151,7 +150,7 @@ public class crearLista extends Activity implements OnItemSelectedListener, Adap
 		file="";
 		
 		lista.setAdapter(adapt);	
-		spinner.setSelection(0);
+		
 	}
 	protected void onActivityResult(int request, int result, Intent data)
 	{

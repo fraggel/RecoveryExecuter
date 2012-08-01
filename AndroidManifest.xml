@@ -28,10 +28,14 @@
 		</activity>
 		<activity android:name="fileselect" android:icon="@drawable/ic_launcher">
 		</activity>
-		<activity android:name="ayuda"></activity>
-		<activity android:name="ayudaLista"></activity>
-		<activity android:name="crearLista"></activity>
-		<activity android:name="acercade"></activity>
+		<activity android:name="install" android:icon="@drawable/ic_launcher">
+		</activity>
+		<activity android:name="backupRestore" android:icon="@drawable/ic_launcher">
+		</activity>
+		<activity android:name="ayuda" android:icon="@drawable/ic_launcher"></activity>
+		<activity android:name="ayudaLista" android:icon="@drawable/ic_launcher"></activity>
+		<activity android:name="crearLista" android:icon="@drawable/ic_launcher"></activity>
+		<activity android:name="acercade" android:icon="@drawable/ic_launcher"></activity>
 		
     </application>
 </manifest>

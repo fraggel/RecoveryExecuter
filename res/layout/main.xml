@@ -49,4 +49,18 @@
         android:layout_height="wrap_content"
         android:onClick="creaLista"
         android:text="@string/btnCrearLista" />
+
+    <Button
+        android:id="@+id/btnApk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="installApk"
+        android:text="@string/btnInstallApk" />
+    <Button
+        android:id="@+id/btnNandroid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="nandroid"
+        android:text="@string/btnNandroid" />
+
 </LinearLayout>

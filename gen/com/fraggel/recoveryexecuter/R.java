@@ -51,7 +51,9 @@ public final class R {
         public static final int op3=0x7f080021;
         public static final int op4=0x7f080022;
         public static final int op5=0x7f080023;
+        public static final int op6=0x7f080025;
         public static final int opfile1=0x7f080024;
+        public static final int opinstall1=0x7f080026;
         public static final int path=0x7f080012;
         public static final int rdbinstalar=0x7f080005;
         public static final int rdbnormal=0x7f080007;
@@ -126,6 +128,7 @@ public final class R {
         public static final int enviaEmail=0x7f050020;
         public static final int envioErrores=0x7f050022;
         public static final int msgApkInstalada=0x7f05002a;
+        public static final int msgFileErroneo=0x7f05002e;
         public static final int msgNoBusybox=0x7f050029;
         public static final int msgNoRoot=0x7f050028;
         public static final int no=0x7f050018;

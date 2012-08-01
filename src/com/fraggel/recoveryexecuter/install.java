@@ -112,7 +112,7 @@ public class install extends Activity implements IAPKItemListener
 		try
 		{
 		switch(menuitem.getItemId()){
-			case R.id.opfile1:
+			case R.id.opinstall1:
 			finish();
 			ret= true;
 			break;

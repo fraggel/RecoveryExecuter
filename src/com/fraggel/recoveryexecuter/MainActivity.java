@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Locale;
 import java.util.Stack;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -49,13 +50,6 @@ public class MainActivity extends Activity
     public void onCreate(Bundle savedInstanceState)
 	{
 		diag = new AlertDialog.Builder(this).create();
-		for(int x=0;x<100;x++){
-			try {
-				new ArrayList().get(12);
-			} catch (Exception e) {
-				new REException(e);
-			}
-		}
 		try
 		{
 			res=this.getResources();
@@ -278,19 +272,23 @@ public class MainActivity extends Activity
 					showFileChooser();
 					ret = true;
 					break;
-					case R.id.op2:
+				case R.id.op2:
 					creaLista(null);
 					ret=true;
 					break;
 				case R.id.op3:
+					installApk(null);
+					ret=true;
+					break;
+				case R.id.op4:
 					showConfig();
 					ret = true;
 					break;
-				case R.id.op4:
+				case R.id.op5:
 					showAbout();
 					ret = true;
 					break;
-				case R.id.op5:
+				case R.id.op6:
 					finish();
 					ret = true;
 					break;
@@ -337,8 +335,14 @@ public class MainActivity extends Activity
 										{
 											if (!"".equals(file))
 											{
-												crearZipCwm(file);
-												escribirRecovery();
+												boolean erroneo=false;
+												erroneo=crearZipCwm(file);
+												if(!erroneo){
+													escribirRecovery();
+												}else{
+													diag.setMessage(res.getString(R.string.msgFileErroneo));
+													diag.show();
+												}
 											}
 										}
 										catch (Exception e)
@@ -369,6 +373,9 @@ public class MainActivity extends Activity
 											java.lang.Process p=rt.exec("su");
 											BufferedOutputStream bos=new BufferedOutputStream(p.getOutputStream());
 											bos.write(("rm /cache/recovery/extendedcommand\n").getBytes());
+											boolean algoSelect=false;
+											boolean algoSelectRebootNormal=false;
+											boolean erroneo=false;
 											for (int i = 0; i < lista.size(); i++)
 											{
 												String string = (String)lista.get(i);
@@ -377,15 +384,18 @@ public class MainActivity extends Activity
 												{
 													bos.write(("echo 'Wipe Data'\n").getBytes());
 													bos.write(("echo 'format (\"/data\");' >> /cache/recovery/extendedcommand\n").getBytes());
+													algoSelect=true;
 												}
 												else if ("2".equals(string))
 												{
 													bos.write(("echo 'Wipe Cache'\n").getBytes());
 													bos.write(("echo 'format (\"/cache\");' >> /cache/recovery/extendedcommand\n").getBytes());
+													algoSelect=true;
 												}
 												else if ("3".equals(string))
 												{
 													bos.write(("rm -r \"/data/dalvik-cache\"\n").getBytes());
+													algoSelectRebootNormal=true;
 												}
 												else if ("4".equals(string))
 												{
@@ -394,15 +404,26 @@ public class MainActivity extends Activity
 												else if ("0".equals(string))
 												{
 
-												}
-												else if (!"".equals(string))
+												}else if (!"".equals(string))
 												{
-													crearZipCwm(string);
-													bos.write(("echo 'install_zip(\"" + file.replaceFirst("/mnt/sdcard/", "/emmc/").replaceFirst("/mnt/extSdCard/", "/sdcard/") + "\");' >> /cache/recovery/extendedcommand\n").getBytes());
+													erroneo=crearZipCwm(string);
+													if(erroneo){
+														diag.setMessage(res.getString(R.string.msgFileErroneo));
+														diag.show();
+														break;
+													}
+													if(!"".equals(file)){
+														bos.write(("echo 'install_zip(\"" + file.replaceFirst("/mnt/sdcard/", "/emmc/").replaceFirst("/mnt/extSdCard/", "/sdcard/") + "\");' >> /cache/recovery/extendedcommand\n").getBytes());
+														algoSelect=true;
+													}
 												}
 
 											}
-											bos.write(("reboot recovery").getBytes());
+											if(algoSelect){
+												bos.write(("reboot recovery").getBytes());
+											}else if(algoSelectRebootNormal){
+												bos.write(("reboot").getBytes());
+											}
 											bos.flush();
 											bos.close();
 										}
@@ -437,39 +458,49 @@ public class MainActivity extends Activity
 		CheckBox chkbattery=(CheckBox)findViewById(R.id.wipebattery);
 		BufferedOutputStream bos=new BufferedOutputStream(p.getOutputStream());
 		bos.write(("rm /cache/recovery/extendedcommand\n").getBytes());
+		boolean algoSelect=false;
+		boolean algoSelectRebootNormal=false;
 		if (chkdata.isChecked())
 		{
 			bos.write(("echo 'Wipe Data'\n").getBytes());
 			bos.write(("echo 'format (\"/data\");' > /cache/recovery/extendedcommand\n").getBytes());
+			algoSelect=true;
 		}
 		if (chkcache.isChecked())
 		{
 			bos.write(("echo 'Wipe Cache'\n").getBytes());
 			bos.write(("echo 'format (\"/cache\");' >> /cache/recovery/extendedcommand\n").getBytes());
+			algoSelect=true;
 		}
 		if (chkdalvik.isChecked())
 		{
-			//bos.write(("echo 'rm -r \"/data/dalvik-cache\";\n' >> /cache/recovery/extendedcommand\n").getBytes());
 			bos.write(("rm -r \"/data/dalvik-cache\"\n").getBytes());
+			algoSelectRebootNormal=true;
 		}
 		if (chkbattery.isChecked())
 		{
-			//bos.write(("echo 'rm -r \"/data/dalvik-cache\";\n' >> /cache/recovery/extendedcommand\n").getBytes());
 			bos.write(("rm \"/data/system/batterystats.bin\"\n").getBytes());
 		}
-		bos.write(("echo 'install_zip(\"" + file.replaceFirst("/mnt/sdcard/", "/emmc/").replaceFirst("/mnt/extSdCard/", "/sdcard/") + "\");' >> /cache/recovery/extendedcommand\n").getBytes());
-		bos.write(("reboot recovery").getBytes());
+		if(!"".equals(file)){
+			bos.write(("echo 'install_zip(\"" + file.replaceFirst("/mnt/sdcard/", "/emmc/").replaceFirst("/mnt/extSdCard/", "/sdcard/") + "\");' >> /cache/recovery/extendedcommand\n").getBytes());
+			algoSelect=true;
+		}
+		if(algoSelect){
+			bos.write(("reboot recovery").getBytes());
+		}else if(algoSelectRebootNormal){
+			bos.write(("reboot").getBytes());
+		}
 		bos.flush();
 		bos.close();
 	}
-	public void crearZipCwm(String f) throws Exception
+	public boolean crearZipCwm(String f) throws Exception
 	{
 		File rutaTmpKernel=new File("/mnt/sdcard/RecoveryExecuter/kernel/");
 		File rutaTmpModem=new File("/mnt/sdcard/RecoveryExecuter/modem/");
 		rutaTmp.mkdirs();
 		rutaTmpKernel.mkdirs();
 		rutaTmpModem.mkdirs();
-
+		boolean erroneo=false;
 		String  ext=f.substring(f.length() - 4, f.length()).toLowerCase();
 		if (".md5".equals(ext))
 		{
@@ -487,8 +518,8 @@ public class MainActivity extends Activity
 			catch (Exception e)
 			{
 				new REException(e);
-				
 				f = "";
+		
 			}
 		}
 		if (".tar".equals(ext))
@@ -523,8 +554,8 @@ public class MainActivity extends Activity
 			catch (Exception e)
 			{
 				new REException(e);
-				
 				f = "";
+				
 			}
 		}
 		if (".img".equals(ext))
@@ -544,8 +575,8 @@ public class MainActivity extends Activity
 			catch (Exception e)
 			{
 				new REException(e);
-				
 				f = "";
+			
 			}
 		}
 		if (".bin".equals(ext))
@@ -565,13 +596,43 @@ public class MainActivity extends Activity
 			catch (Exception e)
 			{
 				new REException(e);
-				
 				f = "";
+				
 			}
 		}
+		if(".zip".equals(ext)){
+			if (!validaCabeceraZip(f))
+			{
+				f="";
+			}
+		}
+		if("".equals(f)){
+			erroneo=true;
+		}
         file = f;
+        return erroneo;
 	}
+	private boolean validaCabeceraZip(String f) throws Exception
+	{
+		boolean ret=false;
+		File fSourceZip = new File(f);
+		ZipFile zipFile = new ZipFile(fSourceZip);
+		Enumeration e = zipFile.entries();
 
+		while (e.hasMoreElements())
+		{
+			ZipEntry entry = (ZipEntry)e.nextElement();
+
+			if (entry.isDirectory())
+			{
+				if((entry.getName().endsWith("META-INF"))){
+					ret=true;
+					break;
+				}
+			}
+		}
+		return ret;
+	}
 	private boolean validacabeceraModem(String f) throws Exception
 	{
 		boolean ret=false;
@@ -834,4 +895,5 @@ public class MainActivity extends Activity
 		}
 
 	}
+	
 }

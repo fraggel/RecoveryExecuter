@@ -58,7 +58,7 @@
     <string name="msgApkInstalada">Aplicacion instalada</string>
     <string name="txtDonacion">Contribuye si quieres</string>
     <string name="btnTxtDonacion">Donar</string>
-    <string name="txtCreditos">Gracias a el_liberator del Equipo Criskelo por la traducción Inglés y Francés</string>
+    <string name="txtCreditos">Gracias a el_liberator del Equipo Criskelo por la traducción Inglés y Francés y gracias a bassie1995 por el Alemán</string>
     <string name="msgFileErroneo">El fichero especificado no es válido</string>
 
     <string-array name="arrayAcciones">

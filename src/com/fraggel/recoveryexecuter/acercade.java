@@ -8,16 +8,19 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.Toast;
 
 public class acercade extends Activity {
 	AlertDialog diag;
 	Resources res;
+	File root;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.acercade);
+		root = Environment.getExternalStorageDirectory();
 		res = this.getResources();
 		diag = new AlertDialog.Builder(this).create();
 
@@ -52,7 +55,7 @@ public class acercade extends Activity {
 	}
 
 	public void enviarEmailErrores(View v) {
-		File f = new File("/mnt/sdcard/RecoveryExecuter/exceptions.log");
+		File f = new File(root.getAbsolutePath()+"/RecoveryExecuter/exceptions.log");
 		if (f.exists()) {
 			Intent i = new Intent(Intent.ACTION_SEND);
 			i.setType("message/rfc822");

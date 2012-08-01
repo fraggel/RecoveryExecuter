@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,22 +18,23 @@ public class fileselect extends Activity implements IFileFolderItemListener {
 	private String initialDir;
 	SharedPreferences sp;
 	AlertDialog diag;
-
+	File root;
 	public void onCreate(Bundle savedInstanceState) {
 		diag = new AlertDialog.Builder(this).create();
 		try {
+			root = Environment.getExternalStorageDirectory();
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.fileselect);
 			setTitle(getResources().getString(R.string.selecarchivo));
 
-			initialDir = "/mnt/sdcard/Download/";
+			initialDir = root.getAbsolutePath()+"/Download/";
 			FileFolderLayout localFileFolders = (FileFolderLayout) findViewById(R.id.localfilefolders);
 			localFileFolders.setIFolderItemListener(this);
 			localFileFolders.setDir("/mnt");
 			try {
 				sp = getSharedPreferences("recexec",
 						Context.MODE_WORLD_WRITEABLE);
-				initialDir = sp.getString("url", "/mnt/sdcard/Download/");
+				initialDir = sp.getString("url", root.getAbsolutePath()+"/Download/");
 				localFileFolders.setDir(initialDir);
 
 			} catch (Exception e) {

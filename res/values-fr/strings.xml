@@ -28,7 +28,7 @@ En cliquant sur n\'importe quel élément il sera retiré de la liste des action
     <string name="btnInstallApk">Installer Apk</string>
     <string name="btnNandroid">Sauvegarde/Restauration</string>
     <string name="salir">Quitter</string>
-    <string name="version">RecoveryExecuter 1.4.5</string>
+    <string name="version">RecoveryExecuter 1.4.6</string>
     <string name="btnGuardarLista">Sauver la Liste</string>
     <string name="rutaguardada">Chemin sauvé</string>
     <string name="aceptar">Accepter</string>

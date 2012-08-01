@@ -140,6 +140,7 @@ public final class R {
         public static final int salirlista=0x7f05001b;
         public static final int selecarchivo=0x7f050019;
         public static final int si=0x7f050017;
+        public static final int txtCreditos=0x7f05002d;
         public static final int txtDonacion=0x7f05002b;
         public static final int txtinstalar=0x7f050024;
         public static final int version=0x7f050010;

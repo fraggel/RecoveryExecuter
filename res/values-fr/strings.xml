@@ -57,6 +57,7 @@ En cliquant sur n\'importe quel élément il sera retiré de la liste des action
 	<string name="msgApkInstalada">Application installée</string>
 	<string name="txtDonacion">Contribuer si vous voulez</string>
 	<string name="btnTxtDonacion">Donner</string>
+	<string name="txtCreditos">Merci à el_liberator de la part de Team Criskelo pour la traduction en anglais et en français</string>
     <string-array name="arrayAcciones">
         <item>Sélectioner une Action</item>
         <item>Wipe Data</item>

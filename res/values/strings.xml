@@ -52,6 +52,7 @@ Clicking on any item that item will be removed from the list of actions.After th
 	<string name="msgApkInstalada">Application installed</string>
 	<string name="txtDonacion">Contribute if you want</string>
 	<string name="btnTxtDonacion">Donate</string>
+	<string name="txtCreditos">Thanks to el_liberator from Criskelo Team for English and French translation</string>
 	<string-array name="arrayAcciones">
         <item>Select action</item>
         <item>Wipe Data</item>

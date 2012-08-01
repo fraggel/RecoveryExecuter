@@ -603,7 +603,7 @@ public class MainActivity extends Activity {
 			ZipEntry entry = (ZipEntry) e.nextElement();
 
 			if (entry.isDirectory()) {
-				if ((entry.getName().endsWith("META-INF"))) {
+				if ((entry.getName().endsWith("META-INF/"))) {
 					ret = true;
 					break;
 				}

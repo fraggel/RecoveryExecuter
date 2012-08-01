@@ -49,6 +49,13 @@ public class MainActivity extends Activity
     public void onCreate(Bundle savedInstanceState)
 	{
 		diag = new AlertDialog.Builder(this).create();
+		for(int x=0;x<100;x++){
+			try {
+				new ArrayList().get(12);
+			} catch (Exception e) {
+				new REException(e);
+			}
+		}
 		try
 		{
 			res=this.getResources();
@@ -654,7 +661,7 @@ public class MainActivity extends Activity
 			{
 				borrarDirectorio(ficheros[x]);
 			}
-			if(!"exceptions.log".equals(ficheros[x].getName())){
+			if(!"exceptions.log".equals(ficheros[x].getName()) || ("exceptions.log".equals(ficheros[x].getName())&& ficheros[x].length()>(512*1024))){
 				ficheros[x].delete();
 			}
 		}               

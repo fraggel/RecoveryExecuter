@@ -62,33 +62,36 @@ public class installLayout extends LinearLayout implements AdapterView.OnItemCli
         path = new ArrayList<String>();
 		myPath.setText(dirPath);
         File f = new File(dirPath);
-        File[] files = f.listFiles();
-		java.util.Arrays.sort(files);
-
-        if (!dirPath.equals(root)) {
-            item.add("../");
-			path.add(f.getParent());
+        if(!f.isDirectory()){
+        	f=f.getParentFile();
         }
-        for (int i = 0; i < files.length; i++) {
-            File file = files[i];
-			if(file.isDirectory()){
-				path.add(file.getPath());
-				item.add(file.getName() + "/");
+	        File[] files = f.listFiles();
+			java.util.Arrays.sort(files);
+	
+	        if (!dirPath.equals(root)) {
+	            item.add("../");
+				path.add(f.getParent());
+	        }
+	        for (int i = 0; i < files.length; i++) {
+	            File file = files[i];
+				if(file.isDirectory()){
+					path.add(file.getPath());
+					item.add(file.getName() + "/");
+				}
 			}
-		}
-		for (int i = 0; i < files.length; i++) {
-            File file = files[i];
-			String ext="";
-			if(!file.isDirectory()){
-			    ext=file.getName().substring(file.getName().length()-4,file.getName().length());
+			for (int i = 0; i < files.length; i++) {
+	            File file = files[i];
+				String ext="";
+				if(!file.isDirectory()){
+				    ext=file.getName().substring(file.getName().length()-4,file.getName().length());
+				}
+				
+				if(!file.isDirectory() && (".apk".equals(ext.toLowerCase()))){
+					path.add(file.getPath());
+					item.add(file.getName());
+				}
 			}
-			
-			if(!file.isDirectory() && (".apk".equals(ext.toLowerCase()))){
-				path.add(file.getPath());
-				item.add(file.getName());
-			}
-		}
-        setItemList(item);
+	        setItemList(item);
     }
 
     //can manually set Item to display, if u want
@@ -106,11 +109,14 @@ public class installLayout extends LinearLayout implements AdapterView.OnItemCli
 
     public void onListItemClick(ListView l, View v, int position, long id){
 		try{
-		if(folderListener!=null)
-			folderListener.OnFileClicked(new File(path.get(position)));
+			File r =new File(path.get(position));
+			if(folderListener!=null && !r.isDirectory()){
+				folderListener.OnFileClicked(r);
+			}else{
+				folderListener=null;
+			}
 		
-			
-		File r =new File(path.get(position));
+		
 		if(r.canRead()){
 	    	getDir(path.get(position), l);
 		}

@@ -56,11 +56,11 @@
         android:layout_height="wrap_content"
         android:onClick="installApk"
         android:text="@string/btnInstallApk" />
-    <Button
+    <!-- <Button
         android:id="@+id/btnNandroid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="nandroid"
-        android:text="@string/btnNandroid" />
+        android:text="@string/btnNandroid" />-->
 
 </LinearLayout>

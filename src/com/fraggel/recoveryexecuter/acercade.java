@@ -17,6 +17,13 @@ public class acercade extends Activity{
 		 setContentView(R.layout.acercade);
 		 res=this.getResources();
 		 diag=new AlertDialog.Builder(this).create();
+		 
+	 }
+	 public void donacion(View v){
+		String donacion="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=CT5QMSJRNTVZJ&lc=GB&item_name=Fraggel&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted";
+		Intent intent = new Intent(Intent.ACTION_VIEW);
+		intent.setData(Uri.parse(donacion));
+		startActivity(intent);		 
 	 }
 	 public void salir(View v){
 		 finish();

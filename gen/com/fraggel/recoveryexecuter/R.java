@@ -113,6 +113,7 @@ public final class R {
         public static final int btnGuardarLista=0x7f050011;
         public static final int btnInstallApk=0x7f05000d;
         public static final int btnNandroid=0x7f05000e;
+        public static final int btnTxtDonacion=0x7f05002c;
         public static final int cancelar=0x7f050014;
         public static final int config=0x7f050015;
         /** <string name="configurl">Selecciona la carpeta que deseas usar como predeterminada, esto hara que cada 
@@ -140,6 +141,7 @@ public final class R {
         public static final int salirlista=0x7f05001b;
         public static final int selecarchivo=0x7f050019;
         public static final int si=0x7f050017;
+        public static final int txtDonacion=0x7f05002b;
         public static final int txtinstalar=0x7f050024;
         public static final int version=0x7f050010;
         public static final int wipebattery=0x7f050007;

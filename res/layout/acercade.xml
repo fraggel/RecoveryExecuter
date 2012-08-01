@@ -31,6 +31,14 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/email" android:textSize="20dp" android:layout_marginLeft="20dp" android:onClick="enviarEmailErrores"/>
+	<TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/txtDonacion" android:textSize="18dp"/>
+	<Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btnTxtDonacion" android:textSize="20dp" android:layout_marginLeft="20dp" android:onClick="donacion"/>
 	
 	</LinearLayout>
 

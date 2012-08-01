@@ -50,6 +50,8 @@ Clicking on any item that item will be removed from the list of actions.After th
 	<string name="msgNoRoot">You aren´t root, for use this application you need root first</string>
 	<string name="msgNoBusybox">Busybox is necessary but isn\'t installed, install busybox?</string>
 	<string name="msgApkInstalada">Application installed</string>
+	<string name="txtDonacion">Contribute if you want</string>
+	<string name="btnTxtDonacion">Donate</string>
 	<string-array name="arrayAcciones">
         <item>Select action</item>
         <item>Wipe Data</item>

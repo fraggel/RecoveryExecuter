@@ -54,6 +54,8 @@
 	<string name="msgNoRoot">No eres root, para usar esta aplicación necesitas ser root primero</string>
 	<string name="msgNoBusybox">Busybox es necesario pero no está instalado, Desea instalar busybox?</string>
 	<string name="msgApkInstalada">Aplicacion instalada</string>
+	<string name="txtDonacion">Contribuye si quieres</string>
+	<string name="btnTxtDonacion">Donar</string>
 	<string-array name="arrayAcciones">
 		<item>Selecciona una acción</item>
         	<item>Wipe Data</item>

@@ -23,7 +23,7 @@ Clicking on any item that item will be removed from the list of actions.After th
     <string name="btnInstallApk">Install Apk</string>
     <string name="btnNandroid">Backup/Restore</string>
     <string name="salir">Exit</string>
-    <string name="version">RecoveryExecuter 1.4.5</string>
+    <string name="version">RecoveryExecuter Lite 1.4.5</string>
     <string name="btnGuardarLista">Save List</string>
     <string name="rutaguardada">Path saved</string>
     <string name="aceptar">Accept</string>

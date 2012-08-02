@@ -30,7 +30,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 
-import com.fraggel.recoveryexecuter.R;
 import com.ice.tar.Tar;
 
 public class MainActivity extends Activity {

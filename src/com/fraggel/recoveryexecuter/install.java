@@ -5,6 +5,7 @@ import java.io.File;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -69,6 +70,28 @@ public class install extends Activity implements IAPKItemListener {
 					startActivity(intent);
 				} else if (rdbSistema.isChecked()) {
 					diag.setMessage(res.getString(R.string.msgNoFull));
+					diag.setButton(AlertDialog.BUTTON_NEGATIVE,
+							res.getString(R.string.cancelar),
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int witch) {
+								}
+							});
+					diag.setButton(AlertDialog.BUTTON_POSITIVE,
+							res.getString(R.string.aceptar),
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int witch) {
+									try {
+										Intent intent = new Intent(Intent.ACTION_VIEW);
+										intent.setData(Uri
+												.parse("market://details?id=com.fraggel.recoveryexec.pro"));
+										startActivity(intent);
+										finish();
+									} catch (Exception e) {
+										new REException(e);
+
+									}
+								}
+							});
 					diag.show();
 				}
 			}

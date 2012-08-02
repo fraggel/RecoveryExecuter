@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.fraggel.recoveryexecuter"
     android:icon="@drawable/ic_launcher"
-    android:versionCode="51"
+    android:versionCode="52"
     android:versionName="1.4.5" >
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >

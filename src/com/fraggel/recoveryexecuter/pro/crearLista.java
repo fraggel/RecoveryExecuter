@@ -1,6 +1,5 @@
 package com.fraggel.recoveryexecuter.pro;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -10,6 +9,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,7 +24,7 @@ import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 
 public class crearLista extends Activity implements OnItemSelectedListener,
-		AdapterView.OnItemClickListener {
+		AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 
 	AlertDialog diag;
 	String selected;
@@ -38,9 +39,11 @@ public class crearLista extends Activity implements OnItemSelectedListener,
 	String items[];
 	String values[];
 	int[] to = new int[] { R.id.rowtexts };
+	Resources res;
 
 	public void onCreate(Bundle savedInstanceState) {
 		try {
+			res = getResources();
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.lista);
 			setTitle(R.string.version);
@@ -49,8 +52,8 @@ public class crearLista extends Activity implements OnItemSelectedListener,
 
 			fillMaps = new ArrayList<HashMap<String, String>>();
 
-			items = getResources().getStringArray(R.array.arrayAcciones);
-			values = getResources().getStringArray(R.array.arrayAccionesValues);
+			items = res.getStringArray(R.array.arrayAcciones);
+			values = res.getStringArray(R.array.arrayAccionesValues);
 
 			Intent intent = this.getIntent();
 			ArrayList<String> stringArrayListExtra = intent
@@ -150,29 +153,8 @@ public class crearLista extends Activity implements OnItemSelectedListener,
 	}
 
 	public void anyadir(View v) throws Exception {
-		map = new HashMap<String, String>();
-
-		if (file != null && !"".equals(file)) {
-			listaAcciones.add(file);
-			File ff = new File(file);
-			selected = selected + " " + ff.getName();
-		} else if (!"".equals(selected)) {
-			int r = -1;
-			for (int x = 0; x < items.length; x++) {
-				if (selected.equals(items[x])) {
-					r = x;
-				}
-			}
-			listaAcciones.add(values[r]);
-		}
-		if (!"".equals(selected)) {
-			map.put("rowtexts", selected);
-			fillMaps.add(map);
-		}
-		file = "";
-
-		lista.setAdapter(adapt);
-
+		externalClass exCl=new externalClass();
+		exCl.anyadir(map, listaAcciones, diag, res, file, selected, items, values, fillMaps, lista, adapt,this);
 	}
 
 	protected void onActivityResult(int request, int result, Intent data) {
@@ -238,10 +220,10 @@ public class crearLista extends Activity implements OnItemSelectedListener,
 			case R.id.opfile1:
 				if (listaAcciones != null && listaAcciones.size() > 0) {
 					AlertDialog dialog = new AlertDialog.Builder(this).create();
-					dialog.setMessage(getResources().getString(
+					dialog.setMessage(res.getString(
 							R.string.salirlista));
 					dialog.setButton(AlertDialog.BUTTON_NEGATIVE,
-							getResources().getString(R.string.no),
+							res.getString(R.string.no),
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
 										int witch) {
@@ -255,7 +237,7 @@ public class crearLista extends Activity implements OnItemSelectedListener,
 								}
 							});
 					dialog.setButton(AlertDialog.BUTTON_POSITIVE,
-							getResources().getString(R.string.si),
+							res.getString(R.string.si),
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
 										int witch) {
@@ -282,6 +264,22 @@ public class crearLista extends Activity implements OnItemSelectedListener,
 
 		}
 		return ret;
+	}
+
+	@Override
+	public void onClick(DialogInterface dialog, int which) {
+		try {
+			if(which==-1){
+				Intent intent = new Intent(Intent.ACTION_VIEW);
+				intent.setData(Uri
+						.parse("market://details?id=com.fraggel.recoveryexecuter.pro"));
+				startActivity(intent);
+				finish();
+			}
+		} catch (Exception e) {
+			new REException(e);
+
+		}
 	}
 
 }

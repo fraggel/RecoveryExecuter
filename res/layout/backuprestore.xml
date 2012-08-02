@@ -14,12 +14,12 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
 
-        <com.fraggel.recoveryexecuter.pro.FolderLayout
+        <com.fraggel.recoveryexecuter.FolderLayout
             android:id="@+id/localfolders"
             android:layout_width="match_parent"
             android:layout_height="400dp"
             layout="@layout/folderview" >
-        </com.fraggel.recoveryexecuter.pro.FolderLayout>
+        </com.fraggel.recoveryexecuter.FolderLayout>
     </LinearLayout>
 
     <EditText

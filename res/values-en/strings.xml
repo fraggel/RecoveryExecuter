@@ -54,7 +54,7 @@ Clicking on any item that item will be removed from the list of actions.After th
     <string name="btnTxtDonacion">Donate</string>
     <string name="txtCreditos">Thanks to el_liberator from Criskelo Team for English and French translation</string>
     <string name="msgFileErroneo">The specified file is not valid</string>
-
+    <string name="msgNoFull">This functionality is only available on Full version, Want to connect to Play Store and buy it?</string>
     <string-array name="arrayAcciones">
         <item>Select action</item>
         <item>Wipe Data</item>

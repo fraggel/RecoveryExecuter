@@ -9,6 +9,10 @@ package com.fraggel.recoveryexecuter;
 
 public final class R {
     public static final class array {
+        /**  Sin traducir 
+ Sin traducir 
+ Sin traducir 
+         */
         public static final int arrayAcciones=0x7f060000;
         public static final int arrayAccionesValues=0x7f060001;
     }
@@ -132,6 +136,10 @@ public final class R {
         public static final int msgApkInstalada=0x7f05002a;
         public static final int msgFileErroneo=0x7f05002e;
         public static final int msgNoBusybox=0x7f050029;
+        /**  Sin traducir 
+ Sin traducir 
+ Sin traducir 
+         */
         public static final int msgNoFull=0x7f05002f;
         public static final int msgNoFullLista=0x7f050030;
         public static final int msgNoRoot=0x7f050028;

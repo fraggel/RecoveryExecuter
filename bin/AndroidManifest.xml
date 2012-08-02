@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.fraggel.recoveryexecuter.pro"
+    android:icon="@drawable/ic_launcher"
+    android:versionCode="5"
+    android:versionName="1.4.5" >
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
+    </uses-permission>
+
+    <uses-sdk
+        android:icon="@drawable/ic_launcher"
+        android:minSdkVersion="8"
+        android:targetSdkVersion="11" />
+
+    <application
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name" >
+        <activity
+            android:name="MainActivity"
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/app_name" >
+            <intent-filter android:icon="@drawable/ic_launcher" >
+                <action
+                    android:name="android.intent.action.MAIN"
+                    android:icon="@drawable/ic_launcher" />
+
+                <category
+                    android:name="android.intent.category.LAUNCHER"
+                    android:icon="@drawable/ic_launcher" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="config"
+            android:icon="@drawable/ic_launcher" >
+        </activity>
+        <activity
+            android:name="fileselect"
+            android:icon="@drawable/ic_launcher" >
+        </activity>
+        <activity
+            android:name="install"
+            android:icon="@drawable/ic_launcher" >
+        </activity>
+        <activity
+            android:name="backupRestore"
+            android:icon="@drawable/ic_launcher" >
+        </activity>
+        <activity
+            android:name="ayuda"
+            android:icon="@drawable/ic_launcher" >
+        </activity>
+        <activity
+            android:name="ayudaLista"
+            android:icon="@drawable/ic_launcher" >
+        </activity>
+        <activity
+            android:name="crearLista"
+            android:icon="@drawable/ic_launcher" >
+        </activity>
+        <activity
+            android:name="acercade"
+            android:icon="@drawable/ic_launcher" >
+        </activity>
+    </application>
+
+</manifest>

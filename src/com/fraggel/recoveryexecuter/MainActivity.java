@@ -23,6 +23,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -40,6 +41,8 @@ public class MainActivity extends Activity {
 	AlertDialog diag;
 	ArrayList lista;
 	File rutaTmp;
+	File root;
+	File sdCard;
 	String items[];
 	String values[];
 	Resources res;
@@ -54,8 +57,20 @@ public class MainActivity extends Activity {
 			android.content.res.Configuration conf = res.getConfiguration();
 			// conf.locale=new Locale("fr");
 			res.updateConfiguration(conf, dm);
-
-			rutaTmp = new File("/mnt/sdcard/RecoveryExecuter/");
+			root=Environment.getRootDirectory();
+			sdCard=Environment.getExternalStorageDirectory();
+			rutaTmp = new File(sdCard.getPath()+"/RecoveryExecuter/");
+			if(!sdCard.canRead()){
+				diag.setMessage(res.getString(R.string.msgNoSdcard));
+				diag.setButton(AlertDialog.BUTTON_POSITIVE,
+						res.getString(R.string.aceptar),
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int witch) {
+								finish();
+							}
+						});
+				diag.show();
+			}
 			rutaTmp.mkdirs();
 			if (controlRoot()) {
 				if (!controlBusybox()) {
@@ -77,29 +92,34 @@ public class MainActivity extends Activity {
 	}
 
 	private boolean controlRoot() {
-		boolean root = false;
-		File f = new File("/system/bin/su");
+		boolean rootB = false;
+		File f = new File(root.getPath()+"/bin/su");
 		if (!f.exists()) {
-			f = new File("/system/xbin/su");
+			f = new File(root.getPath()+"/xbin/su");
 			if (!f.exists()) {
-				root = false;
-				diag.setMessage(res.getString(R.string.msgNoRoot));
+				rootB = false;
 			} else {
-				root = true;
+				rootB = true;
 			}
 		} else {
-			root = true;
+			rootB = false;
 		}
-		if (root) {
+		if (rootB) {
 			try {
 				Runtime rt = Runtime.getRuntime();
 				rt.exec("su");
 			} catch (Exception e) {
 				new REException(e);
 			}
-
 		}
-		return root;
+		if(!rootB){
+			diag.setMessage(res.getString(R.string.msgNoRoot));
+			diag.show();
+			
+		}
+		
+		
+		return rootB;
 	}
 
 	public void installApk(View v) {
@@ -151,13 +171,12 @@ public class MainActivity extends Activity {
 	}
 
 	private boolean controlBusybox() {
-		boolean busybox = false;
-		File f = new File("/system/bin/busybox");
+		boolean busybox = true;
+		File f = new File(root.getPath()+"/bin/busybox");
 		if (!f.exists()) {
-			f = new File("/system/xbin/busybox");
+			f = new File(root.getPath()+"/xbin/busybox");
 			if (!f.exists()) {
 				busybox = false;
-				diag.setMessage(res.getString(R.string.msgNoBusybox));
 			} else {
 				busybox = true;
 			}
@@ -181,7 +200,7 @@ public class MainActivity extends Activity {
 		try {
 			borrarDirectorio(rutaTmp);
 			sp = getSharedPreferences("recexec", Context.MODE_WORLD_WRITEABLE);
-			initialDir = sp.getString("url", "/mnt/sdcard/Download/");
+			initialDir = sp.getString("url", sdCard.getPath()+"/Download/");
 
 			Intent intent = new Intent(this, crearLista.class);
 			intent.putStringArrayListExtra("lista", lista);
@@ -200,7 +219,7 @@ public class MainActivity extends Activity {
 	private void showFileChooser() {
 		try {
 			sp = getSharedPreferences("recexec", Context.MODE_WORLD_WRITEABLE);
-			initialDir = sp.getString("url", "/mnt/sdcard/Download/");
+			initialDir = sp.getString("url", sdCard.getPath()+"/Download/");
 
 			Intent intent = new Intent(this, fileselect.class);
 			startActivityForResult(intent, FILE_SELECT_CODE);
@@ -393,7 +412,7 @@ public class MainActivity extends Activity {
 													if (!"".equals(file)) {
 														bos.write(("echo 'install_zip(\""
 																+ file.replaceFirst(
-																		"/mnt/sdcard/",
+																		sdCard.getPath()+"/",
 																		"/emmc/")
 																		.replaceFirst(
 																				"/mnt/extSdCard/",
@@ -463,7 +482,7 @@ public class MainActivity extends Activity {
 		}
 		if (!"".equals(file)) {
 			bos.write(("echo 'install_zip(\""
-					+ file.replaceFirst("/mnt/sdcard/", "/emmc/").replaceFirst(
+					+ file.replaceFirst(sdCard.getPath()+"/", "/emmc/").replaceFirst(
 							"/mnt/extSdCard/", "/sdcard/") + "\");' >> /cache/recovery/extendedcommand\n")
 					.getBytes());
 			algoSelect = true;
@@ -478,8 +497,8 @@ public class MainActivity extends Activity {
 	}
 
 	public boolean crearZipCwm(String f) throws Exception {
-		File rutaTmpKernel = new File("/mnt/sdcard/RecoveryExecuter/kernel/");
-		File rutaTmpModem = new File("/mnt/sdcard/RecoveryExecuter/modem/");
+		File rutaTmpKernel = new File(sdCard.getPath()+"/RecoveryExecuter/kernel/");
+		File rutaTmpModem = new File(sdCard.getPath()+"/RecoveryExecuter/modem/");
 		rutaTmp.mkdirs();
 		rutaTmpKernel.mkdirs();
 		rutaTmpModem.mkdirs();

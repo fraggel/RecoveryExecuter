@@ -136,13 +136,14 @@ public final class R {
         public static final int msgApkInstalada=0x7f05002a;
         public static final int msgFileErroneo=0x7f05002e;
         public static final int msgNoBusybox=0x7f050029;
+        public static final int msgNoFull=0x7f050030;
+        public static final int msgNoFullLista=0x7f050031;
+        public static final int msgNoRoot=0x7f050028;
         /**  Sin traducir 
  Sin traducir 
  Sin traducir 
          */
-        public static final int msgNoFull=0x7f05002f;
-        public static final int msgNoFullLista=0x7f050030;
-        public static final int msgNoRoot=0x7f050028;
+        public static final int msgNoSdcard=0x7f05002f;
         public static final int no=0x7f050018;
         public static final int noEmailCliente=0x7f050021;
         public static final int noerrorlog=0x7f050023;

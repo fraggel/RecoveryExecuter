@@ -14,7 +14,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
-import android.R;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;

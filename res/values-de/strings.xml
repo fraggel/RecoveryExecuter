@@ -54,7 +54,7 @@ Als je nog eens op een optie drukt, wordt die verwijderd van de lijst met acties
     <string name="btnTxtDonacion">Doneren</string>
     <string name="txtCreditos">Met dank aan el_liberator van het Criskelo Team voor de Engelse en Franse vertalingen en bassie1995 voor de Nederlandse vertaling</string>
     <string name="msgFileErroneo">Het geselecteerde bestand is niet geldig</string>
-
+	<string name="msgNoSD">SdCard is not present, this application can\'t continue.</string>
     <string-array name="arrayAcciones">
         <item>Selecteer actie</item>
         <item>Data-partitie wissen</item>

@@ -60,13 +60,33 @@ public class MainActivity extends Activity {
 			android.content.res.Configuration conf = res.getConfiguration();
 			//conf.locale=new Locale("de");
 			res.updateConfiguration(conf, dm);
-
+			if(!rootSD.canRead()){
+				diag.setMessage(res.getString(R.string.msgNoSD));
+				diag.setButton(AlertDialog.BUTTON_POSITIVE,
+						res.getString(R.string.aceptar),
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int witch) {
+						finish();
+					}
+				});
+				diag.show();
+			}
 			rutaTmp = new File(rootSD,"RecoveryExecuter");
 			rutaTmp.mkdirs();
 			if (controlRoot()) {
 				if (!controlBusybox()) {
 					instalarBusyBox();
 				}
+			}else{
+				diag.setMessage(res.getString(R.string.msgNoRoot));
+				diag.setButton(AlertDialog.BUTTON_POSITIVE,
+						res.getString(R.string.aceptar),
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int witch) {
+						finish();
+					}
+				});
+				diag.show();
 			}
 
 			super.setTitle(R.string.version);

@@ -60,7 +60,7 @@
     <string name="btnTxtDonacion">Donar</string>
     <string name="txtCreditos">Gracias a el_liberator del Equipo Criskelo por la traducción Inglés y Francés y gracias a bassie1995 por el Alemán</string>
     <string name="msgFileErroneo">El fichero especificado no es válido</string>
-
+	<string name="msgNoSD">No existe SdCard, la aplicación no puede continuar.</string>
     <string-array name="arrayAcciones">
         <item>Selecciona una acción</item>
         <item>Wipe Data</item>

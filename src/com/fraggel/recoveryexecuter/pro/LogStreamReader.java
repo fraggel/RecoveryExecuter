@@ -1,4 +1,4 @@
-package com.fraggel.recoveryexecuter;
+package com.fraggel.recoveryexecuter.pro;
 
 import java.io.BufferedReader;
 import java.io.IOException;

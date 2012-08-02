@@ -1,10 +1,12 @@
-package com.fraggel.recoveryexecuter;
+package com.fraggel.recoveryexecuter.pro;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+
+import com.fraggel.recoveryexecuter.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;

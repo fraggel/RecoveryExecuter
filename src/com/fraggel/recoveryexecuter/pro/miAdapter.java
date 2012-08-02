@@ -1,6 +1,8 @@
-package com.fraggel.recoveryexecuter;
+package com.fraggel.recoveryexecuter.pro;
 
 import java.util.List;
+
+import com.fraggel.recoveryexecuter.R;
 
 import android.content.Context;
 import android.view.LayoutInflater;

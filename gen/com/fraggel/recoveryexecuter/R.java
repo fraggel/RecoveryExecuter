@@ -117,13 +117,6 @@ public final class R {
         public static final int btnTxtDonacion=0x7f05002c;
         public static final int cancelar=0x7f050014;
         public static final int config=0x7f050015;
-        /** 
-        <string name="configurl">Selecciona la carpeta que deseas usar como predeterminada, esto hara que cada 
-		vez que quieras flashear un fichero el explorador de archivos se posicione en dicha carpeta\n\nUna 
-		vez seleccionada la carpeta pulsa menu/guardar o el boton de \"Guardar\" para guardar la ruta y volver 
-		a la pantalla anterior.</string>
-    
-         */
         public static final int configurl=0x7f050003;
         public static final int contacto=0x7f05001e;
         public static final int email=0x7f05001f;

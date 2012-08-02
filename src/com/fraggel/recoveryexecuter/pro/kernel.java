@@ -1,4 +1,4 @@
-package com.fraggel.recoveryexecuter;
+package com.fraggel.recoveryexecuter.pro;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -6,18 +6,16 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 
-public class modem {
+public class kernel {
 
-	public boolean writeModem(String ruta, InputStream isBinary,
-			InputStream isScript, InputStream isFlash) {
+	public boolean writeKernel(String ruta, InputStream isBinary,
+			InputStream isScript) {
 		boolean retorno = false;
 		try {
-			File r = new File(ruta);
 			File f = new File(ruta + "/META-INF/com/google/android/");
 			f.mkdirs();
 			File updatebinary = new File(f.getPath() + "/update-binary");
 			File updatescript = new File(f.getPath() + "/updater-script");
-			File flashimage = new File(r.getPath() + "/flash_image");
 
 			BufferedInputStream fisB = new BufferedInputStream(isBinary);
 			BufferedOutputStream bosB = new BufferedOutputStream(
@@ -33,10 +31,10 @@ public class modem {
 			bosB.flush();
 			bosB.close();
 
-			int y = -1;
 			BufferedInputStream fisS = new BufferedInputStream(isScript);
 			BufferedOutputStream bosS = new BufferedOutputStream(
 					new FileOutputStream(updatescript));
+			int y = -1;
 			y = fisS.read();
 			while (y != -1) {
 				bosS.write(y);
@@ -44,23 +42,11 @@ public class modem {
 			}
 			bosS.flush();
 			bosS.close();
-
-			int z = -1;
-			BufferedInputStream fisF = new BufferedInputStream(isFlash);
-			BufferedOutputStream bosF = new BufferedOutputStream(
-					new FileOutputStream(flashimage));
-			z = fisF.read();
-			while (z != -1) {
-				bosF.write(z);
-				z = fisF.read();
-			}
-			bosF.flush();
-			bosF.close();
 			retorno = true;
 		} catch (Exception e) {
 			retorno = false;
 		}
 		return retorno;
-
 	}
+
 }

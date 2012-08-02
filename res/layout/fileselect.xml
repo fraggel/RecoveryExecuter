@@ -9,12 +9,12 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
 
-        <com.fraggel.recoveryexecuter.FileFolderLayout
+        <com.fraggel.recoveryexecuter.pro.FileFolderLayout
             android:id="@+id/localfilefolders"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             layout="@layout/filefolderview" >
-        </com.fraggel.recoveryexecuter.FileFolderLayout>
+        </com.fraggel.recoveryexecuter.pro.FileFolderLayout>
     </LinearLayout>
 
 </LinearLayout>

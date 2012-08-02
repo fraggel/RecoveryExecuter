@@ -1,8 +1,10 @@
-package com.fraggel.recoveryexecuter;
+package com.fraggel.recoveryexecuter.pro;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.fraggel.recoveryexecuter.R;
 
 import android.app.AlertDialog;
 import android.content.Context;

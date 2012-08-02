@@ -1,4 +1,4 @@
-package com.fraggel.recoveryexecuter;
+package com.fraggel.recoveryexecuter.pro;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -30,6 +30,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 
+import com.fraggel.recoveryexecuter.R;
 import com.ice.tar.Tar;
 
 public class MainActivity extends Activity {

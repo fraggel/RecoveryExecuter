@@ -9,12 +9,12 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
 
-        <com.fraggel.recoveryexecuter.installLayout
+        <com.fraggel.recoveryexecuter.pro.installLayout
             android:id="@+id/apkfilefolders"
             android:layout_width="fill_parent"
             android:layout_height="400dp"
             layout="@layout/apkfolderview" >
-        </com.fraggel.recoveryexecuter.installLayout>
+        </com.fraggel.recoveryexecuter.pro.installLayout>
     </LinearLayout>
 
     <TextView

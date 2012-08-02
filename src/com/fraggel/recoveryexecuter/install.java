@@ -11,7 +11,6 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,26 +24,24 @@ public class install extends Activity implements IAPKItemListener {
 	SharedPreferences sp;
 	AlertDialog diag;
 	Resources res;
-	File root;
 
 	public void onCreate(Bundle savedInstanceState) {
 		diag = new AlertDialog.Builder(this).create();
 		try {
 			res = getResources();
-			root = Environment.getExternalStorageDirectory();
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.apkselect);
 
 			setTitle(res.getString(R.string.selecarchivo));
 
-			initialDir = root.getAbsolutePath()+"/Download/";
+			initialDir = "/mnt/sdcard/Download/";
 			installLayout localFileFolders = (installLayout) findViewById(R.id.apkfilefolders);
 			localFileFolders.setIAPKItemListener(this);
 			localFileFolders.setDir("/mnt");
 			try {
 				sp = getSharedPreferences("recexec",
 						Context.MODE_WORLD_WRITEABLE);
-				initialDir = sp.getString("url", root.getAbsolutePath()+"/Download/");
+				initialDir = sp.getString("url", "/mnt/sdcard/Download/");
 				localFileFolders.setDir(initialDir);
 
 			} catch (Exception e) {

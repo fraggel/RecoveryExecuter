@@ -6,29 +6,25 @@ import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.Calendar;
 
-import android.os.Environment;
-
 public class REException extends Throwable {
 	Exception e;
 	String mensaje;
 	StackTraceElement trace;
 	File rutaTmp;
 	BufferedOutputStream bos;
-	File root;
 
 	public REException(Exception e) {
-		root = Environment.getExternalStorageDirectory();
-		rutaTmp = new File(root.getAbsolutePath()+"/RecoveryExecuter/");
+		rutaTmp = new File("/mnt/sdcard/RecoveryExecuter/");
 		rutaTmp.mkdirs();
-		rutaTmp = new File(root.getAbsolutePath()+"/RecoveryExecuter/exceptions.log");
+		rutaTmp = new File("/mnt/sdcard/RecoveryExecuter/exceptions.log");
 		setE(e);
 		printTrace();
 	}
 
 	public REException(String mensaje, StackTraceElement trace) {
-		rutaTmp = new File(root.getAbsolutePath()+"/RecoveryExecuter/");
+		rutaTmp = new File("/mnt/sdcard/RecoveryExecuter/");
 		rutaTmp.mkdirs();
-		rutaTmp = new File(root.getAbsolutePath()+"/RecoveryExecuter/exceptions.log");
+		rutaTmp = new File("/mnt/sdcard/RecoveryExecuter/exceptions.log");
 		setMensaje(mensaje);
 		setTrace(trace);
 		setE(null);

@@ -29,7 +29,7 @@
     <string name="btnInstallApk">Instalar Apk</string>
     <string name="btnNandroid">Backup/Restore</string>
     <string name="salir">Salir</string>
-    <string name="version">RecoveryExecuter 1.4.6</string>
+    <string name="version">RecoveryExecuter 1.4.5</string>
     <string name="btnGuardarLista">Guardar Lista</string>
     <string name="rutaguardada">Ruta guardada</string>
     <string name="aceptar">Aceptar</string>
@@ -58,9 +58,9 @@
     <string name="msgApkInstalada">Aplicacion instalada</string>
     <string name="txtDonacion">Contribuye si quieres</string>
     <string name="btnTxtDonacion">Donar</string>
-    <string name="txtCreditos">Gracias a el_liberator del Equipo Criskelo por la traducción Inglés y Francés y gracias a bassie1995 por el Alemán</string>
+    <string name="txtCreditos">Gracias a el_liberator del Equipo Criskelo por la traducción Inglés y Francés</string>
     <string name="msgFileErroneo">El fichero especificado no es válido</string>
-	<string name="msgNoSD">No existe SdCard, la aplicación no puede continuar.</string>
+
     <string-array name="arrayAcciones">
         <item>Selecciona una acción</item>
         <item>Wipe Data</item>

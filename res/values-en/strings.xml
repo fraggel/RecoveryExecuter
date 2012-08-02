@@ -23,7 +23,7 @@ Clicking on any item that item will be removed from the list of actions.After th
     <string name="btnInstallApk">Install Apk</string>
     <string name="btnNandroid">Backup/Restore</string>
     <string name="salir">Exit</string>
-    <string name="version">RecoveryExecuter 1.4.6</string>
+    <string name="version">RecoveryExecuter 1.4.5</string>
     <string name="btnGuardarLista">Save List</string>
     <string name="rutaguardada">Path saved</string>
     <string name="aceptar">Accept</string>
@@ -52,9 +52,9 @@ Clicking on any item that item will be removed from the list of actions.After th
     <string name="msgApkInstalada">Application installed</string>
     <string name="txtDonacion">Contribute if you want</string>
     <string name="btnTxtDonacion">Donate</string>
-    <string name="txtCreditos">Thanks to el_liberator from Criskelo Team for English and French translation and thanks to bassie1995 for German</string>
+    <string name="txtCreditos">Thanks to el_liberator from Criskelo Team for English and French translation</string>
     <string name="msgFileErroneo">The specified file is not valid</string>
-	<string name="msgNoSD">SdCard is not present, this application can\'t continue.</string>
+
     <string-array name="arrayAcciones">
         <item>Select action</item>
         <item>Wipe Data</item>

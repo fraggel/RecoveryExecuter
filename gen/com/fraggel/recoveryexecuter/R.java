@@ -12,6 +12,7 @@ public final class R {
         /**  Sin traducir 
  Sin traducir 
  Sin traducir 
+ Sin traducir 
          */
         public static final int arrayAcciones=0x7f060000;
         public static final int arrayAccionesValues=0x7f060001;
@@ -140,6 +141,7 @@ public final class R {
         public static final int msgNoFullLista=0x7f050031;
         public static final int msgNoRoot=0x7f050028;
         /**  Sin traducir 
+ Sin traducir 
  Sin traducir 
  Sin traducir 
          */

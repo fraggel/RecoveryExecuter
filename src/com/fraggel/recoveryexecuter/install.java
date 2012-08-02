@@ -61,9 +61,18 @@ public class install extends Activity implements IAPKItemListener,DialogInterfac
 		try {
 			RadioButton rdbNormal = (RadioButton) findViewById(R.id.rdbnormal);
 			RadioButton rdbSistema = (RadioButton) findViewById(R.id.rdbsystem);
-			externalClass exCl=new externalClass();
-			exCl.instalarAPK(ficheroAPK, res, diag, rdbNormal, rdbSistema,this);
-			
+			if (ficheroAPK != null && !"".equals(ficheroAPK)
+					&& ficheroAPK.toLowerCase().endsWith(".apk")) {
+				if (rdbNormal.isChecked()) {
+					Intent intent = new Intent(Intent.ACTION_VIEW);
+					intent.setDataAndType(Uri.fromFile(new File(ficheroAPK)),
+							"application/vnd.android.package-archive");
+					startActivity(intent);
+				} else if (rdbSistema.isChecked()) {
+					externalClass exCl=new externalClass();
+					exCl.instalarAPK(ficheroAPK, res, diag, rdbNormal, rdbSistema,this);
+				}
+			}
 		} catch (Exception e) {
 			new REException(e);
 

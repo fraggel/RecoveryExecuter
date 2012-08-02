@@ -4,18 +4,12 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
+  <!--   <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
-
-        <com.fraggel.recoveryexecuter.installLayout
-            android:id="@+id/apkfilefolders"
-            android:layout_width="fill_parent"
-            android:layout_height="400dp"
-            layout="@layout/apkfolderview" >
-        </com.fraggel.recoveryexecuter.installLayout>
-    </LinearLayout>
+-->
+   <!-- </LinearLayout>-->
 
     <TextView
         android:id="@+id/rdbinstalar"
@@ -34,8 +28,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="@string/rdbTxtNormal" >
-        </RadioButton>
+            android:text="@string/rdbTxtNormal" />
 
         <RadioButton
             android:id="@+id/rdbsystem"
@@ -52,5 +45,11 @@
         android:onClick="instalarAPK"
         android:text="@string/txtinstalar" >
     </Button>
+
+    <com.fraggel.recoveryexecuter.installLayout
+        android:id="@+id/apkfilefolders"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+    </com.fraggel.recoveryexecuter.installLayout>
 
 </LinearLayout>

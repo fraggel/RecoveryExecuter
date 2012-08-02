@@ -13,10 +13,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class config extends Activity implements IFolderItemListener {
 
-	private EditText edittext;
+	private TextView edittext;
 	private String initialDir;
 	SharedPreferences sp;
 	AlertDialog diag;
@@ -27,7 +28,7 @@ public class config extends Activity implements IFolderItemListener {
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.config);
 			setTitle(getResources().getString(R.string.config));
-
+			
 			initialDir = "/mnt/sdcard/Download/";
 			FolderLayout localFolders = (FolderLayout) findViewById(R.id.localfolders);
 			localFolders.setIFolderItemListener(this);
@@ -43,8 +44,10 @@ public class config extends Activity implements IFolderItemListener {
 
 			}
 
-			edittext = (EditText) findViewById(R.id.editText);
+			edittext = (TextView) findViewById(R.id.editText);
 			edittext.setText(initialDir);
+			
+			
 		} catch (Exception e) {
 
 			new REException(e);
@@ -72,7 +75,7 @@ public class config extends Activity implements IFolderItemListener {
 
 	public void OnFileClicked(File file) {
 		try {
-			edittext = (EditText) findViewById(R.id.editText);
+			edittext = (TextView) findViewById(R.id.editText);
 			edittext.setText(file.getPath());
 			initialDir = file.getPath();
 		} catch (Exception e) {

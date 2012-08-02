@@ -117,8 +117,7 @@ public class MainActivity extends Activity {
 			diag.show();
 			
 		}
-		
-		
+
 		return rootB;
 	}
 

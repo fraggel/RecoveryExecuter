@@ -1,6 +1,5 @@
 package com.fraggel.recoveryexecuter;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -25,7 +24,7 @@ import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 
 public class crearLista extends Activity implements OnItemSelectedListener,
-		AdapterView.OnItemClickListener {
+		AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 
 	AlertDialog diag;
 	String selected;
@@ -154,55 +153,8 @@ public class crearLista extends Activity implements OnItemSelectedListener,
 	}
 
 	public void anyadir(View v) throws Exception {
-		map = new HashMap<String, String>();
-		if(listaAcciones.size()==3){
-			diag.setMessage(res.getString(R.string.msgNoFullLista));
-			diag.setButton(AlertDialog.BUTTON_NEGATIVE,
-					res.getString(R.string.cancelar),
-					new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int witch) {
-						}
-					});
-			diag.setButton(AlertDialog.BUTTON_POSITIVE,
-					res.getString(R.string.aceptar),
-					new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int witch) {
-							try {
-								Intent intent = new Intent(Intent.ACTION_VIEW);
-								intent.setData(Uri
-										.parse("market://details?id=com.fraggel.recoveryexec.pro"));
-								startActivity(intent);
-								finish();
-							} catch (Exception e) {
-								new REException(e);
-
-							}
-						}
-					});
-			diag.show();
-		}
-		else{
-			if (file != null && !"".equals(file)) {
-				listaAcciones.add(file);
-				File ff = new File(file);
-				selected = selected + " " + ff.getName();
-			} else if (!"".equals(selected)) {
-				int r = -1;
-				for (int x = 0; x < items.length; x++) {
-					if (selected.equals(items[x])) {
-						r = x;
-					}
-				}
-				listaAcciones.add(values[r]);
-			}
-			if (!"".equals(selected)) {
-				map.put("rowtexts", selected);
-				fillMaps.add(map);
-			}
-			file = "";
-		}
-		lista.setAdapter(adapt);
-
+		externalClass exCl=new externalClass();
+		exCl.anyadir(map, listaAcciones, diag, res, file, selected, items, values, fillMaps, lista, adapt,this);
 	}
 
 	protected void onActivityResult(int request, int result, Intent data) {
@@ -312,6 +264,22 @@ public class crearLista extends Activity implements OnItemSelectedListener,
 
 		}
 		return ret;
+	}
+
+	@Override
+	public void onClick(DialogInterface dialog, int which) {
+		try {
+			if(which==-1){
+				Intent intent = new Intent(Intent.ACTION_VIEW);
+				intent.setData(Uri
+						.parse("market://details?id=com.fraggel.recoveryexecuter.pro"));
+				startActivity(intent);
+				finish();
+			}
+		} catch (Exception e) {
+			new REException(e);
+
+		}
 	}
 
 }

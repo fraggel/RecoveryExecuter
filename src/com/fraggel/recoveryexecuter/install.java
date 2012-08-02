@@ -17,7 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
 
-public class install extends Activity implements IAPKItemListener {
+public class install extends Activity implements IAPKItemListener,DialogInterface.OnClickListener {
 
 	String ficheroAPK;
 	private String initialDir;
@@ -61,40 +61,9 @@ public class install extends Activity implements IAPKItemListener {
 		try {
 			RadioButton rdbNormal = (RadioButton) findViewById(R.id.rdbnormal);
 			RadioButton rdbSistema = (RadioButton) findViewById(R.id.rdbsystem);
-			if (ficheroAPK != null && !"".equals(ficheroAPK)
-					&& ficheroAPK.toLowerCase().endsWith(".apk")) {
-				if (rdbNormal.isChecked()) {
-					Intent intent = new Intent(Intent.ACTION_VIEW);
-					intent.setDataAndType(Uri.fromFile(new File(ficheroAPK)),
-							"application/vnd.android.package-archive");
-					startActivity(intent);
-				} else if (rdbSistema.isChecked()) {
-					diag.setMessage(res.getString(R.string.msgNoFull));
-					diag.setButton(AlertDialog.BUTTON_NEGATIVE,
-							res.getString(R.string.cancelar),
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog, int witch) {
-								}
-							});
-					diag.setButton(AlertDialog.BUTTON_POSITIVE,
-							res.getString(R.string.aceptar),
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog, int witch) {
-									try {
-										Intent intent = new Intent(Intent.ACTION_VIEW);
-										intent.setData(Uri
-												.parse("market://details?id=com.fraggel.recoveryexec.pro"));
-										startActivity(intent);
-										finish();
-									} catch (Exception e) {
-										new REException(e);
-
-									}
-								}
-							});
-					diag.show();
-				}
-			}
+			externalClass exCl=new externalClass();
+			exCl.instalarAPK(ficheroAPK, res, diag, rdbNormal, rdbSistema,this);
+			
 		} catch (Exception e) {
 			new REException(e);
 
@@ -148,5 +117,21 @@ public class install extends Activity implements IAPKItemListener {
 
 		}
 		return ret;
+	}
+
+	@Override
+	public void onClick(DialogInterface dialog, int which) {
+		try {
+			if(which==-1){
+				Intent intent = new Intent(Intent.ACTION_VIEW);
+				intent.setData(Uri
+						.parse("market://details?id=com.fraggel.recoveryexecuter.pro"));
+				startActivity(intent);
+				finish();
+			}
+		} catch (Exception e) {
+			new REException(e);
+
+		}
 	}
 }

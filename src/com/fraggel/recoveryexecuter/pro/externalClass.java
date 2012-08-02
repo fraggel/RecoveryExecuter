@@ -48,15 +48,7 @@ public class externalClass extends Activity{
 	}
 	public void instalarAPK(String ficheroAPK,Resources res,AlertDialog diag,RadioButton rdbNormal,RadioButton rdbSistema,install install) {
 		try {
-			
-			if (ficheroAPK != null && !"".equals(ficheroAPK)
-					&& ficheroAPK.toLowerCase().endsWith(".apk")) {
-				if (rdbNormal.isChecked()) {
-					Intent intent = new Intent(Intent.ACTION_VIEW);
-					intent.setDataAndType(Uri.fromFile(new File(ficheroAPK)),
-							"application/vnd.android.package-archive");
-					startActivity(intent);
-				} else if (rdbSistema.isChecked()) {
+
 					Runtime runtime = Runtime.getRuntime();
 					Process exec = runtime.exec("su");
 					BufferedOutputStream outputStream = new BufferedOutputStream(
@@ -73,8 +65,6 @@ public class externalClass extends Activity{
 					outputStream.close();
 					diag.setMessage(res.getString(R.string.msgApkInstalada));
 					diag.show();
-				}
-			}
 		} catch (Exception e) {
 			new REException(e);
 

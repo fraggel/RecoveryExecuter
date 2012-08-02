@@ -54,7 +54,8 @@
     <string name="btnTxtDonacion">Donar</string>
     <string name="txtCreditos">Gracias a el_liberator del Equipo Criskelo por la traducción Inglés y Francés</string>
     <string name="msgFileErroneo">El fichero especificado no es válido</string>
-	<string name="msgNoFull">Esta funcionalidad solo está disponible en la versión Completa, Desea conectarse a Play Store y adquirirla?</string>
+	<string name="msgNoFull">Esta funcionalidad solo está disponible en la versión Completa, Quiere conectarse a Play Store para adquirirla?</string>
+	<string name="msgNoFullLista">Más de 3 elementos solo está disponible en la versión Completa, Quiere conectarse a Play Store para adquirirla?</string>
     <string-array name="arrayAcciones">
         <item>Selecciona una acción</item>
         <item>Wipe Data</item>

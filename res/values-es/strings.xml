@@ -9,7 +9,7 @@
     <string name="ayudaLista">Selecciona del desplegable la opción que quieres añadir a la lista de acciones, una vez seleccionada la acción pulsa \"Añadir a Lista\", si la opción seleccionada es 
 		    \"Flashear archivo\"" se mostrará el explorador de archivos para seleccionar el archivo a flashear.\n\nUna vez seleccionado el archivo es necesario pulsar el botón \"Añadir a Lista\".\n\nPulsando 
 		    sobre alguno de los elementos se eliminará dicho elemento de la lista de acciones.Una vez terminada la lista pulsar el boton \"Guardar Lista\".</string>
-    <string name="app_name">RecoveryExecuter</string>
+    <string name="app_name">RecoveryExecuter Lite</string>
     <!--
         <string name="configurl">Selecciona la carpeta que deseas usar como predeterminada, esto hara que cada 
 		vez que quieras flashear un fichero el explorador de archivos se posicione en dicha carpeta\n\nUna 
@@ -60,7 +60,7 @@
     <string name="btnTxtDonacion">Donar</string>
     <string name="txtCreditos">Gracias a el_liberator del Equipo Criskelo por la traducción Inglés y Francés</string>
     <string name="msgFileErroneo">El fichero especificado no es válido</string>
-
+	<string name="msgNoFull">Esta funcionalidad solo está disponible en la versión Completa, Quiere conectarse a Play Store para adquirirla?</string>
     <string-array name="arrayAcciones">
         <item>Selecciona una acción</item>
         <item>Wipe Data</item>

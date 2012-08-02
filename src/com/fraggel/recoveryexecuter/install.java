@@ -1,8 +1,8 @@
 package com.fraggel.recoveryexecuter;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
 
+import android.R;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -69,21 +69,7 @@ public class install extends Activity implements IAPKItemListener {
 							"application/vnd.android.package-archive");
 					startActivity(intent);
 				} else if (rdbSistema.isChecked()) {
-					Runtime runtime = Runtime.getRuntime();
-					Process exec = runtime.exec("su");
-					BufferedOutputStream outputStream = new BufferedOutputStream(
-							exec.getOutputStream());
-					outputStream.write(("mount -o rw,remount /system\n")
-							.getBytes());
-					outputStream
-							.write(("busybox cp \"" + ficheroAPK + "\" /system/app/\n")
-									.getBytes());
-					outputStream.flush();
-					outputStream.write(("mount -o ro,remount /system\n")
-							.getBytes());
-					outputStream.flush();
-					outputStream.close();
-					diag.setMessage(res.getString(R.string.msgApkInstalada));
+					diag.setMessage(res.getString(R.string.msgNoFull));
 					diag.show();
 				}
 			}

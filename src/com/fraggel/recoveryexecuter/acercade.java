@@ -2,6 +2,7 @@ package com.fraggel.recoveryexecuter;
 
 import java.io.File;
 
+import android.R;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;

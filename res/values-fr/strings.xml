@@ -14,7 +14,7 @@ Après avoir sélectionné le fichier, vous devez appuyer sur le bouton \ "Ajout
 
 
 En cliquant sur n\'importe quel élément il sera retiré de la liste des actions. Après cliquez sur le bouton \"Sauver la Liste\".."</string>
-    <string name="app_name">RecoveryExecuter</string>
+    <string name="app_name">RecoveryExecuter Lite</string>
     <string name="configurl">Chemin par défaut</string>
     <string name="wipedata">Wipe Data</string>
     <string name="wipecache">Wipe Cache</string>
@@ -59,7 +59,7 @@ En cliquant sur n\'importe quel élément il sera retiré de la liste des action
     <string name="btnTxtDonacion">Donner</string>
     <string name="txtCreditos">Merci à el_liberator de la Team Criskelo pour la traduction Anglais et Français</string>
     <string name="msgFileErroneo">Le fichier spécifié n\'est pas valide</string>
-
+	<string name="msgNoFull">Cette fonctionnalité est uniquement sur ​​la version Complète, Voulez-vous vous connecter à jouer au magasin et l\'acheter?</string>
     <string-array name="arrayAcciones">
         <item>Sélectioner une Action</item>
         <item>Wipe Data</item>

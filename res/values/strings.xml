@@ -9,7 +9,7 @@ For flash a kernel,modem or any other zip file simply select it from the file br
     <string name="ayudaLista">"Select from the dropdown the option you want to add to the list of actions, after selecting the action click \"Add to List\" if the option is selected \"Flashing file\" will show the file browser to select the file to flash
 After selecting the file you need to press the button \"Add to List\".
 Clicking on any item that item will be removed from the list of actions.After the list click the button \"Save List\"."</string>
-    <string name="app_name">RecoveryExecuter</string>
+    <string name="app_name">RecoveryExecuter Lite</string>
     <string name="configurl">Default Path</string>
     <string name="wipedata">Wipe Data</string>
     <string name="wipecache">Wipe Cache</string>
@@ -54,7 +54,7 @@ Clicking on any item that item will be removed from the list of actions.After th
     <string name="btnTxtDonacion">Donate</string>
     <string name="txtCreditos">Thanks to el_liberator from Criskelo Team for English and French translation</string>
     <string name="msgFileErroneo">The specified file is not valid</string>
-
+	<string name="msgNoFull">This functionality is only on Full version, Want to connect to Play Store and buy it?</string>
     <string-array name="arrayAcciones">
         <item>Select action</item>
         <item>Wipe Data</item>

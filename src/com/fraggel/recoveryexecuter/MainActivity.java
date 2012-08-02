@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
 	String items[];
 	String values[];
 	Resources res;
-
+	/*TEST LITE*/
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

@@ -15,7 +15,7 @@
         android:id="@+id/filerowtext"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="45dp"
         android:textSize="18dp" />
 
 </RelativeLayout>

@@ -4,38 +4,31 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-  <!--   <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
--->
-   <!-- </LinearLayout>-->
-
     <TextView
         android:id="@+id/rdbinstalar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/rdbtxtinstalar" />
-
+
     <RadioGroup
         android:id="@+id/grptipoinst"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/rdbtxtinstalar" >
-
+
         <RadioButton
             android:id="@+id/rdbnormal"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
             android:text="@string/rdbTxtNormal" />
 
         <RadioButton
             android:id="@+id/rdbsystem"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/rdbTxtSistema" >
-        </RadioButton>
+            android:text="@string/rdbTxtSistema" />
+
     </RadioGroup>
 
     <Button

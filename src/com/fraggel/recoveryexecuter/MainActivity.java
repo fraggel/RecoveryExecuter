@@ -215,6 +215,49 @@ public class MainActivity extends Activity {
 		borrarDirectorio(rutaTmp);
 		showFileChooser();
 	}
+	public void limpiarChecks(){
+		CheckBox chkdata = (CheckBox) findViewById(R.id.wipedata);
+		CheckBox chkcache = (CheckBox) findViewById(R.id.wipecache);
+		CheckBox chkdalvik = (CheckBox) findViewById(R.id.wipedalvik);
+		CheckBox chkbattery = (CheckBox) findViewById(R.id.wipebattery);
+		chkdata.setChecked(false);
+		chkcache.setChecked(false);
+		chkdalvik.setChecked(false);
+		chkbattery.setChecked(false);
+	}
+	public void executeWipe(View v) {
+		try {
+			diag.setMessage(res.getString(R.string.msgSoloWipe)
+					+ " " + file);
+			diag.setButton(AlertDialog.BUTTON_NEGATIVE,
+					res.getString(R.string.cancelar),
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,
+								int witch) {
+							limpiarChecks();
+						}
+					});
+			diag.setButton(AlertDialog.BUTTON_POSITIVE,
+					res.getString(R.string.aceptar),
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,
+								int witch) {
+							try {
+								file="";
+								escribirRecovery();
+							} catch (Exception e) {
+								new REException(e);
+
+							}
+						}
+					});
+			diag.show();
+			
+		} catch (Exception e) {
+			new REException(e);
+		}
+	}
+	
 
 	private void showFileChooser() {
 		try {
@@ -321,7 +364,7 @@ public class MainActivity extends Activity {
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int witch) {
-										// finish();
+										limpiarChecks();
 									}
 								});
 						dialog.setButton(AlertDialog.BUTTON_POSITIVE,

@@ -15,7 +15,8 @@
         android:id="@+id/filerowtextapk"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="45dp"
-        android:textSize="18dp" />
+        android:paddingLeft="2dp"
+        android:textSize="18dp" 
+        android:layout_toRightOf="@+id/fileimgapk"/>
 
 </RelativeLayout>

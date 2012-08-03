@@ -120,6 +120,12 @@ public final class R {
         public static final int btnGuardarLista=0x7f050011;
         public static final int btnInstallApk=0x7f05000d;
         public static final int btnNandroid=0x7f05000e;
+        /**  Sin traducir 
+ Sin traducir 
+ Sin traducir 
+ Sin traducir 
+         */
+        public static final int btnSoloWipe=0x7f05002e;
         public static final int btnTxtDonacion=0x7f05002c;
         public static final int cancelar=0x7f050014;
         public static final int config=0x7f050015;
@@ -136,17 +142,13 @@ public final class R {
         public static final int enviaEmail=0x7f050020;
         public static final int envioErrores=0x7f050022;
         public static final int msgApkInstalada=0x7f05002a;
-        public static final int msgFileErroneo=0x7f05002e;
+        public static final int msgFileErroneo=0x7f05002d;
         public static final int msgNoBusybox=0x7f050029;
-        public static final int msgNoFull=0x7f050030;
-        public static final int msgNoFullLista=0x7f050031;
+        public static final int msgNoFull=0x7f050032;
+        public static final int msgNoFullLista=0x7f050033;
         public static final int msgNoRoot=0x7f050028;
-        /**  Sin traducir 
- Sin traducir 
- Sin traducir 
- Sin traducir 
-         */
-        public static final int msgNoSdcard=0x7f05002f;
+        public static final int msgNoSdcard=0x7f050031;
+        public static final int msgSoloWipe=0x7f05002f;
         public static final int no=0x7f050018;
         public static final int noEmailCliente=0x7f050021;
         public static final int noerrorlog=0x7f050023;
@@ -159,7 +161,7 @@ public final class R {
         public static final int salirlista=0x7f05001b;
         public static final int selecarchivo=0x7f050019;
         public static final int si=0x7f050017;
-        public static final int txtCreditos=0x7f05002d;
+        public static final int txtCreditos=0x7f050030;
         public static final int txtDonacion=0x7f05002b;
         public static final int txtinstalar=0x7f050024;
         public static final int version=0x7f050010;

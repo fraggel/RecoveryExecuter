@@ -70,8 +70,9 @@ public class MainActivity extends Activity {
 							}
 						});
 				diag.show();
+			}else{
+				rutaTmp.mkdirs();
 			}
-			rutaTmp.mkdirs();
 			if (controlRoot()) {
 				if (!controlBusybox()) {
 					instalarBusyBox();

@@ -131,7 +131,7 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	public void nandroid() {
+	public void nandroid(View v) {
 		try {
 			Intent intent = new Intent(this, backupRestore.class);
 			startActivity(intent);
@@ -453,13 +453,9 @@ public class MainActivity extends Activity {
 														break;
 													}
 													if (!"".equals(file)) {
-														bos.write(("echo 'install_zip(\""
-																+ file.replaceFirst(
-																		sdCard.getPath()+"/",
-																		"/emmc/")
-																		.replaceFirst(
-																				"/mnt/extSdCard/",
-																				"/sdcard/") + "\");' >> /cache/recovery/extendedcommand\n")
+														String rutaCWM="";
+														rutaCWM=buscarCWMySustituirRutas(file);
+														bos.write(("echo 'install_zip(\""+ rutaCWM+"\");' >> /cache/recovery/extendedcommand\n")
 																.getBytes());
 														algoSelect = true;
 													}
@@ -491,7 +487,50 @@ public class MainActivity extends Activity {
 		}
 		super.onActivityResult(request, result, data);
 	}
-
+	public String buscarCWMySustituirRutas(String fichero){
+		String rutCWM="";
+		String cwmVersion="";
+		try {
+			
+		/*File fCWM=new File("/data/media/clockworkmod/recovery.log");
+		BufferedInputStream bis=new BufferedInputStream(new FileInputStream(fCWM));
+		byte[] tmp=new byte[2048];
+		bis.read(tmp);
+		cwmVersion=new String(tmp);
+		cwmVersion=cwmVersion.substring(cwmVersion.toLowerCase().indexOf("recovery v")+"recovery v".length(),cwmVersion.toLowerCase().indexOf("recovery v")+"recovery v".length()+1);
+		*/
+		cwmVersion="5";
+				
+		if("5".equals(cwmVersion)){
+			rutCWM=file.replaceFirst(sdCard.getPath()+"/","/emmc/").replaceFirst("/mnt/extSdCard/","/sdcard/");	
+		}else if("6".equals(cwmVersion)){
+			if(file.indexOf(sdCard.getPath())!=-1){
+				rutCWM=file.replaceFirst(sdCard.getPath()+"/","/sdcard/");
+			}else{
+				///mnt/extSdCard/
+				///mnt/emmc/
+				String result="/external_sd/";
+				String[] fileSplitted=file.split("/");
+				for (int i = 3; i < fileSplitted.length; i++) {
+					String string = fileSplitted[i];
+					if(i<fileSplitted.length-1){
+						result=result+string+"/";
+					}else{
+						result=result+string;
+					}
+				}
+				rutCWM=result;
+			}
+			
+		}else{
+			rutCWM=file.replaceFirst(sdCard.getPath()+"/","/emmc/").replaceFirst("/mnt/extSdCard/","/sdcard/");
+		}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rutCWM;
+	}
 	public void escribirRecovery() throws Exception {
 
 		Runtime rt = Runtime.getRuntime();
@@ -524,9 +563,9 @@ public class MainActivity extends Activity {
 			bos.write(("rm \"/data/system/batterystats.bin\"\n").getBytes());
 		}
 		if (!"".equals(file)) {
-			bos.write(("echo 'install_zip(\""
-					+ file.replaceFirst(sdCard.getPath()+"/", "/emmc/").replaceFirst(
-							"/mnt/extSdCard/", "/sdcard/") + "\");' >> /cache/recovery/extendedcommand\n")
+			String rutaCWM="";
+			rutaCWM=buscarCWMySustituirRutas(file);
+			bos.write(("echo 'install_zip(\""+ rutaCWM+"\");' >> /cache/recovery/extendedcommand\n")
 					.getBytes());
 			algoSelect = true;
 		}

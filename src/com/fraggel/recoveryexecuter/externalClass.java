@@ -1,4 +1,5 @@
 package com.fraggel.recoveryexecuter;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.SimpleAdapter;
@@ -68,5 +70,22 @@ public class externalClass extends Activity{
 		}
 
 	}
+	public String backupRestore(CheckBox chkbackup, CheckBox chkrestore,
+			CheckBox chkadvbackup, CheckBox chkadvrestore){
+		String bos="";
+		//restore_rom("/sdcard/clockworkmod/backup/2011-05-13-13.03.52", "boot", "system", "data", "cache", "sd-ext");
+		if(chkbackup.isChecked()){
+				bos=("echo 'backup_rom(\"/sdcard/clockworkmod/backup/RecoveryExecuter\");' >> /cache/recovery/extendedcommand\n");	
+		}else if(chkrestore.isChecked()){
+			bos=("echo 'restore_rom(\"/sdcard/clockworkmod/backup/RecoveryExecuter\");' >> /cache/recovery/extendedcommand\n");
+		}else if(chkadvbackup.isChecked()){
+			
+		}else if(chkadvrestore.isChecked()){
+			
+		}
+		
+		return bos;
+	}
+
 
 }

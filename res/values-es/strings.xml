@@ -9,7 +9,7 @@
     <string name="ayudaLista">Selecciona del desplegable la opción que quieres añadir a la lista de acciones, una vez seleccionada la acción pulsa \"Añadir a Lista\", si la opción seleccionada es 
 		    \"Flashear archivo\"" se mostrará el explorador de archivos para seleccionar el archivo a flashear.\n\nUna vez seleccionado el archivo es necesario pulsar el botón \"Añadir a Lista\".\n\nPulsando 
 		    sobre alguno de los elementos se eliminará dicho elemento de la lista de acciones.Una vez terminada la lista pulsar el boton \"Guardar Lista\".</string>
-    <string name="app_name">RecoveryExecuter Lite</string>
+    <string name="app_name">RecoveryExecuter</string>
     <!--
         <string name="configurl">Selecciona la carpeta que deseas usar como predeterminada, esto hara que cada 
 		vez que quieras flashear un fichero el explorador de archivos se posicione en dicha carpeta\n\nUna 
@@ -29,7 +29,7 @@
     <string name="btnInstallApk">Instalar Apk</string>
     <string name="btnNandroid">Backup/Restore</string>
     <string name="salir">Salir</string>
-    <string name="version">RecoveryExecuter Lite 1.4.5</string>
+    <string name="version">RecoveryExecuter  1.4.5</string>
     <string name="btnGuardarLista">Guardar Lista</string>
     <string name="rutaguardada">Ruta guardada</string>
     <string name="aceptar">Aceptar</string>

@@ -599,11 +599,11 @@ public class MainActivity extends Activity {
 
 			}
 		}
-		if (".zip".equals(ext)) {
+		/*if (".zip".equals(ext)) {
 			if (!validaCabeceraZip(f)) {
 				f = "";
 			}
-		}
+		}*/
 		if ("".equals(f)) {
 			erroneo = true;
 		}

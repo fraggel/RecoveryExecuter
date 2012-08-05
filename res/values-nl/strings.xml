@@ -9,7 +9,7 @@ Om een kernel, modem of enig ander zip-bestand te installeren, selecteer je het 
     <string name="ayudaLista">"Selecteer uit de lijst de optie die je aan de lijst met acties wilt toevoegen. Daarna druk je op "Toevoegen aan lijst", en als die optie geselecteerd is, laat "Bestand installeren" de bestandsbrowser zien om het te installeren bestand te selecteren.
 Na het bestand geselecteerd te hebben, druk je op "Toevoegen aan lijst".
 Als je nog eens op een optie drukt, wordt die verwijderd van de lijst met acties. Nadat je de de lijst opgesteld hebt, druk je op de knop "Lijst opslaan"."</string>
-    <string name="app_name">RecoveryExecuter Lite</string>
+    <string name="app_name">RecoveryExecuter </string>
     <string name="configurl">Standaardpad</string>
     <string name="wipedata">Data-partitie wissen</string>
     <string name="wipecache">Cache-partitie wissen</string>
@@ -23,7 +23,7 @@ Als je nog eens op een optie drukt, wordt die verwijderd van de lijst met acties
     <string name="btnInstallApk">APK installeren</string>
     <string name="btnNandroid">Backup maken/terugzetten</string>
     <string name="salir">Afsluiten</string>
-    <string name="version">RecoveryExecuter Lite 1.4.5</string>
+    <string name="version">RecoveryExecuter  1.4.5</string>
     <string name="btnGuardarLista">Lijst opslaan</string>
     <string name="rutaguardada">Pad opgeslagen</string>
     <string name="aceptar">Accepteren</string>

@@ -13,12 +13,16 @@
     </item>
     <item
         android:id="@+id/op4"
-        android:title="Configuration"/>
+        android:title="Backup/Restore">
+    </item>
     <item
         android:id="@+id/op5"
-        android:title="About..."/>
+        android:title="Configuration"/>
     <item
         android:id="@+id/op6"
+        android:title="About..."/>
+    <item
+        android:id="@+id/op7"
         android:title="Exit"/>
 
 </menu>

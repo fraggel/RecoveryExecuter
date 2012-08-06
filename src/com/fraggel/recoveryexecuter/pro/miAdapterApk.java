@@ -37,7 +37,7 @@ public class miAdapterApk extends BaseAdapter {
 		}
 
 		filerowtext = (TextView) convertView.findViewById(R.id.filerowtextapk);
-
+		
 		img1 = (ImageView) convertView.findViewById(R.id.fileimgapk);
 
 		filerowtext.setText(data.get(position).toString());

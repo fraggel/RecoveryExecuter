@@ -272,7 +272,7 @@ public class crearLista extends Activity implements OnItemSelectedListener,
 			if(which==-1){
 				Intent intent = new Intent(Intent.ACTION_VIEW);
 				intent.setData(Uri
-						.parse("market://details?id=com.fraggel.recoveryexecuter.pro"));
+						.parse("market://details?id=com.fraggel.recoveryexecuter.pro.pro"));
 				startActivity(intent);
 				finish();
 			}

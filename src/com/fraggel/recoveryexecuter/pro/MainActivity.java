@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Locale;
 import java.util.Stack;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -29,11 +30,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.CheckBox;
 
 import com.ice.tar.Tar;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements OnItemSelectedListener,
+AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 	private static final int FILE_SELECT_CODE = 0;
 	private String file = "";
 	private String initialDir = "/mnt/sdcard/Download/";
@@ -55,7 +59,7 @@ public class MainActivity extends Activity {
 			res = this.getResources();
 			DisplayMetrics dm = res.getDisplayMetrics();
 			android.content.res.Configuration conf = res.getConfiguration();
-			// conf.locale=new Locale("fr");
+			conf.locale=new Locale("en");
 			res.updateConfiguration(conf, dm);
 			root=Environment.getRootDirectory();
 			sdCard=Environment.getExternalStorageDirectory();
@@ -70,8 +74,9 @@ public class MainActivity extends Activity {
 							}
 						});
 				diag.show();
+			}else{
+				rutaTmp.mkdirs();
 			}
-			rutaTmp.mkdirs();
 			if (controlRoot()) {
 				if (!controlBusybox()) {
 					instalarBusyBox();
@@ -130,10 +135,13 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	public void nandroid() {
+	public void nandroid(View v) {
 		try {
-			Intent intent = new Intent(this, backupRestore.class);
-			startActivity(intent);
+			externalClass exCl=new externalClass();
+			Intent intent=exCl.initialBackup( this);
+			if(intent!=null){
+				startActivity(intent);
+			}
 		} catch (Exception e) {
 			new REException(e);
 		}
@@ -214,6 +222,49 @@ public class MainActivity extends Activity {
 		borrarDirectorio(rutaTmp);
 		showFileChooser();
 	}
+	public void limpiarChecks(){
+		CheckBox chkdata = (CheckBox) findViewById(R.id.wipedata);
+		CheckBox chkcache = (CheckBox) findViewById(R.id.wipecache);
+		CheckBox chkdalvik = (CheckBox) findViewById(R.id.wipedalvik);
+		CheckBox chkbattery = (CheckBox) findViewById(R.id.wipebattery);
+		chkdata.setChecked(false);
+		chkcache.setChecked(false);
+		chkdalvik.setChecked(false);
+		chkbattery.setChecked(false);
+	}
+	public void executeWipe(View v) {
+		try {
+			diag.setMessage(res.getString(R.string.msgSoloWipe)
+					+ " " + file);
+			diag.setButton(AlertDialog.BUTTON_NEGATIVE,
+					res.getString(R.string.cancelar),
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,
+								int witch) {
+							limpiarChecks();
+						}
+					});
+			diag.setButton(AlertDialog.BUTTON_POSITIVE,
+					res.getString(R.string.aceptar),
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,
+								int witch) {
+							try {
+								file="";
+								escribirRecovery();
+							} catch (Exception e) {
+								new REException(e);
+
+							}
+						}
+					});
+			diag.show();
+			
+		} catch (Exception e) {
+			new REException(e);
+		}
+	}
+	
 
 	private void showFileChooser() {
 		try {
@@ -277,14 +328,18 @@ public class MainActivity extends Activity {
 				ret = true;
 				break;
 			case R.id.op4:
+				nandroid(null);
+				ret = true;
+				break;	
+			case R.id.op5:
 				showConfig();
 				ret = true;
 				break;
-			case R.id.op5:
+			case R.id.op6:
 				showAbout();
 				ret = true;
 				break;
-			case R.id.op6:
+			case R.id.op7:
 				finish();
 				ret = true;
 				break;
@@ -320,7 +375,7 @@ public class MainActivity extends Activity {
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int witch) {
-										// finish();
+										limpiarChecks();
 									}
 								});
 						dialog.setButton(AlertDialog.BUTTON_POSITIVE,
@@ -375,6 +430,7 @@ public class MainActivity extends Activity {
 											boolean algoSelect = false;
 											boolean algoSelectRebootNormal = false;
 											boolean erroneo = false;
+											
 											for (int i = 0; i < lista.size(); i++) {
 												String string = (String) lista
 														.get(i);
@@ -398,6 +454,12 @@ public class MainActivity extends Activity {
 												} else if ("4".equals(string)) {
 													bos.write(("rm \"/data/system/batterystats.bin\"\n")
 															.getBytes());
+												}else if ("6".equals(string)) {
+													externalClass exCl=new externalClass();
+													bos.write(exCl.backupMain(res, diag, this).getBytes());
+												}else if ("7".equals(string)) {
+													externalClass exCl=new externalClass();
+													bos.write(exCl.restoreMain(res, diag, this).getBytes());
 												} else if ("0".equals(string)) {
 
 												} else if (!"".equals(string)) {
@@ -409,13 +471,9 @@ public class MainActivity extends Activity {
 														break;
 													}
 													if (!"".equals(file)) {
-														bos.write(("echo 'install_zip(\""
-																+ file.replaceFirst(
-																		sdCard.getPath()+"/",
-																		"/emmc/")
-																		.replaceFirst(
-																				"/mnt/extSdCard/",
-																				"/sdcard/") + "\");' >> /cache/recovery/extendedcommand\n")
+														String rutaCWM="";
+														rutaCWM=buscarCWMySustituirRutas(file);
+														bos.write(("echo 'install_zip(\""+ rutaCWM+"\");' >> /cache/recovery/extendedcommand\n")
 																.getBytes());
 														algoSelect = true;
 													}
@@ -447,7 +505,50 @@ public class MainActivity extends Activity {
 		}
 		super.onActivityResult(request, result, data);
 	}
-
+	public String buscarCWMySustituirRutas(String fichero){
+		String rutCWM="";
+		String cwmVersion="";
+		try {
+			
+		/*File fCWM=new File("/data/media/clockworkmod/recovery.log");
+		BufferedInputStream bis=new BufferedInputStream(new FileInputStream(fCWM));
+		byte[] tmp=new byte[2048];
+		bis.read(tmp);
+		cwmVersion=new String(tmp);
+		cwmVersion=cwmVersion.substring(cwmVersion.toLowerCase().indexOf("recovery v")+"recovery v".length(),cwmVersion.toLowerCase().indexOf("recovery v")+"recovery v".length()+1);
+		*/
+		cwmVersion="5";
+				
+		if("5".equals(cwmVersion)){
+			rutCWM=file.replaceFirst(sdCard.getPath()+"/","/emmc/").replaceFirst("/mnt/extSdCard/","/sdcard/");	
+		}else if("6".equals(cwmVersion)){
+			if(file.indexOf(sdCard.getPath())!=-1){
+				rutCWM=file.replaceFirst(sdCard.getPath()+"/","/sdcard/");
+			}else{
+				///mnt/extSdCard/
+				///mnt/emmc/
+				String result="/external_sd/";
+				String[] fileSplitted=file.split("/");
+				for (int i = 3; i < fileSplitted.length; i++) {
+					String string = fileSplitted[i];
+					if(i<fileSplitted.length-1){
+						result=result+string+"/";
+					}else{
+						result=result+string;
+					}
+				}
+				rutCWM=result;
+			}
+			
+		}else{
+			rutCWM=file.replaceFirst(sdCard.getPath()+"/","/emmc/").replaceFirst("/mnt/extSdCard/","/sdcard/");
+		}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rutCWM;
+	}
 	public void escribirRecovery() throws Exception {
 
 		Runtime rt = Runtime.getRuntime();
@@ -480,9 +581,9 @@ public class MainActivity extends Activity {
 			bos.write(("rm \"/data/system/batterystats.bin\"\n").getBytes());
 		}
 		if (!"".equals(file)) {
-			bos.write(("echo 'install_zip(\""
-					+ file.replaceFirst(sdCard.getPath()+"/", "/emmc/").replaceFirst(
-							"/mnt/extSdCard/", "/sdcard/") + "\");' >> /cache/recovery/extendedcommand\n")
+			String rutaCWM="";
+			rutaCWM=buscarCWMySustituirRutas(file);
+			bos.write(("echo 'install_zip(\""+ rutaCWM+"\");' >> /cache/recovery/extendedcommand\n")
 					.getBytes());
 			algoSelect = true;
 		}
@@ -866,6 +967,41 @@ public class MainActivity extends Activity {
 			}
 		}
 
+	}
+
+	@Override
+	public void onClick(DialogInterface dialog, int which) {
+		try {
+			if(which==-1){
+				Intent intent = new Intent(Intent.ACTION_VIEW);
+				intent.setData(Uri
+						.parse("market://details?id=com.fraggel.recoveryexecuter.pro.pro"));
+				startActivity(intent);
+			}
+		} catch (Exception e) {
+			new REException(e);
+
+		}
+		
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
+			long arg3) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onNothingSelected(AdapterView<?> arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

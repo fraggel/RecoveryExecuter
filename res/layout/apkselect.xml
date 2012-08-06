@@ -4,45 +4,31 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
-
-        <com.fraggel.recoveryexecuter.pro.installLayout
-            android:id="@+id/apkfilefolders"
-            android:layout_width="fill_parent"
-            android:layout_height="400dp"
-            layout="@layout/apkfolderview" >
-        </com.fraggel.recoveryexecuter.pro.installLayout>
-    </LinearLayout>
-
     <TextView
         android:id="@+id/rdbinstalar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/rdbtxtinstalar" />
-
+
     <RadioGroup
         android:id="@+id/grptipoinst"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/rdbtxtinstalar" >
-
+
         <RadioButton
             android:id="@+id/rdbnormal"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="@string/rdbTxtNormal" >
-        </RadioButton>
+            android:text="@string/rdbTxtNormal" />
 
         <RadioButton
             android:id="@+id/rdbsystem"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/rdbTxtSistema" >
-        </RadioButton>
+            android:text="@string/rdbTxtSistema" />
+
     </RadioGroup>
 
     <Button
@@ -52,5 +38,11 @@
         android:onClick="instalarAPK"
         android:text="@string/txtinstalar" >
     </Button>
+
+    <com.fraggel.recoveryexecuter.pro.installLayout
+        android:id="@+id/apkfilefolders"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+    </com.fraggel.recoveryexecuter.pro.installLayout>
 
 </LinearLayout>

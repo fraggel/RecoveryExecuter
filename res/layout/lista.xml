@@ -27,19 +27,20 @@
         android:onClick="anyadir"
         android:text="@string/btnAnyadirLista" />
     -->
-
+
     <Button
         android:id="@+id/btnGuardarLista"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="guardarLista"
         android:text="@string/btnGuardarLista" />
-
+
     <ListView
         android:id="@+id/listaAcciones"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:listitem="@layout/rowlist" >
+
     </ListView>
 
 </LinearLayout>

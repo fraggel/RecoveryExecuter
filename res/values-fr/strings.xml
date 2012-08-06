@@ -14,7 +14,7 @@ Après avoir sélectionné le fichier, vous devez appuyer sur le bouton \ "Ajout
 
 
 En cliquant sur n\'importe quel élément il sera retiré de la liste des actions. Après cliquez sur le bouton \"Sauver la Liste\".."</string>
-    <string name="app_name">RecoveryExecuter</string>
+    <string name="app_name">RecoveryExecuter </string>
     <string name="configurl">Chemin par défaut</string>
     <string name="wipedata">Wipe Data</string>
     <string name="wipecache">Wipe Cache</string>
@@ -28,7 +28,7 @@ En cliquant sur n\'importe quel élément il sera retiré de la liste des action
     <string name="btnInstallApk">Installer Apk</string>
     <string name="btnNandroid">Sauvegarde/Restauration</string>
     <string name="salir">Quitter</string>
-    <string name="version">RecoveryExecuter 1.4.5</string>
+    <string name="version">RecoveryExecuter  1.4.7</string>
     <string name="btnGuardarLista">Sauver la Liste</string>
     <string name="rutaguardada">Chemin sauvé</string>
     <string name="aceptar">Accepter</string>
@@ -57,9 +57,16 @@ En cliquant sur n\'importe quel élément il sera retiré de la liste des action
     <string name="msgApkInstalada">Application installée</string>
     <string name="txtDonacion">Contribuer si vous voulez</string>
     <string name="btnTxtDonacion">Donner</string>
-    <string name="txtCreditos">Merci à el_liberator de la Team Criskelo pour la traduction Anglais et Français</string>
     <string name="msgFileErroneo">Le fichier spécifié n\'est pas valide</string>
 	<!-- Sin traducir -->
+	<string name="rdbbackup">Backup</string>
+	<string name="rdbrestore">Restore</string>
+	<string name="rdbtxtbck">Select</string>
+	<string name="msgNoExisteBackup">Backup not exist</string>
+	<string name="msgExisteBackup">A previous Backup exists, you want to delete it?</string>
+	<string name="btnSoloWipe">Wipe Only</string>
+	<string name="msgSoloWipe">Only execute Wipes?</string>
+	<string name="txtCreditos">Merci à el_liberator de la Team Criskelo pour la traduction Anglais et Français et merci à bassie1995 pour Néerlandais</string>
 	<string name="msgNoSdcard">Pas de SDcard et il est nécessaire</string>
 	<string name="msgNoFull">Cette fonctionnalité est uniquement sur ​​la version Complète, Voulez-vous vous connecter à jouer au magasin et l\'acheter?</string>
 	<string name="msgNoFullLista">Plus de 3 éléments est uniquement sur ​​la version Complète, Voulez-vous vous connecter à jouer au magasin et l\'acheter?</string>
@@ -71,6 +78,8 @@ En cliquant sur n\'importe quel élément il sera retiré de la liste des action
         <item>Wipe Dalvik</item>
         <item>Wipe Battery</item>
         <item>Flasher Fichier</item>
+        <item>Sauvegarde</item>
+        <item>Restauration</item>
     </string-array>
     <string-array name="arrayAccionesValues">
         <item>0</item>
@@ -79,6 +88,8 @@ En cliquant sur n\'importe quel élément il sera retiré de la liste des action
         <item>3</item>
         <item>4</item>
         <item>5</item>
+        <item>6</item>
+        <item>7</item>
     </string-array>
 
 </resources>

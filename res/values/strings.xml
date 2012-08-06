@@ -9,7 +9,7 @@ For flash a kernel,modem or any other zip file simply select it from the file br
     <string name="ayudaLista">"Select from the dropdown the option you want to add to the list of actions, after selecting the action click \"Add to List\" if the option is selected \"Flashing file\" will show the file browser to select the file to flash
 After selecting the file you need to press the button \"Add to List\".
 Clicking on any item that item will be removed from the list of actions.After the list click the button \"Save List\"."</string>
-    <string name="app_name">RecoveryExecuter</string>
+    <string name="app_name">RecoveryExecuter </string>
     <string name="configurl">Default Path</string>
     <string name="wipedata">Wipe Data</string>
     <string name="wipecache">Wipe Cache</string>
@@ -23,7 +23,7 @@ Clicking on any item that item will be removed from the list of actions.After th
     <string name="btnInstallApk">Install Apk</string>
     <string name="btnNandroid">Backup/Restore</string>
     <string name="salir">Exit</string>
-    <string name="version">RecoveryExecuter 1.4.5</string>
+    <string name="version">RecoveryExecuter  1.4.7</string>
     <string name="btnGuardarLista">Save List</string>
     <string name="rutaguardada">Path saved</string>
     <string name="aceptar">Accept</string>
@@ -52,9 +52,16 @@ Clicking on any item that item will be removed from the list of actions.After th
     <string name="msgApkInstalada">Application installed</string>
     <string name="txtDonacion">Contribute if you want</string>
     <string name="btnTxtDonacion">Donate</string>
-    <string name="txtCreditos">Thanks to el_liberator from Criskelo Team for English and French translation</string>
     <string name="msgFileErroneo">The specified file is not valid</string>
 	<!-- Sin traducir -->
+	<string name="rdbbackup">Backup</string>
+	<string name="rdbrestore">Restore</string>
+	<string name="rdbtxtbck">Select</string>
+	<string name="msgNoExisteBackup">Backup not exist</string>
+	<string name="msgExisteBackup">A previous Backup exists, you want to delete it?</string>
+	<string name="btnSoloWipe">Wipe Only</string>
+	<string name="msgSoloWipe">Only execute Wipes?</string>
+	<string name="txtCreditos">Thanks to el_liberator from Criskelo Team for English and French translation and thanks to bassie1995 for Dutch</string>
 	<string name="msgNoSdcard">No SDcard and is necessary</string>
 	<string name="msgNoFull">This functionality is only on Full version, Want to connect to Play Store and buy it?</string>
 	<string name="msgNoFullLista">More than 3 elements is only on Full version, Want to connect to Play Store and buy it?</string>
@@ -66,6 +73,8 @@ Clicking on any item that item will be removed from the list of actions.After th
         <item>Wipe Dalvik</item>
         <item>Wipe Battery</item>
         <item>Flash File</item>
+        <item>Backup</item>
+        <item>Restore</item>
     </string-array>
     <string-array name="arrayAccionesValues">
         <item>0</item>
@@ -74,6 +83,8 @@ Clicking on any item that item will be removed from the list of actions.After th
         <item>3</item>
         <item>4</item>
         <item>5</item>
+        <item>6</item>
+        <item>7</item>
     </string-array>
 
 </resources>

@@ -1,5 +1,4 @@
 package com.fraggel.recoveryexecuter;
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,9 +6,9 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.net.Uri;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -21,7 +20,17 @@ public class externalClass extends Activity{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	public Intent initialBackup(MainActivity mainActivity,Resources res,AlertDialog diag){
+		Intent intent=null;
+		
+		diag.setMessage(res.getString(R.string.msgNoFull));
+		diag.setButton(AlertDialog.BUTTON_NEGATIVE,
+				res.getString(R.string.cancelar),mainActivity);
+		diag.setButton(AlertDialog.BUTTON_POSITIVE,
+				res.getString(R.string.aceptar),mainActivity);
+		diag.show();
+		return intent;
+	}
 	public void anyadir(HashMap<String, String> map,ArrayList<String> listaAcciones,AlertDialog diag,Resources res,String file,String selected,String[] items,String[] values,List<HashMap<String, String>> fillMaps,ListView lista,SimpleAdapter adapt,crearLista crearLista){
 		map = new HashMap<String, String>();
 		if(listaAcciones.size()==3){

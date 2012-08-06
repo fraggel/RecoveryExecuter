@@ -23,7 +23,7 @@ Clicking on any item that item will be removed from the list of actions.After th
     <string name="btnInstallApk">Install Apk</string>
     <string name="btnNandroid">Backup/Restore</string>
     <string name="salir">Exit</string>
-    <string name="version">RecoveryExecuter Lite 1.4.6</string>
+    <string name="version">RecoveryExecuter Lite 1.4.7</string>
     <string name="btnGuardarLista">Save List</string>
     <string name="rutaguardada">Path saved</string>
     <string name="aceptar">Accept</string>
@@ -56,7 +56,7 @@ Clicking on any item that item will be removed from the list of actions.After th
 	<!-- Sin traducir -->
 	<string name="btnSoloWipe">Wipe Only</string>
 	<string name="msgSoloWipe">Only execute Wipes?</string>
-	<string name="txtCreditos">Thanks to el_liberator from Criskelo Team for English and French translation and thanks to bassie1995 for German</string>
+	<string name="txtCreditos">Thanks to el_liberator from Criskelo Team for English and French translation and thanks to bassie1995 for Dutch</string>
 	<string name="msgNoSdcard">No SDcard and is necessary</string>
 	<string name="msgNoFull">This functionality is only on Full version, Want to connect to Play Store and buy it?</string>
 	<string name="msgNoFullLista">More than 3 elements is only on Full version, Want to connect to Play Store and buy it?</string>
@@ -68,6 +68,8 @@ Clicking on any item that item will be removed from the list of actions.After th
         <item>Wipe Dalvik</item>
         <item>Wipe Battery</item>
         <item>Flash File</item>
+        <item>Backup (Full Version)</item>
+        <item>Restore(Full Version)</item>
     </string-array>
     <string-array name="arrayAccionesValues">
         <item>0</item>
@@ -76,6 +78,8 @@ Clicking on any item that item will be removed from the list of actions.After th
         <item>3</item>
         <item>4</item>
         <item>5</item>
+        <item>0</item>
+        <item>0</item>
     </string-array>
 
 </resources>

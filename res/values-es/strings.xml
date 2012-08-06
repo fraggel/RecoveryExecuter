@@ -29,7 +29,7 @@
     <string name="btnInstallApk">Instalar Apk</string>
     <string name="btnNandroid">Backup/Restore</string>
     <string name="salir">Salir</string>
-    <string name="version">RecoveryExecuter Lite 1.4.6</string>
+    <string name="version">RecoveryExecuter Lite 1.4.7</string>
     <string name="btnGuardarLista">Guardar Lista</string>
     <string name="rutaguardada">Ruta guardada</string>
     <string name="aceptar">Aceptar</string>
@@ -58,7 +58,7 @@
     <string name="msgApkInstalada">Aplicacion instalada</string>
     <string name="txtDonacion">Contribuye si quieres</string>
     <string name="btnTxtDonacion">Donar</string>
-    <string name="txtCreditos">Gracias a el_liberator del Equipo Criskelo por la traducción Inglés y Francés y gracias a bassie1995 por el Alemán</string>
+    <string name="txtCreditos">Gracias a el_liberator del Equipo Criskelo por la traducción Inglés y Francés y gracias a bassie1995 por el Holandés</string>
     <string name="btnSoloWipe">Sólo Wipe</string>
     <string name="msgSoloWipe">Ejecutar sólo Wipes?</string>
     <string name="msgFileErroneo">El fichero especificado no es válido</string>
@@ -72,6 +72,8 @@
         <item>Wipe Dalvik</item>
         <item>Wipe Battery</item>
         <item>Flashear Archivo</item>
+        <item>Backup (Full Version)</item>
+        <item>Restore(Full Version)</item>
     </string-array>
     <string-array name="arrayAccionesValues">
         <item>0</item>
@@ -80,6 +82,8 @@
         <item>3</item>
         <item>4</item>
         <item>5</item>
+        <item>0</item>
+        <item>0</item>
     </string-array>
 
 </resources>

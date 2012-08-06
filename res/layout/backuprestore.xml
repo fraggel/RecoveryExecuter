@@ -8,15 +8,17 @@
 	        android:id="@+id/backup"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:text="Backup" />
+	        android:text="Backup" 
+	        android:onClick="backup"/>
 	
 	    <RadioButton
 	        android:id="@+id/restore"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:text="Restore" />
+	        android:text="Restore" 
+	        android:onClick="restore"/>
 
-	    <RadioButton
+	   <!-- <RadioButton
 	        android:id="@+id/advbackup"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -27,7 +29,7 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:text="Advanced Restore" />
-
+-->
 
 	    <Button
 	        android:id="@+id/button1"

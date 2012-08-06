@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Locale;
 import java.util.Stack;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -29,11 +30,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.CheckBox;
 
 import com.ice.tar.Tar;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements OnItemSelectedListener,
+AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 	private static final int FILE_SELECT_CODE = 0;
 	private String file = "";
 	private String initialDir = "/mnt/sdcard/Download/";
@@ -55,7 +59,7 @@ public class MainActivity extends Activity {
 			res = this.getResources();
 			DisplayMetrics dm = res.getDisplayMetrics();
 			android.content.res.Configuration conf = res.getConfiguration();
-			// conf.locale=new Locale("fr");
+			conf.locale=new Locale("en");
 			res.updateConfiguration(conf, dm);
 			root=Environment.getRootDirectory();
 			sdCard=Environment.getExternalStorageDirectory();
@@ -133,8 +137,11 @@ public class MainActivity extends Activity {
 
 	public void nandroid(View v) {
 		try {
-			Intent intent = new Intent(this, backupRestore.class);
-			startActivity(intent);
+			externalClass exCl=new externalClass();
+			Intent intent=exCl.initialBackup( this, res, diag);
+			if(intent!=null){
+				startActivity(intent);
+			}
 		} catch (Exception e) {
 			new REException(e);
 		}
@@ -321,14 +328,18 @@ public class MainActivity extends Activity {
 				ret = true;
 				break;
 			case R.id.op4:
+				nandroid(null);
+				ret = true;
+				break;	
+			case R.id.op5:
 				showConfig();
 				ret = true;
 				break;
-			case R.id.op5:
+			case R.id.op6:
 				showAbout();
 				ret = true;
 				break;
-			case R.id.op6:
+			case R.id.op7:
 				finish();
 				ret = true;
 				break;
@@ -949,6 +960,41 @@ public class MainActivity extends Activity {
 			}
 		}
 
+	}
+
+	@Override
+	public void onClick(DialogInterface dialog, int which) {
+		try {
+			if(which==-1){
+				Intent intent = new Intent(Intent.ACTION_VIEW);
+				intent.setData(Uri
+						.parse("market://details?id=com.fraggel.recoveryexecuter.pro"));
+				startActivity(intent);
+			}
+		} catch (Exception e) {
+			new REException(e);
+
+		}
+		
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
+			long arg3) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onNothingSelected(AdapterView<?> arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -23,7 +23,7 @@ Als je nog eens op een optie drukt, wordt die verwijderd van de lijst met acties
     <string name="btnInstallApk">APK installeren</string>
     <string name="btnNandroid">Backup maken/terugzetten</string>
     <string name="salir">Afsluiten</string>
-    <string name="version">RecoveryExecuter Lite 1.4.6</string>
+    <string name="version">RecoveryExecuter Lite 1.4.7</string>
     <string name="btnGuardarLista">Lijst opslaan</string>
     <string name="rutaguardada">Pad opgeslagen</string>
     <string name="aceptar">Accepteren</string>
@@ -68,6 +68,8 @@ Als je nog eens op een optie drukt, wordt die verwijderd van de lijst met acties
         <item>Dalvik-partitie wissen</item>
         <item>Batterijstatistieken wissen</item>
         <item>Installeer bestand</item>
+        <item>Back-up maken (Full Version)</item>
+        <item>Back-up terugzetten (Full Version)</item>
     </string-array>
     <string-array name="arrayAccionesValues">
         <item>0</item>
@@ -76,6 +78,8 @@ Als je nog eens op een optie drukt, wordt die verwijderd van de lijst met acties
         <item>3</item>
         <item>4</item>
         <item>5</item>
+        <item>0</item>
+        <item>0</item>
     </string-array>
 
 </resources>

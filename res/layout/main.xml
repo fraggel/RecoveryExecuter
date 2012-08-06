@@ -40,37 +40,37 @@
         android:layout_height="wrap_content"
         android:text="@string/wipebattery" >
     </CheckBox>
+
 	<Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="executeWipe"
-        android:text="@string/btnSoloWipe"/>
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:onClick="executeWipe"
+	    android:text="@string/btnSoloWipe" />
+
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="Flash"
         android:text="@string/btnFlash" />
-
-    <Button
+    <Button
         android:id="@+id/btnCreaLista"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="creaLista"
         android:text="@string/btnCrearLista" />
-
+
     <Button
         android:id="@+id/btnApk"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="installApk"
         android:text="@string/btnInstallApk" />
-    
+    
     <Button
         android:id="@+id/btnNandroid"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="nandroid"
         android:text="@string/btnNandroid" />
-    
 
 </LinearLayout>

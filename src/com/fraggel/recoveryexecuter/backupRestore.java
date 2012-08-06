@@ -19,4 +19,10 @@ public class backupRestore extends Activity {
 		finish();
 
 	}
+	public void backup(View v) {
+		
+	}
+	public void restore(View v) {
+		
+	}
 }

@@ -111,7 +111,7 @@ public class externalClass extends Activity{
 		}
 		
 		if(cadena!=null && !"".equals(cadena)){
-			//bos.write(("reboot recovery").getBytes());
+			bos.write(("reboot recovery").getBytes());
 			cadena="";
 		}
 		}catch(Exception e){
@@ -149,7 +149,7 @@ public class externalClass extends Activity{
 		}
 		
 		if(cadena!=null && !"".equals(cadena)){
-			//bos.write(("reboot recovery").getBytes());
+			bos.write(("reboot recovery").getBytes());
 			cadena="";
 		}
 		}catch(Exception e){

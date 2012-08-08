@@ -510,14 +510,6 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 		String rutCWM="";
 		String cwmVersion="";
 		try {
-			
-		/*File fCWM=new File("/data/media/clockworkmod/recovery.log");
-		BufferedInputStream bis=new BufferedInputStream(new FileInputStream(fCWM));
-		byte[] tmp=new byte[2048];
-		bis.read(tmp);
-		cwmVersion=new String(tmp);
-		cwmVersion=cwmVersion.substring(cwmVersion.toLowerCase().indexOf("recovery v")+"recovery v".length(),cwmVersion.toLowerCase().indexOf("recovery v")+"recovery v".length()+1);
-		*/
 		cwmVersion="5";
 				
 		if("5".equals(cwmVersion)){
@@ -526,8 +518,6 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 			if(file.indexOf(sdCard.getPath())!=-1){
 				rutCWM=file.replaceFirst(sdCard.getPath()+"/","/sdcard/");
 			}else{
-				///mnt/extSdCard/
-				///mnt/emmc/
 				String result="/external_sd/";
 				String[] fileSplitted=file.split("/");
 				for (int i = 3; i < fileSplitted.length; i++) {
@@ -545,7 +535,7 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 			rutCWM=file.replaceFirst(sdCard.getPath()+"/","/emmc/").replaceFirst("/mnt/extSdCard/","/sdcard/");
 		}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		return rutCWM;
@@ -606,9 +596,6 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 		boolean erroneo = false;
 		String ext = f.substring(f.length() - 4, f.length()).toLowerCase();
 		if (".md5".equals(ext)) {
-			// copiar a rutaTmp quitando el .md5
-			// asignar ext nuevo file
-			// asignar f nuevo File
 			try {
 				File tmp = new File(f);
 				String renamed = tmp.getName().substring(0,
@@ -623,9 +610,6 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 			}
 		}
 		if (".tar".equals(ext)) {
-			// unzip
-			// asignar ext file extracted
-			// asignar f nuevo file
 			try {
 				Tar tar = new Tar();
 				File g = new File(rutaTmp + "/" + new File(f).getName());
@@ -845,7 +829,6 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 		for (String fileName : fileList) {
 			File file = new File(srcDir.getParent(), fileName);
 
-			// Zip always use / as separator
 			String zipName = fileName;
 			if (File.separatorChar != '/')
 				zipName = fileName.replace(File.separatorChar, '/');

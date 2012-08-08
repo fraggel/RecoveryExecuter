@@ -110,13 +110,13 @@ public class externalClass extends Activity{
 				cadena=("echo 'backup_rom(\""+ buscarCWMySustituirRutas(fff.getPath())+"\");' >> /cache/recovery/extendedcommand\n");
 			}
 		}else{
-			fff.mkdirs();
+			//fff.mkdirs();
 			cadena=("echo 'backup_rom(\""+ buscarCWMySustituirRutas(fff.getPath())+"\");' >> /cache/recovery/extendedcommand\n");
 		}
 		
 		if(cadena!=null && !"".equals(cadena)){
 		 	bos.write(cadena.getBytes());
-			//bos.write(("reboot recovery").getBytes());
+			bos.write(("reboot recovery").getBytes());
 			cadena="";
 		}
 		}catch(Exception e){
@@ -157,7 +157,7 @@ public class externalClass extends Activity{
 			
 			if(cadena!=null && !"".equals(cadena)){
 				bos.write(cadena.getBytes());
-				//bos.write(("reboot recovery").getBytes());
+				bos.write(("reboot recovery").getBytes());
 				cadena="";
 			}
 		}catch(Exception e){

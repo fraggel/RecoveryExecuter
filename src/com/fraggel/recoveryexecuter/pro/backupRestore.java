@@ -23,6 +23,7 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 	AlertDialog diag;
 	Resources res;
 	String nomBackup="";
+	String[] types;
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		res = this.getResources();
@@ -59,10 +60,8 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 				AlertDialog.Builder b = new Builder(this);
 				File fff=new File(Environment.getExternalStorageDirectory().getPath()+"/clockworkmod/backup/");
 			    b.setTitle(res.getString(R.string.rdbrestore));
-			    String[] types =fff.list(); 
+			    types =fff.list(); 
 			    b.setItems(types,this);
-			    b.setPositiveButton(res.getString(R.string.aceptar), null);
-			    b.setNegativeButton(res.getString(R.string.cancelar), null);
 			    b.show();
 			}	
 		}catch(Exception e){
@@ -71,31 +70,22 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 	}
 	@Override
 	public void onClick(DialogInterface dialog, int which) {
-		/*if(which==-1){
-			externalClass exCl=new externalClass();
-			if(nomBackup!=null && !"".equals(nomBackup)){
-				diag.setMessage(nomBackup);
-				diag.show();
-				//exCl.restore(res,diag,this,"");
-			}else{
-				//Mensaje de nombre vacío
-			}
-				
-		}else if(which==-2){
-			
-		}*/
+		externalClass exCl=new externalClass();
+		nomBackup=types[which];
+		if(nomBackup!=null && !"".equals(nomBackup)){
+			exCl.restore(res,diag,this,nomBackup);
+		}
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		// TODO Auto-generated method stub
-		
+			
 	}
 
 	@Override
 	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
 			long arg3) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 

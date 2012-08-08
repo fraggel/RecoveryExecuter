@@ -2,6 +2,7 @@ package com.fraggel.recoveryexecuter.pro;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -180,6 +181,9 @@ public class externalClass extends Activity{
 		Runtime rt=Runtime.getRuntime();
 		Process exec = rt.exec("su");
 		bos= new BufferedOutputStream(exec.getOutputStream());
+		if(nombreBck==null || "".equals(nombreBck)){
+			nombreBck=(Calendar.getInstance().get(Calendar.DAY_OF_MONTH)+"-"+(Calendar.getInstance().get(Calendar.MONTH)+1)+"-"+Calendar.getInstance().get(Calendar.YEAR)+" "+Calendar.getInstance().get(Calendar.HOUR_OF_DAY)+":"+Calendar.getInstance().get(Calendar.MINUTE)+":"+Calendar.getInstance().get(Calendar.SECOND));
+		}
 		File fff=new File(Environment.getExternalStorageDirectory().getPath()+"/clockworkmod/backup/"+nombreBck+"/");
 		if(fff.exists()){
 			File[] listFiles = fff.listFiles();

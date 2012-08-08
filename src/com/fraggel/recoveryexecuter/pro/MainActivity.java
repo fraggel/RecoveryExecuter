@@ -59,7 +59,7 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 			res = this.getResources();
 			DisplayMetrics dm = res.getDisplayMetrics();
 			android.content.res.Configuration conf = res.getConfiguration();
-			conf.locale=new Locale("en");
+			//conf.locale=new Locale("en");
 			res.updateConfiguration(conf, dm);
 			root=Environment.getRootDirectory();
 			sdCard=Environment.getExternalStorageDirectory();
@@ -456,10 +456,10 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 															.getBytes());
 												}else if ("6".equals(string)) {
 													externalClass exCl=new externalClass();
-													bos.write(exCl.backupMain(res, diag, this).getBytes());
+													bos.write(exCl.backupMain(res, diag, this,"").getBytes());
 												}else if ("7".equals(string)) {
 													externalClass exCl=new externalClass();
-													bos.write(exCl.restoreMain(res, diag, this).getBytes());
+													bos.write(exCl.restoreMain(res, diag, this,"").getBytes());
 												} else if ("0".equals(string)) {
 
 												} else if (!"".equals(string)) {
@@ -480,12 +480,12 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 												}
 
 											}
-											if (algoSelect) {
+											/*if (algoSelect) {
 												bos.write(("reboot recovery")
 														.getBytes());
 											} else if (algoSelectRebootNormal) {
 												bos.write(("reboot").getBytes());
-											}
+											}*/
 											bos.flush();
 											bos.close();
 										} catch (Exception e) {
@@ -587,11 +587,11 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 					.getBytes());
 			algoSelect = true;
 		}
-		if (algoSelect) {
+		/*if (algoSelect) {
 			bos.write(("reboot recovery").getBytes());
 		} else if (algoSelectRebootNormal) {
 			bos.write(("reboot").getBytes());
-		}
+		}*/
 		bos.flush();
 		bos.close();
 	}

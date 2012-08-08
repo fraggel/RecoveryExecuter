@@ -12,9 +12,12 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Environment;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 
 public class externalClass extends Activity{
 
@@ -82,14 +85,14 @@ public class externalClass extends Activity{
 		}
 
 	}
-	public String backup(Resources res,AlertDialog diag,OnClickListener onClickListener) {
+	public String backup(Resources res,AlertDialog diag,OnClickListener onClickListener,String nombreBck) {
 		String cadena="";
 		BufferedOutputStream bos=null;
 		try{
 		Runtime rt=Runtime.getRuntime();
 		Process exec = rt.exec("su");
 		bos= new BufferedOutputStream(exec.getOutputStream());
-		File fff=new File(Environment.getExternalStorageDirectory().getPath()+"/clockworkmod/backup/RecoveryExecuter/");
+		File fff=new File(Environment.getExternalStorageDirectory().getPath()+"/clockworkmod/backup/"+nombreBck+"/");
 		if(fff.exists()){
 			File[] listFiles = fff.listFiles();
 			if(listFiles!=null && listFiles.length>0){
@@ -100,15 +103,15 @@ public class externalClass extends Activity{
 						res.getString(R.string.aceptar),onClickListener);
 				diag.show();
 			}else{
-				cadena=("echo 'backup_rom(\""+ fff.getPath()+"\");' >> /cache/recovery/extendedcommand\n");
+				cadena=("echo 'backup_rom(\""+ buscarCWMySustituirRutas(fff.getPath())+"\");' >> /cache/recovery/extendedcommand\n");
 			}
 		}else{
 			fff.mkdirs();
-			cadena=("echo 'backup_rom(\""+ fff.getPath()+"\");' >> /cache/recovery/extendedcommand\n");
+			cadena=("echo 'backup_rom(\""+ buscarCWMySustituirRutas(fff.getPath())+"\");' >> /cache/recovery/extendedcommand\n");
 		}
 		
 		if(cadena!=null && !"".equals(cadena)){
-			bos.write(("reboot recovery").getBytes());
+			//bos.write(("reboot recovery").getBytes());
 			cadena="";
 		}
 		}catch(Exception e){
@@ -124,21 +127,21 @@ public class externalClass extends Activity{
 		return cadena;
 		//Comprobar si existe ya backup y avisar, dar opción a borrar
 	}
-	public String restore(Resources res,AlertDialog diag,OnClickListener onClickListener) {
+	public String restore(Resources res,AlertDialog diag,OnClickListener onClickListener,String nombreBck) {
 		String cadena="";
 		BufferedOutputStream bos=null;
 		try{
 		Runtime rt=Runtime.getRuntime();
 		Process exec = rt.exec("su");
 		bos= new BufferedOutputStream(exec.getOutputStream());
-		File fff=new File(Environment.getExternalStorageDirectory().getPath()+"/clockworkmod/backup/RecoveryExecuter/");
+		File fff=new File(Environment.getExternalStorageDirectory().getPath()+"/clockworkmod/backup/"+nombreBck+"/");
 		if(fff.exists()){
 			File[] listFiles = fff.listFiles();
 			if(listFiles==null || listFiles.length<=0){
 				diag.setMessage(res.getString(R.string.msgNoExisteBackup));
 				diag.show();
 			}else{
-				cadena=("echo 'restore_rom(\""+ fff.getPath()+"\");' >> /cache/recovery/extendedcommand\n");
+				cadena=("echo 'restore_rom(\""+ buscarCWMySustituirRutas(fff.getPath())+"\");' >> /cache/recovery/extendedcommand\n");
 			}
 		}else{
 			diag.setMessage(res.getString(R.string.msgNoExisteBackup));
@@ -146,7 +149,7 @@ public class externalClass extends Activity{
 		}
 		
 		if(cadena!=null && !"".equals(cadena)){
-			bos.write(("reboot recovery").getBytes());
+			//bos.write(("reboot recovery").getBytes());
 			cadena="";
 		}
 		}catch(Exception e){
@@ -162,14 +165,14 @@ public class externalClass extends Activity{
 		return cadena;
 		
 	}
-	public String backupMain(Resources res,AlertDialog diag,OnClickListener onClickListener) {
+	public String backupMain(Resources res,AlertDialog diag,OnClickListener onClickListener,String nombreBck) {
 		String cadena="";
 		BufferedOutputStream bos=null;
 		try{
 		Runtime rt=Runtime.getRuntime();
 		Process exec = rt.exec("su");
 		bos= new BufferedOutputStream(exec.getOutputStream());
-		File fff=new File(Environment.getExternalStorageDirectory().getPath()+"/clockworkmod/backup/RecoveryExecuter/");
+		File fff=new File(Environment.getExternalStorageDirectory().getPath()+"/clockworkmod/backup/"+nombreBck+"/");
 		if(fff.exists()){
 			File[] listFiles = fff.listFiles();
 			if(listFiles!=null && listFiles.length>0){
@@ -180,11 +183,11 @@ public class externalClass extends Activity{
 						res.getString(R.string.aceptar),onClickListener);
 				diag.show();
 			}else{
-				cadena=("echo 'backup_rom(\""+ fff.getPath()+"\");' >> /cache/recovery/extendedcommand\n");
+				cadena=("echo 'backup_rom(\""+ buscarCWMySustituirRutas(fff.getPath())+"\");' >> /cache/recovery/extendedcommand\n");
 			}
 		}else{
 			fff.mkdirs();
-			cadena=("echo 'backup_rom(\""+ fff.getPath()+"\");' >> /cache/recovery/extendedcommand\n");
+			cadena=("echo 'backup_rom(\""+ buscarCWMySustituirRutas(fff.getPath())+"\");' >> /cache/recovery/extendedcommand\n");
 		}
 		}catch(Exception e){
 			new REException(e);
@@ -199,10 +202,10 @@ public class externalClass extends Activity{
 		return cadena;
 		//Comprobar si existe ya backup y avisar, dar opción a borrar
 	}
-	public String restoreMain(Resources res,AlertDialog diag,OnClickListener onClickListener) {
+	public String restoreMain(Resources res,AlertDialog diag,OnClickListener onClickListener,String nombreBck) {
 		String cadena="";
 		try{
-			File fff=new File(Environment.getExternalStorageDirectory().getPath()+"/clockworkmod/backup/RecoveryExecuter/");
+			File fff=new File(Environment.getExternalStorageDirectory().getPath()+"/clockworkmod/backup/"+nombreBck+"/");
 			if(fff.exists()){
 				File[] listFiles = fff.listFiles();
 				if(listFiles==null || listFiles.length<=0){
@@ -213,7 +216,7 @@ public class externalClass extends Activity{
 							res.getString(R.string.aceptar),onClickListener);
 					diag.show();
 				}else{
-					cadena=("echo 'restore_rom(\""+ fff.getPath()+"\");' >> /cache/recovery/extendedcommand\n");
+					cadena=("echo 'restore_rom(\""+ buscarCWMySustituirRutas(fff.getPath())+"\");' >> /cache/recovery/extendedcommand\n");
 				}
 			}else{
 				diag.setMessage(res.getString(R.string.msgNoExisteBackup));
@@ -225,5 +228,41 @@ public class externalClass extends Activity{
 		return cadena;
 		
 	}
-
+	public String buscarCWMySustituirRutas(String fichero){
+		String rutCWM="";
+		String cwmVersion="";
+		try {
+			cwmVersion="5";
+			File sdCard=Environment.getExternalStorageDirectory();		
+			if("5".equals(cwmVersion)){
+				rutCWM=fichero.replaceFirst(sdCard.getPath()+"/","/emmc/").replaceFirst("/mnt/extSdCard/","/sdcard/");	
+			}else if("6".equals(cwmVersion)){
+				if(fichero.indexOf(sdCard.getPath())!=-1){
+					rutCWM=fichero.replaceFirst(sdCard.getPath()+"/","/sdcard/");
+				}else{
+					String result="/external_sd/";
+					String[] fileSplitted=fichero.split("/");
+					for (int i = 3; i < fileSplitted.length; i++) {
+						String string = fileSplitted[i];
+						if(i<fileSplitted.length-1){
+							result=result+string+"/";
+						}else{
+							result=result+string;
+						}
+					}
+					rutCWM=result;
+				}
+				
+			}else{
+				rutCWM=fichero.replaceFirst(sdCard.getPath()+"/","/emmc/").replaceFirst("/mnt/extSdCard/","/sdcard/");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rutCWM;
+	}
+	public String optionSelect(String selected) {
+		return selected;
+	}
 }

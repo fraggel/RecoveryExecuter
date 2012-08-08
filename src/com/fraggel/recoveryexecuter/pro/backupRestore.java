@@ -36,10 +36,13 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 		String cad="";
 		externalClass exCl=new externalClass();
 		if(rdbBck.isChecked()){
-			cad=exCl.backup(res,diag,this);
+			diag.setMessage("");
+			diag.openOptionsMenu();
+			diag.show();
+			cad=exCl.backup(res,diag,this,"");
 			finish();
 		}else if(rdbRes.isChecked()){
-			cad=exCl.restore(res,diag,this);
+			cad=exCl.restore(res,diag,this,"");
 			finish();
 		}	
 	}
@@ -67,4 +70,5 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 		// TODO Auto-generated method stub
 		
 	}
+	
 }

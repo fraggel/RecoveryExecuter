@@ -90,12 +90,11 @@ public class crearLista extends Activity implements OnItemSelectedListener,
 			for (Iterator<String> iterator = stringArrayListExtra.iterator(); iterator
 					.hasNext();) {
 				String string = (String) iterator.next();
-				int r = -1;
 				for (int x = 0; x < items.length; x++) {
 					if (string.equals(values[x])) {
 						string = items[x];
 					} else if (string.split("/").length - 1 > 0) {
-						string = items[items.length - 1]
+						string = items[items.length - 3]
 								+ " "
 								+ string.split("/")[string.split("/").length - 1];
 					}
@@ -119,8 +118,9 @@ public class crearLista extends Activity implements OnItemSelectedListener,
 	public void onItemSelected(AdapterView<?> parent, View view, int pos,
 			long id) {
 		// An item was selected. You can retrieve the selected item using
-
+		externalClass exCl=new externalClass();
 		selected = values[pos];
+		selected=exCl.optionSelect(selected);
 		if ("0".equals(selected)) {
 			selected = "";
 		} else if ("5".equals(selected)) {
@@ -132,6 +132,7 @@ public class crearLista extends Activity implements OnItemSelectedListener,
 			}
 			selected = parent.getItemAtPosition(pos).toString();
 		} else {
+			file="";
 			selected = parent.getItemAtPosition(pos).toString();
 			try {
 				anyadir(view);

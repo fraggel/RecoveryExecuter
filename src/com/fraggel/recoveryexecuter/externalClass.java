@@ -1,4 +1,5 @@
 package com.fraggel.recoveryexecuter;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,28 +7,23 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.CheckBox;
+import android.os.Environment;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.SimpleAdapter;
-import android.widget.AdapterView.OnItemSelectedListener;
 
-public class externalClass extends Activity implements OnItemSelectedListener,
-AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
+public class externalClass extends Activity{
 
 	public externalClass() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	public Intent initialBackup(MainActivity mainActivity,Resources res,AlertDialog diag){
 		Intent intent=null;
-		
 		diag.setMessage(res.getString(R.string.msgNoFull));
 		diag.setButton(AlertDialog.BUTTON_NEGATIVE,
 				res.getString(R.string.cancelar),mainActivity);
@@ -84,43 +80,187 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 		}
 
 	}
-	public String backupRestore(CheckBox chkbackup, CheckBox chkrestore,
-			CheckBox chkadvbackup, CheckBox chkadvrestore){
-		String bos="";
-		//restore_rom("/sdcard/clockworkmod/backup/2011-05-13-13.03.52", "boot", "system", "data", "cache", "sd-ext");
-		if(chkbackup.isChecked()){
-				bos=("echo 'backup_rom(\"/sdcard/clockworkmod/backup/RecoveryExecuter\");' >> /cache/recovery/extendedcommand\n");	
-		}else if(chkrestore.isChecked()){
-			bos=("echo 'restore_rom(\"/sdcard/clockworkmod/backup/RecoveryExecuter\");' >> /cache/recovery/extendedcommand\n");
-		}else if(chkadvbackup.isChecked()){
-			
-		}else if(chkadvrestore.isChecked()){
-			
+	public String backup(Resources res,AlertDialog diag,OnClickListener onClickListener,String nombreBck) {
+		String cadena="";
+		BufferedOutputStream bos=null;
+		try{
+		Runtime rt=Runtime.getRuntime();
+		Process exec = rt.exec("su");
+		bos= new BufferedOutputStream(exec.getOutputStream());
+		File fff=new File(Environment.getExternalStorageDirectory().getPath()+"/clockworkmod/backup/"+nombreBck+"/");
+		if(fff.exists()){
+			File[] listFiles = fff.listFiles();
+			if(listFiles!=null && listFiles.length>0){
+				diag.setMessage(res.getString(R.string.msgExisteBackup));
+				diag.setButton(AlertDialog.BUTTON_NEGATIVE,
+						res.getString(R.string.cancelar),onClickListener);
+				diag.setButton(AlertDialog.BUTTON_POSITIVE,
+						res.getString(R.string.aceptar),onClickListener);
+				diag.show();
+			}else{
+				cadena=("echo 'backup_rom(\""+ buscarCWMySustituirRutas(fff.getPath())+"\");' >> /cache/recovery/extendedcommand\n");
+			}
+		}else{
+			fff.mkdirs();
+			cadena=("echo 'backup_rom(\""+ buscarCWMySustituirRutas(fff.getPath())+"\");' >> /cache/recovery/extendedcommand\n");
 		}
 		
-		return bos;
+		if(cadena!=null && !"".equals(cadena)){
+			bos.write(("reboot recovery").getBytes());
+			cadena="";
+		}
+		}catch(Exception e){
+			new REException(e);
+		}finally{
+			try{
+			bos.flush();
+			bos.close();
+			}catch(Exception e){
+				new REException(e);
+			}
+		}
+		return cadena;
+		//Comprobar si existe ya backup y avisar, dar opción a borrar
 	}
-	@Override
-	public void onClick(DialogInterface dialog, int which) {
-		// TODO Auto-generated method stub
+	public String restore(Resources res,AlertDialog diag,OnClickListener onClickListener,String nombreBck) {
+		String cadena="";
+		BufferedOutputStream bos=null;
+		try{
+		Runtime rt=Runtime.getRuntime();
+		Process exec = rt.exec("su");
+		bos= new BufferedOutputStream(exec.getOutputStream());
+		File fff=new File(Environment.getExternalStorageDirectory().getPath()+"/clockworkmod/backup/"+nombreBck+"/");
+		if(fff.exists()){
+			File[] listFiles = fff.listFiles();
+			if(listFiles==null || listFiles.length<=0){
+				diag.setMessage(res.getString(R.string.msgNoExisteBackup));
+				diag.show();
+			}else{
+				cadena=("echo 'restore_rom(\""+ buscarCWMySustituirRutas(fff.getPath())+"\");' >> /cache/recovery/extendedcommand\n");
+			}
+		}else{
+			diag.setMessage(res.getString(R.string.msgNoExisteBackup));
+			diag.show();
+		}
+		
+		if(cadena!=null && !"".equals(cadena)){
+			bos.write(("reboot recovery").getBytes());
+			cadena="";
+		}
+		}catch(Exception e){
+			new REException(e);
+		}finally{
+			try{
+			bos.flush();
+			bos.close();
+			}catch(Exception e){
+				new REException(e);
+			}
+		}
+		return cadena;
 		
 	}
-	@Override
-	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		// TODO Auto-generated method stub
+	public String backupMain(Resources res,AlertDialog diag,OnClickListener onClickListener,String nombreBck) {
+		String cadena="";
+		BufferedOutputStream bos=null;
+		try{
+		Runtime rt=Runtime.getRuntime();
+		Process exec = rt.exec("su");
+		bos= new BufferedOutputStream(exec.getOutputStream());
+		File fff=new File(Environment.getExternalStorageDirectory().getPath()+"/clockworkmod/backup/"+nombreBck+"/");
+		if(fff.exists()){
+			File[] listFiles = fff.listFiles();
+			if(listFiles!=null && listFiles.length>0){
+				diag.setMessage(res.getString(R.string.msgExisteBackup));
+				diag.setButton(AlertDialog.BUTTON_NEGATIVE,
+						res.getString(R.string.cancelar),onClickListener);
+				diag.setButton(AlertDialog.BUTTON_POSITIVE,
+						res.getString(R.string.aceptar),onClickListener);
+				diag.show();
+			}else{
+				cadena=("echo 'backup_rom(\""+ buscarCWMySustituirRutas(fff.getPath())+"\");' >> /cache/recovery/extendedcommand\n");
+			}
+		}else{
+			fff.mkdirs();
+			cadena=("echo 'backup_rom(\""+ buscarCWMySustituirRutas(fff.getPath())+"\");' >> /cache/recovery/extendedcommand\n");
+		}
+		}catch(Exception e){
+			new REException(e);
+		}finally{
+			try{
+			bos.flush();
+			bos.close();
+			}catch(Exception e){
+				new REException(e);
+			}
+		}
+		return cadena;
+		//Comprobar si existe ya backup y avisar, dar opción a borrar
+	}
+	public String restoreMain(Resources res,AlertDialog diag,OnClickListener onClickListener,String nombreBck) {
+		String cadena="";
+		try{
+			File fff=new File(Environment.getExternalStorageDirectory().getPath()+"/clockworkmod/backup/"+nombreBck+"/");
+			if(fff.exists()){
+				File[] listFiles = fff.listFiles();
+				if(listFiles==null || listFiles.length<=0){
+					diag.setMessage(res.getString(R.string.msgExisteBackup));
+					diag.setButton(AlertDialog.BUTTON_NEGATIVE,
+							res.getString(R.string.cancelar),onClickListener);
+					diag.setButton(AlertDialog.BUTTON_POSITIVE,
+							res.getString(R.string.aceptar),onClickListener);
+					diag.show();
+				}else{
+					cadena=("echo 'restore_rom(\""+ buscarCWMySustituirRutas(fff.getPath())+"\");' >> /cache/recovery/extendedcommand\n");
+				}
+			}else{
+				diag.setMessage(res.getString(R.string.msgNoExisteBackup));
+				diag.show();
+			}
+		}catch(Exception e){
+			new REException(e);
+		}
+		return cadena;
 		
 	}
-	@Override
-	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
-			long arg3) {
-		// TODO Auto-generated method stub
-		
+	public String buscarCWMySustituirRutas(String fichero){
+		String rutCWM="";
+		String cwmVersion="";
+		try {
+			cwmVersion="5";
+			File sdCard=Environment.getExternalStorageDirectory();		
+			if("5".equals(cwmVersion)){
+				rutCWM=fichero.replaceFirst(sdCard.getPath()+"/","/emmc/").replaceFirst("/mnt/extSdCard/","/sdcard/");	
+			}else if("6".equals(cwmVersion)){
+				if(fichero.indexOf(sdCard.getPath())!=-1){
+					rutCWM=fichero.replaceFirst(sdCard.getPath()+"/","/sdcard/");
+				}else{
+					String result="/external_sd/";
+					String[] fileSplitted=fichero.split("/");
+					for (int i = 3; i < fileSplitted.length; i++) {
+						String string = fileSplitted[i];
+						if(i<fileSplitted.length-1){
+							result=result+string+"/";
+						}else{
+							result=result+string;
+						}
+					}
+					rutCWM=result;
+				}
+				
+			}else{
+				rutCWM=fichero.replaceFirst(sdCard.getPath()+"/","/emmc/").replaceFirst("/mnt/extSdCard/","/sdcard/");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rutCWM;
 	}
-	@Override
-	public void onNothingSelected(AdapterView<?> arg0) {
-		// TODO Auto-generated method stub
-		
+	public String optionSelect(String selected) {
+		if("6".equals(selected)||"7".equals(selected)){
+			selected="0";
+		}
+		return selected;
 	}
-
-
 }

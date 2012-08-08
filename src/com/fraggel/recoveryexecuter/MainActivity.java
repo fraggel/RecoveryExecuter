@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.Locale;
 import java.util.Stack;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -59,7 +58,7 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 			res = this.getResources();
 			DisplayMetrics dm = res.getDisplayMetrics();
 			android.content.res.Configuration conf = res.getConfiguration();
-			conf.locale=new Locale("en");
+			//conf.locale=new Locale("en");
 			res.updateConfiguration(conf, dm);
 			root=Environment.getRootDirectory();
 			sdCard=Environment.getExternalStorageDirectory();
@@ -138,7 +137,7 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 	public void nandroid(View v) {
 		try {
 			externalClass exCl=new externalClass();
-			Intent intent=exCl.initialBackup( this, res, diag);
+			Intent intent=exCl.initialBackup(this,res,diag);
 			if(intent!=null){
 				startActivity(intent);
 			}
@@ -430,6 +429,7 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 											boolean algoSelect = false;
 											boolean algoSelectRebootNormal = false;
 											boolean erroneo = false;
+											
 											for (int i = 0; i < lista.size(); i++) {
 												String string = (String) lista
 														.get(i);
@@ -453,6 +453,12 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 												} else if ("4".equals(string)) {
 													bos.write(("rm \"/data/system/batterystats.bin\"\n")
 															.getBytes());
+												}else if ("6".equals(string)) {
+													externalClass exCl=new externalClass();
+													bos.write(exCl.backupMain(res, diag, this,"").getBytes());
+												}else if ("7".equals(string)) {
+													externalClass exCl=new externalClass();
+													bos.write(exCl.restoreMain(res, diag, this,"").getBytes());
 												} else if ("0".equals(string)) {
 
 												} else if (!"".equals(string)) {

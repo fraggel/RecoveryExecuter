@@ -3,21 +3,23 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-
+<RadioGroup 
+    	android:id="@+id/grptipobck"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/rdbtxtbck" >
 	    <RadioButton
-	        android:id="@+id/backup"
+	        android:id="@+id/rdbbackup"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:text="Backup" 
-	        android:onClick="backup"/>
+	        android:text="@string/rdbbackup" />
 	
 	    <RadioButton
-	        android:id="@+id/restore"
+	        android:id="@+id/rdbrestore"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:text="Restore" 
-	        android:onClick="restore"/>
-
+	        android:text="@string/rdbrestore" />
+</RadioGroup>
 	   <!-- <RadioButton
 	        android:id="@+id/advbackup"
 	        android:layout_width="wrap_content"

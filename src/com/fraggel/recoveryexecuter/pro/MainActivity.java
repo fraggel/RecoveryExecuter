@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.Locale;
 import java.util.Stack;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -25,6 +24,7 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -55,6 +55,7 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		diag = new AlertDialog.Builder(this).create();
+		
 		try {
 			res = this.getResources();
 			DisplayMetrics dm = res.getDisplayMetrics();
@@ -138,7 +139,7 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 	public void nandroid(View v) {
 		try {
 			externalClass exCl=new externalClass();
-			Intent intent=exCl.initialBackup( this);
+			Intent intent=exCl.initialBackup( this,null,null);
 			if(intent!=null){
 				startActivity(intent);
 			}

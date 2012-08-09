@@ -14,7 +14,7 @@ Après avoir sélectionné le fichier, vous devez appuyer sur le bouton \ "Ajout
 
 
 En cliquant sur n\'importe quel élément il sera retiré de la liste des actions. Après cliquez sur le bouton \"Sauver la Liste\".."</string>
-    <string name="app_name">RecoveryExecuter Lite</string>
+    <string name="app_name">RecoveryExecuter </string>
     <string name="configurl">Chemin par défaut</string>
     <string name="wipedata">Wipe Data</string>
     <string name="wipecache">Wipe Cache</string>
@@ -28,7 +28,7 @@ En cliquant sur n\'importe quel élément il sera retiré de la liste des action
     <string name="btnInstallApk">Installer Apk</string>
     <string name="btnNandroid">Sauvegarde/Restauration</string>
     <string name="salir">Quitter</string>
-    <string name="version">RecoveryExecuter Lite 1.4.7</string>
+    <string name="version">RecoveryExecuter  1.4.7</string>
     <string name="btnGuardarLista">Sauver la Liste</string>
     <string name="rutaguardada">Chemin sauvé</string>
     <string name="aceptar">Accepter</string>
@@ -59,18 +59,19 @@ En cliquant sur n\'importe quel élément il sera retiré de la liste des action
     <string name="btnTxtDonacion">Donner</string>
     <string name="msgFileErroneo">Le fichier spécifié n\'est pas valide</string>
 	<!-- Sin traducir -->
-	<string name="btnmakebackuprestore">Execute</string>
-	<string name="rdbbackup">Backup</string>
-	<string name="rdbrestore">Restore</string>
-	<string name="rdbtxtbck">Select</string>
-	<string name="msgNoExisteBackup">Backup not exist</string>
-	<string name="msgExisteBackup">A previous Backup exists, you want to delete it?</string>
-	<string name="btnSoloWipe">Wipe Only</string>
-	<string name="msgSoloWipe">Only execute Wipes?</string>
-	<string name="txtCreditos">Merci à el_liberator de la Team Criskelo pour la traduction Anglais et Français et merci à bassie1995 pour Néerlandais</string>
-	<string name="msgNoSdcard">Pas de SDcard et il est nécessaire</string>
-	<string name="msgNoFull">Cette fonctionnalité est uniquement sur ​​la version Complète, Voulez-vous vous connecter à jouer au magasin et l\'acheter?</string>
-	<string name="msgNoFullLista">Plus de 3 éléments est uniquement sur ​​la version Complète, Voulez-vous vous connecter à jouer au magasin et l\'acheter?</string>
+	<string name="txtbckname">Nom de la Sauvegarde</string>
+	<string name="btnmakebackuprestore">Executer</string>
+	<string name="rdbbackup">Sauvegarde</string>
+	<string name="rdbrestore">Restauration</string>
+	<string name="rdbtxtbck">Sélectionner</string>
+	<string name="msgNoExisteBackup">La Sauvegarde n\'existe pas</string>
+	<string name="msgExisteBackup">Une Sauvegarde précédente existe, Voulez-vous la Suprimer ?</string>
+	<string name="btnSoloWipe">Wipe Seulement</string>
+	<string name="msgSoloWipe">Faire Seulement les Wipes?</string>
+	<string name="txtCreditos">Merci à el_liberator de la Team Criskelo pour la traduction Anglaise et Française et merci à bassie1995 pour le Néerlandais</string>
+	<string name="msgNoSdcard">Pas de SDcard, elle est nécessaire</string>
+	<string name="msgNoFull">Cette fonctionnalité est uniquement disponible dans la version payante, Voulez-vous vous connecter au Market et l\'acheter?</string>
+	<string name="msgNoFullLista">Pour pouvoir sélectionner plus de 3 éléments vous devez avoir la version payante, Voulez-vous vous connecter au Market et l\'acheter?</string>
     <!-- Sin traducir -->
     <string-array name="arrayAcciones">
         <item>Sélectioner une Action</item>

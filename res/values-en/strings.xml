@@ -60,13 +60,13 @@ Clicking on any item that item will be removed from the list of actions.After th
 	<string name="rdbrestore">Restore</string>
 	<string name="rdbtxtbck">Select</string>
 	<string name="msgNoExisteBackup">Backup not exist</string>
-	<string name="msgExisteBackup">A previous Backup exists, you want to delete it?</string>
+	<string name="msgExisteBackup">A previous Backup exists, Do you want to delete it?</string>
 	<string name="btnSoloWipe">Wipe Only</string>
 	<string name="msgSoloWipe">Only execute Wipes?</string>
 	<string name="txtCreditos">Thanks to el_liberator from Criskelo Team for English and French translation and thanks to bassie1995 for Dutch</string>
-	<string name="msgNoSdcard">No SDcard and is necessary</string>
-	<string name="msgNoFull">This functionality is only on Full version, Want to connect to Play Store and buy it?</string>
-	<string name="msgNoFullLista">More than 3 elements is only on Full version, Want to connect to Play Store and buy it?</string>
+	<string name="msgNoSdcard">No SDcard Found and is necessary</string>
+	<string name="msgNoFull">This functionality is only on Full version, Do you Want to connect to Play Store and buy it?</string>
+	<string name="msgNoFullLista">More than 3 elements is only available on Full version, Do you Want to connect to Play Store and buy it?</string>
 	<!-- Sin traducir -->
     <string-array name="arrayAcciones">
         <item>Select action</item>

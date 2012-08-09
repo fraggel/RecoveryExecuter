@@ -1,8 +1,12 @@
-package com.fraggel.recoveryexecuter.pro;
+package com.fraggel.recoveryexecuter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import com.fraggel.recoveryexecuter.pro.MainActivity;
+import com.fraggel.recoveryexecuter.pro.crearLista;
+import com.fraggel.recoveryexecuter.pro.install;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -22,5 +26,5 @@ public interface iLiteproabstract {
 	public String backupMain(Resources res,AlertDialog diag,OnClickListener onClickListener,String nombreBck);
 	public String restoreMain(Resources res,AlertDialog diag,OnClickListener onClickListener,String nombreBck,boolean temporal);
 	public String buscarCWMySustituirRutas(String fichero);
-	public String optionSelect(String selected);
+	public String optionSelect(String selected,AlertDialog diag,OnClickListener onClickListener,Resources res);
 }

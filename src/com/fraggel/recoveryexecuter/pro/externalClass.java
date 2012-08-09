@@ -6,6 +6,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
+import com.fraggel.recoveryexecuter.iLiteproabstract;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -290,7 +292,8 @@ public class externalClass extends Activity implements iLiteproabstract{
 		}
 		return rutCWM;
 	}
-	public String optionSelect(String selected) {
+	public String optionSelect(String selected, AlertDialog diag,
+			OnClickListener onClickListener, Resources res) {
 		return selected;
 	}
 }

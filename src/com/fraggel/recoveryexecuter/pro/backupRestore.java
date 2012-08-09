@@ -9,7 +9,6 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.DialogInterface.OnClickListener;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Environment;
@@ -39,7 +38,6 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 		} catch (Exception e) {
 			new REException(e);
 		}
-		
 	}
 
 	public void salir(View v) {

@@ -431,11 +431,22 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 											boolean algoSelect = false;
 											boolean algoSelectRebootNormal = false;
 											boolean erroneo = false;
-											
+											String nomBck="";
 											for (int i = 0; i < lista.size(); i++) {
 												String string = (String) lista
 														.get(i);
-												System.out.println(string);
+												boolean temporal=false;
+												if(string.length()>1){
+													String aux1=string.split("-")[0];
+													String aux2=string.split("-")[1];
+													string=aux1;
+													nomBck=aux2.replaceAll("TMP","").replace("(", "").replace(")","");
+													if(aux2.indexOf("(TMP)")!=-1){
+														temporal=true;
+													}
+												}else{
+													nomBck="";
+												}
 												if ("1".equals(string)) {
 													bos.write(("echo 'Wipe Data'\n")
 															.getBytes());
@@ -457,10 +468,10 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 															.getBytes());
 												}else if ("6".equals(string)) {
 													externalClass exCl=new externalClass();
-													bos.write(exCl.backupMain(res, diag, this,"").getBytes());
+													bos.write(exCl.backupMain(res, diag, this,nomBck).getBytes());
 												}else if ("7".equals(string)) {
 													externalClass exCl=new externalClass();
-													bos.write(exCl.restoreMain(res, diag, this,"").getBytes());
+													bos.write(exCl.restoreMain(res, diag, this,nomBck,temporal).getBytes());
 												} else if ("0".equals(string)) {
 
 												} else if (!"".equals(string)) {

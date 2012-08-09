@@ -36,7 +36,7 @@ public class externalClass extends Activity{
 		}
 		return intent;
 	}
-	public void anyadir(HashMap<String, String> map,ArrayList<String> listaAcciones,AlertDialog diag,Resources res,String file,String selected,String[] items,String[] values,List<HashMap<String, String>> fillMaps,ListView lista,SimpleAdapter adapt,crearLista crearLista){
+	public void anyadir(HashMap<String, String> map,ArrayList<String> listaAcciones,AlertDialog diag,Resources res,String file,String selected,String[] items,String[] values,List<HashMap<String, String>> fillMaps,ListView lista,SimpleAdapter adapt,String nomBck,crearLista crearLista){
 		map = new HashMap<String, String>();
 
 		if (file != null && !"".equals(file)) {
@@ -44,20 +44,31 @@ public class externalClass extends Activity{
 			File ff = new File(file);
 			selected = selected + " " + ff.getName();
 		} else if (!"".equals(selected)) {
-			int r = -1;
-			for (int x = 0; x < items.length; x++) {
-				if (selected.equals(items[x])) {
-					r = x;
+			if(nomBck==null || "".equals(nomBck)){
+				int r = -1;
+				for (int x = 0; x < items.length; x++) {
+					if (selected.equals(items[x])) {
+						r = x;
+					}
 				}
+				listaAcciones.add(values[r]);
+			}else{
+				int r = -1;
+				for (int x = 0; x < items.length; x++) {
+					if (selected.equals(items[x])) {
+						r = x;
+					}
+				}
+				listaAcciones.add(values[r]+"-"+nomBck);
+				selected = selected + " " + nomBck;
 			}
-			listaAcciones.add(values[r]);
 		}
 		if (!"".equals(selected)) {
 			map.put("rowtexts", selected);
 			fillMaps.add(map);
 		}
 		file = "";
-
+		nomBck="";
 		lista.setAdapter(adapt);
 
 	}
@@ -214,7 +225,7 @@ public class externalClass extends Activity{
 		return cadena;
 		//Comprobar si existe ya backup y avisar, dar opción a borrar
 	}
-	public String restoreMain(Resources res,AlertDialog diag,OnClickListener onClickListener,String nombreBck) {
+	public String restoreMain(Resources res,AlertDialog diag,OnClickListener onClickListener,String nombreBck,boolean temporal) {
 		String cadena="";
 		try{
 			File fff=new File(Environment.getExternalStorageDirectory().getPath()+"/clockworkmod/backup/"+nombreBck+"/");
@@ -231,8 +242,13 @@ public class externalClass extends Activity{
 					cadena=("echo 'restore_rom(\""+ buscarCWMySustituirRutas(fff.getPath())+"\");' >> /cache/recovery/extendedcommand\n");
 				}
 			}else{
-				diag.setMessage(res.getString(R.string.msgNoExisteBackup));
-				diag.show();
+				if(!temporal){
+					diag.setMessage(res.getString(R.string.msgNoExisteBackup));
+					diag.show();	
+				}else{
+					cadena=("echo 'restore_rom(\""+ buscarCWMySustituirRutas(fff.getPath())+"\");' >> /cache/recovery/extendedcommand\n");
+				}
+				
 			}
 		}catch(Exception e){
 			new REException(e);

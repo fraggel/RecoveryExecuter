@@ -61,6 +61,7 @@
     <string name="txtCreditos">Gracias a el_liberator del Equipo Criskelo por la traducción Inglés y Francés y gracias a bassie1995 por el Holandés</string>
     <string name="msgExisteBackup">Ya existe un Backup anterior, quieres eliminarlo?</string>
     <string name="msgNoExisteBackup">No existe Backup</string>
+    <string name="btnmakebackuprestore">Ejecutar</string>
     <string name="rdbbackup">Backup</string>
 	<string name="rdbrestore">Restore</string>
     <string name="rdbtxtbck">Seleccionar</string>

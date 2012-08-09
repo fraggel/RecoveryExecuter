@@ -33,8 +33,6 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 			java.lang.Process p = rt.exec("su");
 			BufferedOutputStream bos = new BufferedOutputStream(
 					p.getOutputStream());
-			bos.write(("rm /cache/recovery/extendedcommand\n")
-					.getBytes());	
 		} catch (Exception e) {
 			new REException(e);
 		}

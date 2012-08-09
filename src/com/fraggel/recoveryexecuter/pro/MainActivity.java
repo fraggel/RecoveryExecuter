@@ -436,7 +436,7 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 												String string = (String) lista
 														.get(i);
 												boolean temporal=false;
-												if(string.length()>1){
+												if(string.length()>1 && (string.indexOf("/")==-1)){
 													String aux1=string.split("-")[0];
 													String aux2=string.split("-")[1];
 													string=aux1;

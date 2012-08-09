@@ -179,14 +179,17 @@ public class crearLista extends Activity implements OnItemSelectedListener,
 	}
 
 	private void showFileChooser() throws Exception {
+		file="";
 		Intent intent = new Intent(this, fileselect.class);
 		startActivityForResult(intent, 0);
 	}
 	private void showBackupChooser() throws Exception {
+		file="";
 		Intent intent =new Intent(this,selectNameBck.class);
 		startActivityForResult(intent, 1);
 	}
 	private void showRestoreChooser() throws Exception {
+		file="";
 		AlertDialog.Builder b = new Builder(this);
 		File fff=new File(Environment.getExternalStorageDirectory().getPath()+"/clockworkmod/backup/");
 	    b.setTitle(res.getString(R.string.rdbrestore));

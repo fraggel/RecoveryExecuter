@@ -974,7 +974,7 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 			if(which==-1){
 				Intent intent = new Intent(Intent.ACTION_VIEW);
 				intent.setData(Uri
-						.parse("market://details?id=com.fraggel.recoveryexecuter"));
+						.parse("market://details?id=com.fraggel.recoveryexecuter.pro"));
 				startActivity(intent);
 			}
 		} catch (Exception e) {

@@ -53,15 +53,15 @@ public final class R {
         public static final int listaAcciones=0x7f08001a;
         public static final int localfilefolders=0x7f080015;
         public static final int localfolders=0x7f080010;
-        public static final int op1=0x7f080024;
-        public static final int op2=0x7f080025;
-        public static final int op3=0x7f080026;
-        public static final int op4=0x7f080027;
-        public static final int op5=0x7f080028;
-        public static final int op6=0x7f08002a;
-        public static final int op7=0x7f08002b;
-        public static final int opfile1=0x7f080029;
-        public static final int opinstall1=0x7f08002c;
+        public static final int op1=0x7f080025;
+        public static final int op2=0x7f080026;
+        public static final int op3=0x7f080027;
+        public static final int op4=0x7f080028;
+        public static final int op5=0x7f080029;
+        public static final int op6=0x7f08002b;
+        public static final int op7=0x7f08002c;
+        public static final int opfile1=0x7f08002a;
+        public static final int opinstall1=0x7f08002d;
         public static final int path=0x7f080016;
         public static final int rdbbackup=0x7f08000c;
         public static final int rdbinstalar=0x7f080004;
@@ -71,6 +71,7 @@ public final class R {
         public static final int rowtext=0x7f080022;
         public static final int rowtexts=0x7f080023;
         public static final int txtVRutaDefecto=0x7f08000e;
+        public static final int txtnombck=0x7f080024;
         public static final int wipebattery=0x7f08001e;
         public static final int wipecache=0x7f08001c;
         public static final int wipedalvik=0x7f08001d;
@@ -93,6 +94,7 @@ public final class R {
         public static final int main=0x7f03000d;
         public static final int row=0x7f03000e;
         public static final int rowlist=0x7f03000f;
+        public static final int selectnamebck=0x7f030010;
     }
     public static final class menu {
         public static final int menubackup=0x7f070000;
@@ -125,8 +127,14 @@ public final class R {
         public static final int btnGuardarLista=0x7f050011;
         public static final int btnInstallApk=0x7f05000d;
         public static final int btnNandroid=0x7f05000e;
-        public static final int btnSoloWipe=0x7f050033;
+        public static final int btnSoloWipe=0x7f050034;
         public static final int btnTxtDonacion=0x7f05002c;
+        /**  Sin traducir 
+ Sin traducir 
+ Sin traducir 
+ Sin traducir 
+         */
+        public static final int btnmakebackuprestore=0x7f05002e;
         public static final int cancelar=0x7f050014;
         public static final int config=0x7f050015;
         /** 
@@ -142,36 +150,31 @@ public final class R {
         public static final int enviaEmail=0x7f050020;
         public static final int envioErrores=0x7f050022;
         public static final int msgApkInstalada=0x7f05002a;
-        public static final int msgExisteBackup=0x7f050032;
+        public static final int msgExisteBackup=0x7f050033;
         public static final int msgFileErroneo=0x7f05002d;
         public static final int msgNoBusybox=0x7f050029;
-        public static final int msgNoExisteBackup=0x7f050031;
-        public static final int msgNoFull=0x7f050037;
-        public static final int msgNoFullLista=0x7f050038;
+        public static final int msgNoExisteBackup=0x7f050032;
+        public static final int msgNoFull=0x7f050038;
+        public static final int msgNoFullLista=0x7f050039;
         public static final int msgNoRoot=0x7f050028;
-        public static final int msgNoSdcard=0x7f050036;
-        public static final int msgSoloWipe=0x7f050034;
+        public static final int msgNoSdcard=0x7f050037;
+        public static final int msgSoloWipe=0x7f050035;
         public static final int no=0x7f050018;
         public static final int noEmailCliente=0x7f050021;
         public static final int noerrorlog=0x7f050023;
         public static final int nomautor=0x7f05001d;
         public static final int rdbTxtNormal=0x7f050026;
         public static final int rdbTxtSistema=0x7f050027;
-        /**  Sin traducir 
- Sin traducir 
- Sin traducir 
- Sin traducir 
-         */
-        public static final int rdbbackup=0x7f05002e;
-        public static final int rdbrestore=0x7f05002f;
-        public static final int rdbtxtbck=0x7f050030;
+        public static final int rdbbackup=0x7f05002f;
+        public static final int rdbrestore=0x7f050030;
+        public static final int rdbtxtbck=0x7f050031;
         public static final int rdbtxtinstalar=0x7f050025;
         public static final int rutaguardada=0x7f050012;
         public static final int salir=0x7f05000f;
         public static final int salirlista=0x7f05001b;
         public static final int selecarchivo=0x7f050019;
         public static final int si=0x7f050017;
-        public static final int txtCreditos=0x7f050035;
+        public static final int txtCreditos=0x7f050036;
         public static final int txtDonacion=0x7f05002b;
         public static final int txtinstalar=0x7f050024;
         public static final int version=0x7f050010;

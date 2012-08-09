@@ -9,7 +9,7 @@ For flash a kernel,modem or any other zip file simply select it from the file br
     <string name="ayudaLista">"Select from the dropdown the option you want to add to the list of actions, after selecting the action click \"Add to List\" if the option is selected \"Flashing file\" will show the file browser to select the file to flash
 After selecting the file you need to press the button \"Add to List\".
 Clicking on any item that item will be removed from the list of actions.After the list click the button \"Save List\"."</string>
-    <string name="app_name">RecoveryExecuter </string>
+    <string name="app_name">RecoveryExecuter Lite</string>
     <string name="configurl">Default Path</string>
     <string name="wipedata">Wipe Data</string>
     <string name="wipecache">Wipe Cache</string>
@@ -54,6 +54,7 @@ Clicking on any item that item will be removed from the list of actions.After th
     <string name="btnTxtDonacion">Donate</string>
     <string name="msgFileErroneo">The specified file is not valid</string>
 	<!-- Sin traducir -->
+	<string name="btnmakebackuprestore">Execute</string>
 	<string name="rdbbackup">Backup</string>
 	<string name="rdbrestore">Restore</string>
 	<string name="rdbtxtbck">Select</string>
@@ -73,8 +74,8 @@ Clicking on any item that item will be removed from the list of actions.After th
         <item>Wipe Dalvik</item>
         <item>Wipe Battery</item>
         <item>Flash File</item>
-        <item>Backup (Full Version)</item>
-        <item>Restore(Full Version)</item>
+        <item>Backup</item>
+        <item>Restore</item>
     </string-array>
     <string-array name="arrayAccionesValues">
         <item>0</item>

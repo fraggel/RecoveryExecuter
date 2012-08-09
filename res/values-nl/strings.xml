@@ -9,7 +9,7 @@ Om een kernel, modem of enig ander zip-bestand te installeren, selecteer je het 
     <string name="ayudaLista">"Selecteer uit de lijst de optie die je aan de lijst met acties wilt toevoegen. Daarna druk je op "Toevoegen aan lijst", en als die optie geselecteerd is, laat "Bestand installeren" de bestandsbrowser zien om het te installeren bestand te selecteren.
 Na het bestand geselecteerd te hebben, druk je op "Toevoegen aan lijst".
 Als je nog eens op een optie drukt, wordt die verwijderd van de lijst met acties. Nadat je de de lijst opgesteld hebt, druk je op de knop "Lijst opslaan"."</string>
-    <string name="app_name">RecoveryExecuter </string>
+    <string name="app_name">RecoveryExecuter Lite</string>
     <string name="configurl">Standaardpad</string>
     <string name="wipedata">Data-partitie wissen</string>
     <string name="wipecache">Cache-partitie wissen</string>
@@ -55,6 +55,7 @@ Als je nog eens op een optie drukt, wordt die verwijderd van de lijst met acties
     <string name="txtCreditos">Met dank aan el_liberator van het Criskelo Team voor de Engelse en Franse vertalingen en bassie1995 voor de Nederlandse vertaling</string>
     <string name="msgFileErroneo">Het geselecteerde bestand is niet geldig</string>
 	<!-- Sin traducir -->
+	<string name="btnmakebackuprestore">Execute</string>
 	<string name="rdbbackup">Backup</string>
 	<string name="rdbrestore">Restore</string>
 	<string name="rdbtxtbck">Select</string>
@@ -73,8 +74,8 @@ Als je nog eens op een optie drukt, wordt die verwijderd van de lijst met acties
         <item>Dalvik-partitie wissen</item>
         <item>Batterijstatistieken wissen</item>
         <item>Installeer bestand</item>
-        <item>Back-up maken (Full Version)</item>
-        <item>Back-up terugzetten(Full Version)</item>
+        <item>Back-up maken</item>
+        <item>Back-up terugzetten</item>
     </string-array>
     <string-array name="arrayAccionesValues">
         <item>0</item>

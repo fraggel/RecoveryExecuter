@@ -9,7 +9,7 @@
     <string name="ayudaLista">Selecciona del desplegable la opción que quieres añadir a la lista de acciones, una vez seleccionada la acción pulsa \"Añadir a Lista\", si la opción seleccionada es 
 		    \"Flashear archivo\"" se mostrará el explorador de archivos para seleccionar el archivo a flashear.\n\nUna vez seleccionado el archivo es necesario pulsar el botón \"Añadir a Lista\".\n\nPulsando 
 		    sobre alguno de los elementos se eliminará dicho elemento de la lista de acciones.Una vez terminada la lista pulsar el boton \"Guardar Lista\".</string>
-    <string name="app_name">RecoveryExecuter </string>
+    <string name="app_name">RecoveryExecuter Lite</string>
     <!--
         <string name="configurl">Selecciona la carpeta que deseas usar como predeterminada, esto hara que cada 
 		vez que quieras flashear un fichero el explorador de archivos se posicione en dicha carpeta\n\nUna 
@@ -61,6 +61,7 @@
     <string name="txtCreditos">Gracias a el_liberator del Equipo Criskelo por la traducción Inglés y Francés y gracias a bassie1995 por el Holandés</string>
     <string name="msgExisteBackup">Ya existe un Backup anterior, quieres eliminarlo?</string>
     <string name="msgNoExisteBackup">No existe Backup</string>
+    <string name="btnmakebackuprestore">Ejecutar</string>
     <string name="rdbbackup">Backup</string>
 	<string name="rdbrestore">Restore</string>
     <string name="rdbtxtbck">Seleccionar</string>
@@ -77,8 +78,8 @@
         <item>Wipe Dalvik</item>
         <item>Wipe Battery</item>
         <item>Flashear Archivo</item>
-        <item>Backup (Version Completa)</item>
-        <item>Restore(Version Completa)</item>
+        <item>Backup</item>
+        <item>Restore</item>
     </string-array>
     <string-array name="arrayAccionesValues">
         <item>0</item>

@@ -262,8 +262,14 @@ public class externalClass extends Activity implements iLiteproabstract{
 		}
 		return rutCWM;
 	}
-	public String optionSelect(String selected) {
+	public String optionSelect(String selected,AlertDialog diag,OnClickListener onClickListener,Resources res) {
 		if("6".equals(selected)||"7".equals(selected)){
+			diag.setMessage(res.getString(R.string.msgNoFull));
+			diag.setButton(AlertDialog.BUTTON_NEGATIVE,
+					res.getString(R.string.cancelar),onClickListener);
+			diag.setButton(AlertDialog.BUTTON_POSITIVE,
+					res.getString(R.string.aceptar),onClickListener);
+			diag.show();
 			selected="0";
 		}
 		return selected;

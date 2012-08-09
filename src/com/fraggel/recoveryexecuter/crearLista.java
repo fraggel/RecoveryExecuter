@@ -120,7 +120,7 @@ public class crearLista extends Activity implements OnItemSelectedListener,
 		// An item was selected. You can retrieve the selected item using
 		externalClass exCl=new externalClass();
 		selected = values[pos];
-		selected=exCl.optionSelect(selected);
+		selected=exCl.optionSelect(selected,diag,this,res);
 		if ("0".equals(selected)) {
 			selected = "";
 		} else if ("5".equals(selected)) {

@@ -54,6 +54,7 @@ Clicking on any item that item will be removed from the list of actions.After th
     <string name="btnTxtDonacion">Donate</string>
     <string name="msgFileErroneo">The specified file is not valid</string>
 	<!-- Sin traducir -->
+	<string name="txtbckname">Write backup name</string>
 	<string name="btnmakebackuprestore">Execute</string>
 	<string name="rdbbackup">Backup</string>
 	<string name="rdbrestore">Restore</string>

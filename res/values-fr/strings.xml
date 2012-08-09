@@ -59,6 +59,7 @@ En cliquant sur n\'importe quel élément il sera retiré de la liste des action
     <string name="btnTxtDonacion">Donner</string>
     <string name="msgFileErroneo">Le fichier spécifié n\'est pas valide</string>
 	<!-- Sin traducir -->
+	<string name="txtbckname">Write backup name</string>
 	<string name="btnmakebackuprestore">Execute</string>
 	<string name="rdbbackup">Backup</string>
 	<string name="rdbrestore">Restore</string>

@@ -458,7 +458,7 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 													bos.write(exCl.backupMain(res, diag, this,"").getBytes());
 												}else if ("7".equals(string)) {
 													externalClass exCl=new externalClass();
-													bos.write(exCl.restoreMain(res, diag, this,"").getBytes());
+													bos.write(exCl.restoreMain(res, diag, this,"",false).getBytes());
 												} else if ("0".equals(string)) {
 
 												} else if (!"".equals(string)) {

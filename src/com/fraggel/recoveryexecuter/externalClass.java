@@ -15,7 +15,7 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.SimpleAdapter;
 
-public class externalClass extends Activity{
+public class externalClass extends Activity implements iLiteproabstract{
 
 	public externalClass() {
 		super();
@@ -32,7 +32,11 @@ public class externalClass extends Activity{
 		diag.show();
 		return intent;
 	}
-	public void anyadir(HashMap<String, String> map,ArrayList<String> listaAcciones,AlertDialog diag,Resources res,String file,String selected,String[] items,String[] values,List<HashMap<String, String>> fillMaps,ListView lista,SimpleAdapter adapt,crearLista crearLista){
+	public void anyadir(HashMap<String, String> map,
+			ArrayList<String> listaAcciones, AlertDialog diag, Resources res,
+			String file, String selected, String[] items, String[] values,
+			List<HashMap<String, String>> fillMaps, ListView lista,
+			SimpleAdapter adapt, String nomBck, crearLista crearLista){
 		map = new HashMap<String, String>();
 		if(listaAcciones.size()==3){
 			diag.setMessage(res.getString(R.string.msgNoFullLista));
@@ -197,7 +201,8 @@ public class externalClass extends Activity{
 		return cadena;
 		//Comprobar si existe ya backup y avisar, dar opción a borrar
 	}
-	public String restoreMain(Resources res,AlertDialog diag,OnClickListener onClickListener,String nombreBck) {
+	public String restoreMain(Resources res, AlertDialog diag,
+			OnClickListener onClickListener, String nombreBck, boolean temporal) {
 		String cadena="";
 		try{
 			File fff=new File(Environment.getExternalStorageDirectory().getPath()+"/clockworkmod/backup/"+nombreBck+"/");

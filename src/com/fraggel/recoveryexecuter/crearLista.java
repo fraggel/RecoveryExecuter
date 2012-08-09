@@ -155,7 +155,7 @@ public class crearLista extends Activity implements OnItemSelectedListener,
 
 	public void anyadir(View v) throws Exception {
 		externalClass exCl=new externalClass();
-		exCl.anyadir(map, listaAcciones, diag, res, file, selected, items, values, fillMaps, lista, adapt,this);
+		exCl.anyadir(map, listaAcciones, diag, res, file, selected, items, values, fillMaps, lista, adapt,"", this);
 	}
 
 	protected void onActivityResult(int request, int result, Intent data) {

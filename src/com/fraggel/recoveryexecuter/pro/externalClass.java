@@ -20,7 +20,7 @@ import android.widget.RadioButton;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 
-public class externalClass extends Activity{
+public class externalClass extends Activity implements iLiteproabstract{
 
 	public externalClass() {
 		super();

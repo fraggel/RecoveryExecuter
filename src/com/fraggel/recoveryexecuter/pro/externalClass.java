@@ -23,9 +23,19 @@ import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 
 public class externalClass extends Activity implements iLiteproabstract{
-
+	private File sdCard;
+	private File extSdCard;
 	public externalClass() {
 		super();
+		sdCard=Environment.getExternalStorageDirectory();
+		
+		StorageOptions.determineStorageOptions();
+		ArrayList<String> mounts = StorageOptions.getMounts();
+		if(mounts!=null && mounts.size()>0){
+			extSdCard=new File(mounts.get(0));	
+		}else{
+			extSdCard=null;
+		}
 		// TODO Auto-generated constructor stub
 	}
 	public Intent initialBackup(MainActivity mainActivity,Resources res,AlertDialog diag){
@@ -109,7 +119,8 @@ public class externalClass extends Activity implements iLiteproabstract{
 		bos= new BufferedOutputStream(exec.getOutputStream());
 		
 			bos.write(("rm /cache/recovery/extendedcommand\n")
-					.getBytes());	
+					.getBytes());
+		prepPartitions(bos);
 		File fff=new File(Environment.getExternalStorageDirectory().getPath()+"/clockworkmod/backup/"+nombreBck+"/");
 		if(fff.exists()){
 			File[] listFiles = fff.listFiles();
@@ -155,6 +166,7 @@ public class externalClass extends Activity implements iLiteproabstract{
 			bos= new BufferedOutputStream(exec.getOutputStream());
 			bos.write(("rm /cache/recovery/extendedcommand\n")
 						.getBytes());	
+			prepPartitions(bos);
 			File fff=new File(Environment.getExternalStorageDirectory().getPath()+"/clockworkmod/backup/"+nombreBck+"/");
 			if(fff.exists()){
 				File[] listFiles = fff.listFiles();
@@ -260,45 +272,29 @@ public class externalClass extends Activity implements iLiteproabstract{
 	}
 	public String buscarCWMySustituirRutas(String fichero){
 		String rutCWM="";
-		String cwmVersion="";
-		try {
-			cwmVersion="5";
-			File sdCard=Environment.getExternalStorageDirectory();		
-			File extSdCard=null;
-			ArrayList<String> mounts = StorageOptions.getMounts();
-			if(mounts!=null && mounts.size()>0){
-				extSdCard=new File(mounts.get(0));	
-			}
-			if("5".equals(cwmVersion)){
-				rutCWM=fichero.replaceFirst(sdCard.getPath()+"/","/emmc/").replaceFirst(extSdCard.getPath(),"/sdcard/");	
-			}else if("6".equals(cwmVersion)){
-				if(fichero.indexOf(sdCard.getPath())!=-1){
-					rutCWM=fichero.replaceFirst(sdCard.getPath()+"/","/sdcard/");
-				}else{
-					String result="/external_sd/";
-					String[] fileSplitted=fichero.split("/");
-					for (int i = 3; i < fileSplitted.length; i++) {
-						String string = fileSplitted[i];
-						if(i<fileSplitted.length-1){
-							result=result+string+"/";
-						}else{
-							result=result+string;
-						}
-					}
-					rutCWM=result;
-				}
-				
-			}else{
-				rutCWM=fichero.replaceFirst(sdCard.getPath()+"/","/emmc/").replaceFirst(extSdCard.getPath(),"/sdcard/");
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		rutCWM=fichero.replaceFirst(sdCard.getPath()+"/","/data/media/").replaceFirst(extSdCard.getPath(),"/data/media/external");
 		return rutCWM;
 	}
 	public String optionSelect(String selected, AlertDialog diag,
 			OnClickListener onClickListener, Resources res) {
 		return selected;
+	}
+	private void prepPartitions(
+			BufferedOutputStream bos) {
+			ArrayList<String> listaVold=new ArrayList<String>();
+			ArrayList<String> mMounts=new ArrayList<String>();
+			listaVold=StorageOptions.listaVoldF;
+			mMounts=StorageOptions.mMountsF;
+			
+			try {
+				bos.write(("echo 'run_program(\"/sbin/busybox\",\"mount\",\"-a\");' >> /cache/recovery/extendedcommand\n").getBytes());
+				bos.write(("echo 'run_program(\"/sbin/mkdir\",\"/data/media/external/\");' >> /cache/recovery/extendedcommand\n").getBytes());
+				bos.write(("echo 'run_program(\"/sbin/busybox\",\"mount\",\"-t\",\"auto\",\""+listaVold.get(1)+"\",\"/data/media/external/\");' >> /cache/recovery/extendedcommand\n").getBytes());
+				
+			} catch (Exception e) {
+				
+			}
+			
+		
 	}
 }

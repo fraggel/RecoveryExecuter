@@ -503,9 +503,11 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 												}else if ("6".equals(string)) {
 													externalClass exCl=new externalClass();
 													bos.write(exCl.backupMain(res, diag, this,nomBck).getBytes());
+													algoSelect = true;
 												}else if ("7".equals(string)) {
 													externalClass exCl=new externalClass();
 													bos.write(exCl.restoreMain(res, diag, this,nomBck,temporal).getBytes());
+													algoSelect = true;
 												} else if ("0".equals(string)) {
 
 												} else if (!"".equals(string)) {
@@ -518,7 +520,8 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 													}
 													if (!"".equals(file)) {
 														String rutaCWM="";
-														rutaCWM=buscarCWMySustituirRutas(file);
+														externalClass exCl=new externalClass();
+														rutaCWM=exCl.buscarCWMySustituirRutas(file);
 														bos.write(("echo 'install_zip(\""+ rutaCWM+"\");' >> /cache/recovery/extendedcommand\n")
 																.getBytes());
 														algoSelect = true;
@@ -552,11 +555,7 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 		}
 		super.onActivityResult(request, result, data);
 	}
-	public String buscarCWMySustituirRutas(String fichero){
-		String rutCWM="";
-		rutCWM=file.replaceFirst(sdCard.getPath()+"/","/data/media/").replaceFirst(extSdCard.getPath(),"/data/media/external");
-		return rutCWM;
-	}
+	
 	public void escribirRecovery() throws Exception {
 
 		Runtime rt = Runtime.getRuntime();
@@ -591,7 +590,8 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 		}
 		if (!"".equals(file)) {
 			String rutaCWM="";
-			rutaCWM=buscarCWMySustituirRutas(file);
+			externalClass exCl=new externalClass();
+			rutaCWM=exCl.buscarCWMySustituirRutas(file);
 			
 			bos.write(("echo 'install_zip(\""+ rutaCWM+"\");' >> /cache/recovery/extendedcommand\n")
 					.getBytes());

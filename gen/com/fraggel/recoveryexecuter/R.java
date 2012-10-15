@@ -129,8 +129,6 @@ public final class R {
         public static final int btnNandroid=0x7f05000e;
         public static final int btnSoloWipe=0x7f050035;
         public static final int btnTxtDonacion=0x7f05002c;
-        /**  Sin traducir 
-         */
         public static final int btnmakebackuprestore=0x7f05002f;
         public static final int cancelar=0x7f050014;
         public static final int config=0x7f050015;
@@ -174,6 +172,7 @@ public final class R {
         public static final int txtCreditos=0x7f050037;
         public static final int txtDonacion=0x7f05002b;
         /**  Sin traducir 
+ Sin traducir 
  Sin traducir 
  Sin traducir 
          */

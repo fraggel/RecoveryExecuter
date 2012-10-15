@@ -64,6 +64,7 @@
     <string name="btnmakebackuprestore">Ejecutar</string>
     <string name="rdbbackup">Backup</string>
 	<string name="rdbrestore">Restore</string>
+	<string name="txtbckname">Escribe el nombre para el Backup</string>
     <string name="rdbtxtbck">Seleccionar</string>
     <string name="btnSoloWipe">Sólo Wipe</string>
     <string name="msgSoloWipe">Ejecutar sólo Wipes?</string>

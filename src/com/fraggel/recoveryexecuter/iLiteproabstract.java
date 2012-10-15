@@ -21,6 +21,5 @@ public interface iLiteproabstract {
 	public String restore(Resources res,AlertDialog diag,OnClickListener onClickListener,String nombreBck);
 	public String backupMain(Resources res,AlertDialog diag,OnClickListener onClickListener,String nombreBck);
 	public String restoreMain(Resources res,AlertDialog diag,OnClickListener onClickListener,String nombreBck,boolean temporal);
-	public String buscarCWMySustituirRutas(String fichero);
 	public String optionSelect(String selected,AlertDialog diag,OnClickListener onClickListener,Resources res);
 }

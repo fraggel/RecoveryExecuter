@@ -39,13 +39,14 @@ public class MainActivity extends Activity implements OnItemSelectedListener,
 AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 	private static final int FILE_SELECT_CODE = 0;
 	private String file = "";
-	private String initialDir = "/mnt/sdcard/Download/";
+	private String initialDir;
 	private SharedPreferences sp;
 	AlertDialog diag;
 	ArrayList lista;
-	File rutaTmp;
-	File root;
-	File sdCard;
+	File rutaTmp=null;
+	File root=null;
+	File sdCard=null;
+	File extSdCard=null;
 	String items[];
 	String values[];
 	Resources res;
@@ -54,6 +55,7 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		diag = new AlertDialog.Builder(this).create();
+		
 		try {
 			res = this.getResources();
 			DisplayMetrics dm = res.getDisplayMetrics();
@@ -62,6 +64,15 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 			res.updateConfiguration(conf, dm);
 			root=Environment.getRootDirectory();
 			sdCard=Environment.getExternalStorageDirectory();
+			initialDir=sdCard+"/Download/";
+			StorageOptions.determineStorageOptions();
+			ArrayList<String> mounts = StorageOptions.getMounts();
+			if(mounts!=null && mounts.size()>0){
+				extSdCard=new File(mounts.get(0));	
+			}else{
+				extSdCard=null;
+			}
+			
 			rutaTmp = new File(sdCard.getPath()+"/RecoveryExecuter/");
 			if(!sdCard.canRead()){
 				diag.setMessage(res.getString(R.string.msgNoSdcard));
@@ -76,12 +87,21 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 			}else{
 				rutaTmp.mkdirs();
 			}
+			String tmpSD="";
+			String tmpEXT="";
+			
+			if(sdCard!=null){
+				tmpSD=sdCard.getPath();
+			}
+			if(extSdCard!=null){
+				tmpEXT=extSdCard.getPath();
+			}
+			StorageOptions.determineStorageOptionsMount(tmpSD,tmpEXT);
 			if (controlRoot()) {
 				if (!controlBusybox()) {
 					instalarBusyBox();
 				}
 			}
-
 			super.setTitle(R.string.version);
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.main);
@@ -101,12 +121,20 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 		if (!f.exists()) {
 			f = new File(root.getPath()+"/xbin/su");
 			if (!f.exists()) {
-				rootB = false;
-			} else {
-				rootB = true;
+				f = new File(root.getPath()+"/system/bin/su");
+				if (!f.exists()) {
+					f = new File(root.getPath()+"/system/xbin/su");
+					if (f.exists()) {
+						rootB=true;
+					}
+				}else{
+					rootB=true;
+				}
+			}else{
+				rootB=true;
 			}
-		} else {
-			rootB = false;
+		}else{
+			rootB=true;
 		}
 		if (rootB) {
 			try {
@@ -136,8 +164,9 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 
 	public void nandroid(View v) {
 		try {
+			AlertDialog dialog = new AlertDialog.Builder(this).create();
 			externalClass exCl=new externalClass();
-			Intent intent=exCl.initialBackup(this,res,diag);
+			Intent intent=exCl.initialBackup( this,res,dialog);
 			if(intent!=null){
 				startActivity(intent);
 			}
@@ -429,11 +458,23 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 											boolean algoSelect = false;
 											boolean algoSelectRebootNormal = false;
 											boolean erroneo = false;
-											
+											String nomBck="";
+											prepPartitions(bos);
 											for (int i = 0; i < lista.size(); i++) {
 												String string = (String) lista
 														.get(i);
-												System.out.println(string);
+												boolean temporal=false;
+												if(string.length()>1 && (string.indexOf("/")==-1)){
+													String aux1=string.split("-")[0];
+													String aux2=string.split("-")[1];
+													string=aux1;
+													nomBck=aux2.replaceAll("TMP","").replace("(", "").replace(")","");
+													if(aux2.indexOf("(TMP)")!=-1){
+														temporal=true;
+													}
+												}else{
+													nomBck="";
+												}
 												if ("1".equals(string)) {
 													bos.write(("echo 'Wipe Data'\n")
 															.getBytes());
@@ -455,10 +496,12 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 															.getBytes());
 												}else if ("6".equals(string)) {
 													externalClass exCl=new externalClass();
-													bos.write(exCl.backupMain(res, diag, this,"").getBytes());
+													bos.write(exCl.backupMain(res, diag, this,nomBck).getBytes());
+													algoSelect = true;
 												}else if ("7".equals(string)) {
 													externalClass exCl=new externalClass();
-													bos.write(exCl.restoreMain(res, diag, this,"",false).getBytes());
+													bos.write(exCl.restoreMain(res, diag, this,nomBck,temporal).getBytes());
+													algoSelect = true;
 												} else if ("0".equals(string)) {
 
 												} else if (!"".equals(string)) {
@@ -471,7 +514,8 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 													}
 													if (!"".equals(file)) {
 														String rutaCWM="";
-														rutaCWM=buscarCWMySustituirRutas(file);
+														externalClass exCl=new externalClass();
+														rutaCWM=exCl.buscarCWMySustituirRutas(file);
 														bos.write(("echo 'install_zip(\""+ rutaCWM+"\");' >> /cache/recovery/extendedcommand\n")
 																.getBytes());
 														algoSelect = true;
@@ -492,6 +536,7 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 
 										}
 									}
+
 								});
 						dialog.show();
 					}
@@ -504,50 +549,7 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 		}
 		super.onActivityResult(request, result, data);
 	}
-	public String buscarCWMySustituirRutas(String fichero){
-		String rutCWM="";
-		String cwmVersion="";
-		try {
-			
-		/*File fCWM=new File("/data/media/clockworkmod/recovery.log");
-		BufferedInputStream bis=new BufferedInputStream(new FileInputStream(fCWM));
-		byte[] tmp=new byte[2048];
-		bis.read(tmp);
-		cwmVersion=new String(tmp);
-		cwmVersion=cwmVersion.substring(cwmVersion.toLowerCase().indexOf("recovery v")+"recovery v".length(),cwmVersion.toLowerCase().indexOf("recovery v")+"recovery v".length()+1);
-		*/
-		cwmVersion="5";
-				
-		if("5".equals(cwmVersion)){
-			rutCWM=file.replaceFirst(sdCard.getPath()+"/","/emmc/").replaceFirst("/mnt/extSdCard/","/sdcard/");	
-		}else if("6".equals(cwmVersion)){
-			if(file.indexOf(sdCard.getPath())!=-1){
-				rutCWM=file.replaceFirst(sdCard.getPath()+"/","/sdcard/");
-			}else{
-				///mnt/extSdCard/
-				///mnt/emmc/
-				String result="/external_sd/";
-				String[] fileSplitted=file.split("/");
-				for (int i = 3; i < fileSplitted.length; i++) {
-					String string = fileSplitted[i];
-					if(i<fileSplitted.length-1){
-						result=result+string+"/";
-					}else{
-						result=result+string;
-					}
-				}
-				rutCWM=result;
-			}
-			
-		}else{
-			rutCWM=file.replaceFirst(sdCard.getPath()+"/","/emmc/").replaceFirst("/mnt/extSdCard/","/sdcard/");
-		}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return rutCWM;
-	}
+	
 	public void escribirRecovery() throws Exception {
 
 		Runtime rt = Runtime.getRuntime();
@@ -557,9 +559,10 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 		CheckBox chkdalvik = (CheckBox) findViewById(R.id.wipedalvik);
 		CheckBox chkbattery = (CheckBox) findViewById(R.id.wipebattery);
 		BufferedOutputStream bos = new BufferedOutputStream(p.getOutputStream());
-		bos.write(("rm /cache/recovery/extendedcommand\n").getBytes());
+		//bos.write(("rm /cache/recovery/extendedcommand\n").getBytes());
 		boolean algoSelect = false;
 		boolean algoSelectRebootNormal = false;
+		prepPartitions(bos);
 		if (chkdata.isChecked()) {
 			bos.write(("echo 'Wipe Data'\n").getBytes());
 			bos.write(("echo 'format (\"/data\");' > /cache/recovery/extendedcommand\n")
@@ -581,7 +584,9 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 		}
 		if (!"".equals(file)) {
 			String rutaCWM="";
-			rutaCWM=buscarCWMySustituirRutas(file);
+			externalClass exCl=new externalClass();
+			rutaCWM=exCl.buscarCWMySustituirRutas(file);
+			
 			bos.write(("echo 'install_zip(\""+ rutaCWM+"\");' >> /cache/recovery/extendedcommand\n")
 					.getBytes());
 			algoSelect = true;
@@ -591,10 +596,29 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 		} else if (algoSelectRebootNormal) {
 			bos.write(("reboot").getBytes());
 		}
+		
 		bos.flush();
 		bos.close();
+		
 	}
-
+	private void prepPartitions(
+			BufferedOutputStream bos) {
+			ArrayList<String> listaVold=new ArrayList<String>();
+			ArrayList<String> mMounts=new ArrayList<String>();
+			listaVold=StorageOptions.listaVoldF;
+			mMounts=StorageOptions.mMountsF;
+			
+			try {
+				bos.write(("echo 'run_program(\"/sbin/busybox\",\"mount\",\"-a\");' >> /cache/recovery/extendedcommand\n").getBytes());
+				bos.write(("echo 'run_program(\"/sbin/mkdir\",\"/data/media/external/\");' >> /cache/recovery/extendedcommand\n").getBytes());
+				bos.write(("echo 'run_program(\"/sbin/busybox\",\"mount\",\"-t\",\"auto\",\""+listaVold.get(1)+"\",\"/data/media/external/\");' >> /cache/recovery/extendedcommand\n").getBytes());
+				
+			} catch (Exception e) {
+				
+			}
+			
+		
+	}
 	public boolean crearZipCwm(String f) throws Exception {
 		File rutaTmpKernel = new File(sdCard.getPath()+"/RecoveryExecuter/kernel/");
 		File rutaTmpModem = new File(sdCard.getPath()+"/RecoveryExecuter/modem/");
@@ -604,9 +628,6 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 		boolean erroneo = false;
 		String ext = f.substring(f.length() - 4, f.length()).toLowerCase();
 		if (".md5".equals(ext)) {
-			// copiar a rutaTmp quitando el .md5
-			// asignar ext nuevo file
-			// asignar f nuevo File
 			try {
 				File tmp = new File(f);
 				String renamed = tmp.getName().substring(0,
@@ -621,9 +642,6 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 			}
 		}
 		if (".tar".equals(ext)) {
-			// unzip
-			// asignar ext file extracted
-			// asignar f nuevo file
 			try {
 				Tar tar = new Tar();
 				File g = new File(rutaTmp + "/" + new File(f).getName());
@@ -843,7 +861,6 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 		for (String fileName : fileList) {
 			File file = new File(srcDir.getParent(), fileName);
 
-			// Zip always use / as separator
 			String zipName = fileName;
 			if (File.separatorChar != '/')
 				zipName = fileName.replace(File.separatorChar, '/');

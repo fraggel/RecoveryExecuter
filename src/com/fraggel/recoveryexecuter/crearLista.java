@@ -1,17 +1,21 @@
 package com.fraggel.recoveryexecuter;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import android.R.integer;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -29,6 +33,7 @@ public class crearLista extends Activity implements OnItemSelectedListener,
 	AlertDialog diag;
 	String selected;
 	ArrayList<String> listaAcciones = new ArrayList<String>();
+	ArrayList<String> listaBackups = new ArrayList<String>();
 	ListView lista;
 	String file;
 	List<HashMap<String, String>> fillMaps;
@@ -38,8 +43,11 @@ public class crearLista extends Activity implements OnItemSelectedListener,
 	String[] from = new String[] { "rowtexts" };
 	String items[];
 	String values[];
+	String[] g;
+	String nomBck;
 	int[] to = new int[] { R.id.rowtexts };
 	Resources res;
+	String[] types;
 
 	public void onCreate(Bundle savedInstanceState) {
 		try {
@@ -97,6 +105,10 @@ public class crearLista extends Activity implements OnItemSelectedListener,
 						string = items[items.length - 3]
 								+ " "
 								+ string.split("/")[string.split("/").length - 1];
+					}else if(string.split("-").length-1>0){
+						String aux1=string.split("-")[0];
+						String aux2=string.split("-")[1];
+						string=items[Integer.parseInt(aux1)]+" "+aux2;
 					}
 				}
 				map = new HashMap<String, String>();
@@ -123,7 +135,10 @@ public class crearLista extends Activity implements OnItemSelectedListener,
 		selected=exCl.optionSelect(selected,diag,this,res);
 		if ("0".equals(selected)) {
 			selected = "";
+			nomBck="";
+			spinner.setSelection(0);
 		} else if ("5".equals(selected)) {
+			nomBck="";
 			try {
 				showFileChooser();
 			} catch (Exception e) {
@@ -131,7 +146,25 @@ public class crearLista extends Activity implements OnItemSelectedListener,
 
 			}
 			selected = parent.getItemAtPosition(pos).toString();
-		} else {
+			spinner.setSelection(0);
+		} else if("6".equals(selected)){
+			try {
+				selected = parent.getItemAtPosition(pos).toString();
+				showBackupChooser();
+			} catch (Exception e) {
+				new REException(e);
+
+			}
+		} else if("7".equals(selected)){
+			try {
+				selected = parent.getItemAtPosition(pos).toString();
+				showRestoreChooser();
+			} catch (Exception e) {
+				new REException(e);
+
+			}
+		}else{
+			nomBck="";
 			file="";
 			selected = parent.getItemAtPosition(pos).toString();
 			try {
@@ -140,22 +173,49 @@ public class crearLista extends Activity implements OnItemSelectedListener,
 				new REException(e);
 
 			}
+			spinner.setSelection(0);
 		}
-		spinner.setSelection(0);
+		
 	}
 
 	private void showFileChooser() throws Exception {
+		file="";
 		Intent intent = new Intent(this, fileselect.class);
 		startActivityForResult(intent, 0);
 	}
-
+	private void showBackupChooser() throws Exception {
+		file="";
+		Intent intent =new Intent(this,selectNameBck.class);
+		startActivityForResult(intent, 1);
+	}
+	private void showRestoreChooser() throws Exception {
+		file="";
+		AlertDialog.Builder b = new Builder(this);
+		File fff=new File(Environment.getExternalStorageDirectory().getPath()+"/clockworkmod/backup/");
+	    b.setTitle(res.getString(R.string.rdbrestore));
+	    types =fff.list(); 
+	    g=new String[types.length+listaBackups.size()];
+	    int y=0;
+	    for(int x=0;x<types.length+listaBackups.size();x++){
+	    	if(x<types.length){
+	    		g[x]=types[x];
+	    	}else if(x>=types.length){
+	    		g[x]=listaBackups.get(y)+"(TMP)";
+	    		y++;
+	    	}
+	    }
+	    b.setItems(g,this);
+	    b.show();
+	}
+	
+	
 	public void onNothingSelected(AdapterView<?> parent) {
 		// Another interface callback
 	}
 
 	public void anyadir(View v) throws Exception {
 		externalClass exCl=new externalClass();
-		exCl.anyadir(map, listaAcciones, diag, res, file, selected, items, values, fillMaps, lista, adapt,"", this);
+		exCl.anyadir(map, listaAcciones, diag, res, file, selected, items, values, fillMaps, lista, adapt,nomBck,this);
 	}
 
 	protected void onActivityResult(int request, int result, Intent data) {
@@ -167,6 +227,15 @@ public class crearLista extends Activity implements OnItemSelectedListener,
 					anyadir(null);
 				}
 				break;
+			case 1:
+				if (result == RESULT_OK) {
+					
+					selected = spinner.getSelectedItem().toString();
+					nomBck=data.getStringExtra("nomBck");
+					listaBackups.add(nomBck);
+					anyadir(null);
+					spinner.setSelection(0);
+				}
 			}
 		} catch (Exception e) {
 			new REException(e);
@@ -276,6 +345,11 @@ public class crearLista extends Activity implements OnItemSelectedListener,
 						.parse("market://details?id=com.fraggel.recoveryexecuter.pro"));
 				startActivity(intent);
 				finish();
+			}else{
+				selected = spinner.getSelectedItem().toString();
+				nomBck=g[which];
+				anyadir(null);
+				spinner.setSelection(0);
 			}
 		} catch (Exception e) {
 			new REException(e);

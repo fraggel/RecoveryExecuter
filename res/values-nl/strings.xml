@@ -23,7 +23,7 @@ Als je nog eens op een optie drukt, wordt die verwijderd van de lijst met acties
     <string name="btnInstallApk">APK installeren</string>
     <string name="btnNandroid">Backup maken/terugzetten</string>
     <string name="salir">Afsluiten</string>
-    <string name="version">RecoveryExecuter Lite 1.4.7</string>
+    <string name="version">RecoveryExecuter Lite 1.4.8</string>
     <string name="btnGuardarLista">Lijst opslaan</string>
     <string name="rutaguardada">Pad opgeslagen</string>
     <string name="aceptar">Accepteren</string>

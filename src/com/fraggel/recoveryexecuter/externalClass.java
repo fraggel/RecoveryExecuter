@@ -16,9 +16,19 @@ import android.widget.RadioButton;
 import android.widget.SimpleAdapter;
 
 public class externalClass extends Activity implements iLiteproabstract{
-
+	private File sdCard;
+	private File extSdCard;
 	public externalClass() {
 		super();
+		sdCard=Environment.getExternalStorageDirectory();
+		
+		StorageOptions.determineStorageOptions();
+		ArrayList<String> mounts = StorageOptions.getMounts();
+		if(mounts!=null && mounts.size()>0){
+			extSdCard=new File(mounts.get(0));	
+		}else{
+			extSdCard=null;
+		}
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -228,40 +238,6 @@ public class externalClass extends Activity implements iLiteproabstract{
 		return cadena;
 		
 	}
-	public String buscarCWMySustituirRutas(String fichero){
-		String rutCWM="";
-		String cwmVersion="";
-		try {
-			cwmVersion="5";
-			File sdCard=Environment.getExternalStorageDirectory();		
-			if("5".equals(cwmVersion)){
-				rutCWM=fichero.replaceFirst(sdCard.getPath()+"/","/emmc/").replaceFirst("/mnt/extSdCard/","/sdcard/");	
-			}else if("6".equals(cwmVersion)){
-				if(fichero.indexOf(sdCard.getPath())!=-1){
-					rutCWM=fichero.replaceFirst(sdCard.getPath()+"/","/sdcard/");
-				}else{
-					String result="/external_sd/";
-					String[] fileSplitted=fichero.split("/");
-					for (int i = 3; i < fileSplitted.length; i++) {
-						String string = fileSplitted[i];
-						if(i<fileSplitted.length-1){
-							result=result+string+"/";
-						}else{
-							result=result+string;
-						}
-					}
-					rutCWM=result;
-				}
-				
-			}else{
-				rutCWM=fichero.replaceFirst(sdCard.getPath()+"/","/emmc/").replaceFirst("/mnt/extSdCard/","/sdcard/");
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return rutCWM;
-	}
 	public String optionSelect(String selected,AlertDialog diag,OnClickListener onClickListener,Resources res) {
 		if("6".equals(selected)||"7".equals(selected)){
 			diag.setMessage(res.getString(R.string.msgNoFull));
@@ -273,5 +249,28 @@ public class externalClass extends Activity implements iLiteproabstract{
 			selected="0";
 		}
 		return selected;
+	}
+	public String buscarCWMySustituirRutas(String fichero){
+		String rutCWM="";
+		rutCWM=fichero.replaceFirst(sdCard.getPath()+"/","/data/media/").replaceFirst(extSdCard.getPath(),"/data/media/external");
+		return rutCWM;
+	}
+	private void prepPartitions(
+			BufferedOutputStream bos) {
+			ArrayList<String> listaVold=new ArrayList<String>();
+			ArrayList<String> mMounts=new ArrayList<String>();
+			listaVold=StorageOptions.listaVoldF;
+			mMounts=StorageOptions.mMountsF;
+			
+			try {
+				bos.write(("echo 'run_program(\"/sbin/busybox\",\"mount\",\"-a\");' >> /cache/recovery/extendedcommand\n").getBytes());
+				bos.write(("echo 'run_program(\"/sbin/mkdir\",\"/data/media/external/\");' >> /cache/recovery/extendedcommand\n").getBytes());
+				bos.write(("echo 'run_program(\"/sbin/busybox\",\"mount\",\"-t\",\"auto\",\""+listaVold.get(1)+"\",\"/data/media/external/\");' >> /cache/recovery/extendedcommand\n").getBytes());
+				
+			} catch (Exception e) {
+				
+			}
+			
+		
 	}
 }

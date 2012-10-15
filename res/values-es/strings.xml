@@ -29,7 +29,7 @@
     <string name="btnInstallApk">Instalar Apk</string>
     <string name="btnNandroid">Backup/Restore</string>
     <string name="salir">Salir</string>
-    <string name="version">RecoveryExecuter Lite 1.4.7</string>
+    <string name="version">RecoveryExecuter Lite 1.4.8</string>
     <string name="btnGuardarLista">Guardar Lista</string>
     <string name="rutaguardada">Ruta guardada</string>
     <string name="aceptar">Aceptar</string>

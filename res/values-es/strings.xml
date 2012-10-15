@@ -72,6 +72,9 @@
     <string name="msgNoSdcard">No hay SDcard y es necesaria</string>
 	<string name="msgNoFull">Esta funcionalidad solo está disponible en la versión Completa, Quiere conectarse a Play Store para adquirirla?</string>
 	<string name="msgNoFullLista">Más de 3 elementos solo está disponible en la versión Completa, Quiere conectarse a Play Store para adquirirla?</string>
+	<!-- Sin traducir -->
+	<string name="msgEjecucionTerminada">Ejecucion correcta</string>
+	<!-- Sin traducir -->
     <string-array name="arrayAcciones">
         <item>Selecciona una acción</item>
         <item>Wipe Data</item>

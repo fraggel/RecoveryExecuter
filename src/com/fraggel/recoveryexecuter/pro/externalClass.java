@@ -191,29 +191,29 @@ public class externalClass extends Activity implements iLiteproabstract{
 		String cadena="";
 		BufferedOutputStream bos=null;
 		try{
-		Runtime rt=Runtime.getRuntime();
-		Process exec = rt.exec("su");
-		bos= new BufferedOutputStream(exec.getOutputStream());
-		if(nombreBck==null || "".equals(nombreBck)){
-			nombreBck=(Calendar.getInstance().get(Calendar.DAY_OF_MONTH)+"-"+(Calendar.getInstance().get(Calendar.MONTH)+1)+"-"+Calendar.getInstance().get(Calendar.YEAR)+" "+Calendar.getInstance().get(Calendar.HOUR_OF_DAY)+":"+Calendar.getInstance().get(Calendar.MINUTE)+":"+Calendar.getInstance().get(Calendar.SECOND));
-		}
-		File fff=new File(Environment.getExternalStorageDirectory().getPath()+"/clockworkmod/backup/"+nombreBck+"/");
-		if(fff.exists()){
-			File[] listFiles = fff.listFiles();
-			if(listFiles!=null && listFiles.length>0){
-				diag.setMessage(res.getString(R.string.msgExisteBackup));
-				diag.setButton(AlertDialog.BUTTON_NEGATIVE,
-						res.getString(R.string.cancelar),onClickListener);
-				diag.setButton(AlertDialog.BUTTON_POSITIVE,
-						res.getString(R.string.aceptar),onClickListener);
-				diag.show();
+			Runtime rt=Runtime.getRuntime();
+			Process exec = rt.exec("su");
+			bos= new BufferedOutputStream(exec.getOutputStream());
+			if(nombreBck==null || "".equals(nombreBck)){
+				nombreBck=(Calendar.getInstance().get(Calendar.DAY_OF_MONTH)+"-"+(Calendar.getInstance().get(Calendar.MONTH)+1)+"-"+Calendar.getInstance().get(Calendar.YEAR)+" "+Calendar.getInstance().get(Calendar.HOUR_OF_DAY)+":"+Calendar.getInstance().get(Calendar.MINUTE)+":"+Calendar.getInstance().get(Calendar.SECOND));
+			}
+			File fff=new File(Environment.getExternalStorageDirectory().getPath()+"/clockworkmod/backup/"+nombreBck+"/");
+			if(fff.exists()){
+				File[] listFiles = fff.listFiles();
+				if(listFiles!=null && listFiles.length>0){
+					diag.setMessage(res.getString(R.string.msgExisteBackup));
+					diag.setButton(AlertDialog.BUTTON_NEGATIVE,
+							res.getString(R.string.cancelar),onClickListener);
+					diag.setButton(AlertDialog.BUTTON_POSITIVE,
+							res.getString(R.string.aceptar),onClickListener);
+					diag.show();
+				}else{
+					cadena=("echo 'backup_rom(\""+ buscarCWMySustituirRutas(fff.getPath())+"\");' >> /cache/recovery/extendedcommand\n");
+				}
 			}else{
+				//fff.mkdirs();
 				cadena=("echo 'backup_rom(\""+ buscarCWMySustituirRutas(fff.getPath())+"\");' >> /cache/recovery/extendedcommand\n");
 			}
-		}else{
-			//fff.mkdirs();
-			cadena=("echo 'backup_rom(\""+ buscarCWMySustituirRutas(fff.getPath())+"\");' >> /cache/recovery/extendedcommand\n");
-		}
 		}catch(Exception e){
 			new REException(e);
 		}finally{
@@ -264,8 +264,13 @@ public class externalClass extends Activity implements iLiteproabstract{
 		try {
 			cwmVersion="5";
 			File sdCard=Environment.getExternalStorageDirectory();		
+			File extSdCard=null;
+			ArrayList<String> mounts = StorageOptions.getMounts();
+			if(mounts!=null && mounts.size()>0){
+				extSdCard=new File(mounts.get(0));	
+			}
 			if("5".equals(cwmVersion)){
-				rutCWM=fichero.replaceFirst(sdCard.getPath()+"/","/emmc/").replaceFirst("/mnt/extSdCard/","/sdcard/");	
+				rutCWM=fichero.replaceFirst(sdCard.getPath()+"/","/emmc/").replaceFirst(extSdCard.getPath(),"/sdcard/");	
 			}else if("6".equals(cwmVersion)){
 				if(fichero.indexOf(sdCard.getPath())!=-1){
 					rutCWM=fichero.replaceFirst(sdCard.getPath()+"/","/sdcard/");
@@ -284,7 +289,7 @@ public class externalClass extends Activity implements iLiteproabstract{
 				}
 				
 			}else{
-				rutCWM=fichero.replaceFirst(sdCard.getPath()+"/","/emmc/").replaceFirst("/mnt/extSdCard/","/sdcard/");
+				rutCWM=fichero.replaceFirst(sdCard.getPath()+"/","/emmc/").replaceFirst(extSdCard.getPath(),"/sdcard/");
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

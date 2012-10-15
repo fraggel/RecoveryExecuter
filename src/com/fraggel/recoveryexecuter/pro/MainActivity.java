@@ -2,12 +2,18 @@ package com.fraggel.recoveryexecuter.pro;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
 import java.util.zip.ZipEntry;
@@ -24,7 +30,7 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.telephony.TelephonyManager;
+import android.os.storage.StorageManager;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -40,13 +46,14 @@ public class MainActivity extends Activity implements OnItemSelectedListener,
 AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 	private static final int FILE_SELECT_CODE = 0;
 	private String file = "";
-	private String initialDir = "/mnt/sdcard/Download/";
+	private String initialDir;
 	private SharedPreferences sp;
 	AlertDialog diag;
 	ArrayList lista;
-	File rutaTmp;
-	File root;
-	File sdCard;
+	File rutaTmp=null;
+	File root=null;
+	File sdCard=null;
+	File extSdCard=null;
 	String items[];
 	String values[];
 	Resources res;
@@ -64,6 +71,15 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 			res.updateConfiguration(conf, dm);
 			root=Environment.getRootDirectory();
 			sdCard=Environment.getExternalStorageDirectory();
+			initialDir=sdCard+"/Download/";
+			StorageOptions.determineStorageOptions();
+			ArrayList<String> mounts = StorageOptions.getMounts();
+			if(mounts!=null && mounts.size()>0){
+				extSdCard=new File(mounts.get(0));	
+			}else{
+				extSdCard=null;
+			}
+			
 			rutaTmp = new File(sdCard.getPath()+"/RecoveryExecuter/");
 			if(!sdCard.canRead()){
 				diag.setMessage(res.getString(R.string.msgNoSdcard));
@@ -78,12 +94,21 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 			}else{
 				rutaTmp.mkdirs();
 			}
+			String tmpSD="";
+			String tmpEXT="";
+			
+			if(sdCard!=null){
+				tmpSD=sdCard.getPath();
+			}
+			if(extSdCard!=null){
+				tmpEXT=extSdCard.getPath();
+			}
+			StorageOptions.determineStorageOptionsMount(tmpSD,tmpEXT);
 			if (controlRoot()) {
 				if (!controlBusybox()) {
 					instalarBusyBox();
 				}
 			}
-
 			super.setTitle(R.string.version);
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.main);
@@ -103,12 +128,20 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 		if (!f.exists()) {
 			f = new File(root.getPath()+"/xbin/su");
 			if (!f.exists()) {
-				rootB = false;
-			} else {
-				rootB = true;
+				f = new File(root.getPath()+"/system/bin/su");
+				if (!f.exists()) {
+					f = new File(root.getPath()+"/system/xbin/su");
+					if (f.exists()) {
+						rootB=true;
+					}
+				}else{
+					rootB=true;
+				}
+			}else{
+				rootB=true;
 			}
-		} else {
-			rootB = false;
+		}else{
+			rootB=true;
 		}
 		if (rootB) {
 			try {
@@ -432,6 +465,7 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 											boolean algoSelectRebootNormal = false;
 											boolean erroneo = false;
 											String nomBck="";
+											prepPartitions(bos);
 											for (int i = 0; i < lista.size(); i++) {
 												String string = (String) lista
 														.get(i);
@@ -500,11 +534,14 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 											}
 											bos.flush();
 											bos.close();
+											diag.setMessage(res.getString(R.string.msgEjecucionTerminada));
+											diag.show();
 										} catch (Exception e) {
 											new REException(e);
 
 										}
 									}
+
 								});
 						dialog.show();
 					}
@@ -519,36 +556,7 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 	}
 	public String buscarCWMySustituirRutas(String fichero){
 		String rutCWM="";
-		String cwmVersion="";
-		try {
-		cwmVersion="5";
-				
-		if("5".equals(cwmVersion)){
-			rutCWM=file.replaceFirst(sdCard.getPath()+"/","/emmc/").replaceFirst("/mnt/extSdCard/","/sdcard/");	
-		}else if("6".equals(cwmVersion)){
-			if(file.indexOf(sdCard.getPath())!=-1){
-				rutCWM=file.replaceFirst(sdCard.getPath()+"/","/sdcard/");
-			}else{
-				String result="/external_sd/";
-				String[] fileSplitted=file.split("/");
-				for (int i = 3; i < fileSplitted.length; i++) {
-					String string = fileSplitted[i];
-					if(i<fileSplitted.length-1){
-						result=result+string+"/";
-					}else{
-						result=result+string;
-					}
-				}
-				rutCWM=result;
-			}
-			
-		}else{
-			rutCWM=file.replaceFirst(sdCard.getPath()+"/","/emmc/").replaceFirst("/mnt/extSdCard/","/sdcard/");
-		}
-		} catch (Exception e) {
-			
-			e.printStackTrace();
-		}
+		rutCWM=file.replaceFirst(sdCard.getPath()+"/","/data/media/").replaceFirst(extSdCard.getPath(),"/data/media/external");
 		return rutCWM;
 	}
 	public void escribirRecovery() throws Exception {
@@ -560,9 +568,10 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 		CheckBox chkdalvik = (CheckBox) findViewById(R.id.wipedalvik);
 		CheckBox chkbattery = (CheckBox) findViewById(R.id.wipebattery);
 		BufferedOutputStream bos = new BufferedOutputStream(p.getOutputStream());
-		bos.write(("rm /cache/recovery/extendedcommand\n").getBytes());
+		//bos.write(("rm /cache/recovery/extendedcommand\n").getBytes());
 		boolean algoSelect = false;
 		boolean algoSelectRebootNormal = false;
+		prepPartitions(bos);
 		if (chkdata.isChecked()) {
 			bos.write(("echo 'Wipe Data'\n").getBytes());
 			bos.write(("echo 'format (\"/data\");' > /cache/recovery/extendedcommand\n")
@@ -585,6 +594,7 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 		if (!"".equals(file)) {
 			String rutaCWM="";
 			rutaCWM=buscarCWMySustituirRutas(file);
+			
 			bos.write(("echo 'install_zip(\""+ rutaCWM+"\");' >> /cache/recovery/extendedcommand\n")
 					.getBytes());
 			algoSelect = true;
@@ -594,10 +604,29 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 		} else if (algoSelectRebootNormal) {
 			bos.write(("reboot").getBytes());
 		}
+		
 		bos.flush();
 		bos.close();
+		
 	}
-
+	private void prepPartitions(
+			BufferedOutputStream bos) {
+			ArrayList<String> listaVold=new ArrayList<String>();
+			ArrayList<String> mMounts=new ArrayList<String>();
+			listaVold=StorageOptions.listaVoldF;
+			mMounts=StorageOptions.mMountsF;
+			
+			try {
+				bos.write(("echo 'run_program(\"/sbin/busybox\",\"mount\",\"-a\");' >> /cache/recovery/extendedcommand\n").getBytes());
+				bos.write(("echo 'run_program(\"/sbin/mkdir\",\"/data/media/external/\");' >> /cache/recovery/extendedcommand\n").getBytes());
+				bos.write(("echo 'run_program(\"/sbin/busybox\",\"mount\",\"-t\",\"auto\",\""+listaVold.get(1)+"\",\"/data/media/external/\");' >> /cache/recovery/extendedcommand\n").getBytes());
+				
+			} catch (Exception e) {
+				
+			}
+			
+		
+	}
 	public boolean crearZipCwm(String f) throws Exception {
 		File rutaTmpKernel = new File(sdCard.getPath()+"/RecoveryExecuter/kernel/");
 		File rutaTmpModem = new File(sdCard.getPath()+"/RecoveryExecuter/modem/");

@@ -17,7 +17,7 @@ public class LogStreamReader implements Runnable {
 	public void run() {
 		try {
 			line = reader.readLine();
-			while (line != null) {
+			while (line != null){
 				line = reader.readLine();
 			}
 			reader.close();

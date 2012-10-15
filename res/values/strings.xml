@@ -53,7 +53,6 @@ Clicking on any item that item will be removed from the list of actions.After th
     <string name="txtDonacion">Contribute if you want</string>
     <string name="btnTxtDonacion">Donate</string>
     <string name="msgFileErroneo">The specified file is not valid</string>
-	<!-- Sin traducir -->
 	<string name="txtbckname">Write backup name</string>
 	<string name="btnmakebackuprestore">Execute</string>
 	<string name="rdbbackup">Backup</string>
@@ -67,6 +66,8 @@ Clicking on any item that item will be removed from the list of actions.After th
 	<string name="msgNoSdcard">No SDcard Found and is necessary</string>
 	<string name="msgNoFull">This functionality is only on Full version, Do you Want to connect to Play Store and buy it?</string>
 	<string name="msgNoFullLista">More than 3 elements is only available on Full version, Do you Want to connect to Play Store and buy it?</string>
+	<!-- Sin traducir -->
+	<string name="msgEjecucionTerminada">Execution success</string>
 	<!-- Sin traducir -->
     <string-array name="arrayAcciones">
         <item>Select action</item>

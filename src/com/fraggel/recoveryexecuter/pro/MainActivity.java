@@ -534,8 +534,6 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 											}
 											bos.flush();
 											bos.close();
-											diag.setMessage(res.getString(R.string.msgEjecucionTerminada));
-											diag.show();
 										} catch (Exception e) {
 											new REException(e);
 

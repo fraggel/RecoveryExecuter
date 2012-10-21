@@ -98,8 +98,8 @@ public class StorageOptions {
 						}
 					}else{
 						tmp=line;
-						if(line.indexOf("/data")!=-1){
-							tmp=line.substring(0,line.indexOf("/data"));
+						if(line.indexOf("/data ")!=-1){
+							tmp=line.substring(0,line.indexOf("/data "));
 							dataTMP=new String();
 							dataTMP=tmp;
 							listaVoldF.add(tmp);
@@ -109,8 +109,8 @@ public class StorageOptions {
 					//listaVold.add(line);
 				}else{
 					String tmp=line;
-					if(line.indexOf("/data")!=-1){
-						tmp=line.substring(0,line.indexOf("/data"));
+					if(line.indexOf("/data ")!=-1){
+						tmp=line.substring(0,line.indexOf("/data "));
 						dataTMP=new String();
 						dataTMP=tmp;
 						listaVoldF.add(tmp);

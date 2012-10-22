@@ -272,7 +272,7 @@ public class externalClass extends Activity implements iLiteproabstract{
 	}
 	public String buscarCWMySustituirRutas(String fichero){
 		String rutCWM="";
-		rutCWM=fichero.replaceFirst(sdCard.getPath()+"/","/data/media/").replaceFirst(extSdCard.getPath(),"/data/media/external");
+		rutCWM=fichero.replaceFirst("/mnt/sdcard/","/data/media/").replaceFirst("/mnt/extSdCard/","/data/media/external").replaceFirst(sdCard.getPath(),"/data/media").replaceFirst(extSdCard.getPath(),"/data/media/external");
 		return rutCWM;
 	}
 	public String optionSelect(String selected, AlertDialog diag,
@@ -288,6 +288,9 @@ public class externalClass extends Activity implements iLiteproabstract{
 			
 			try {
 				bos.write(("echo 'run_program(\"/sbin/busybox\",\"mount\",\"-a\");' >> /cache/recovery/extendedcommand\n").getBytes());
+				bos.write(("echo 'run_program(\"/sbin/busybox\",\"mount\",\"-t\",\"auto\",\""+listaVold.get(0)+"\",\"/data/\");' >> /cache/recovery/extendedcommand\n").getBytes());
+				bos.write(("echo 'run_program(\"/sbin/mkdir\",\"/data/media/\");' >> /cache/recovery/extendedcommand\n").getBytes());
+				bos.write(("echo 'run_program(\"/sbin/busybox\",\"mount\",\"-t\",\"auto\",\""+listaVold.get(0)+"\",\"/data/media/\");' >> /cache/recovery/extendedcommand\n").getBytes());
 				bos.write(("echo 'run_program(\"/sbin/mkdir\",\"/data/media/external/\");' >> /cache/recovery/extendedcommand\n").getBytes());
 				bos.write(("echo 'run_program(\"/sbin/busybox\",\"mount\",\"-t\",\"auto\",\""+listaVold.get(1)+"\",\"/data/media/external/\");' >> /cache/recovery/extendedcommand\n").getBytes());
 				

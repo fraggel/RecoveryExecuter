@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.Toast;
 
@@ -52,7 +53,7 @@ public class acercade extends Activity {
 	}
 
 	public void enviarEmailErrores(View v) {
-		File f = new File("/mnt/sdcard/RecoveryExecuter/exceptions.log");
+		File f = new File(Environment.getExternalStorageDirectory().getPath()+"/RecoveryExecuter/exceptions.log");
 		if (f.exists()) {
 			Intent i = new Intent(Intent.ACTION_SEND);
 			i.setType("message/rfc822");
@@ -63,7 +64,7 @@ public class acercade extends Activity {
 			i.putExtra(Intent.EXTRA_TEXT, res.getString(R.string.version));
 			i.putExtra(
 					Intent.EXTRA_STREAM,
-					Uri.parse("file:///mnt/sdcard/RecoveryExecuter/exceptions.log"));
+					Uri.parse("file://"+Environment.getExternalStorageDirectory().getPath()+"/RecoveryExecuter/exceptions.log"));
 			try {
 				startActivity(Intent.createChooser(i,
 						res.getString(R.string.enviaEmail)));

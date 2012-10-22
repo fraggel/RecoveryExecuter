@@ -3,6 +3,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import android.os.Environment;
+
 public class StorageOptions {
 	private static ArrayList<String> mMounts = new ArrayList<String>();
 	public static ArrayList<String> mMountsF = new ArrayList<String>();
@@ -208,7 +210,7 @@ public class StorageOptions {
 		int i = 1;
 		for (String path: mMounts)
 		{
-			if ("/mnt/sdcard".equalsIgnoreCase(path))
+			if ("/mnt/sdcard".equalsIgnoreCase(path) || "/storage/sdcard0".equalsIgnoreCase(path) || Environment.getExternalStorageDirectory().getPath().equalsIgnoreCase(path))
 				mLabels.add("Built-in Storage");
 			else
 				mLabels.add("External SD Card " + i++);

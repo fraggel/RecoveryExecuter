@@ -529,12 +529,12 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 												}
 
 											}
-											/*if (algoSelect) {
+											if (algoSelect) {
 												bos.write(("reboot recovery")
 														.getBytes());
 											} else if (algoSelectRebootNormal) {
 												bos.write(("reboot").getBytes());
-											}*/
+											}
 											bos.flush();
 											bos.close();
 										} catch (Exception e) {
@@ -597,11 +597,11 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 					.getBytes());
 			algoSelect = true;
 		}
-		/*if (algoSelect) {
+		if (algoSelect) {
 			bos.write(("reboot recovery").getBytes());
 		} else if (algoSelectRebootNormal) {
 			bos.write(("reboot").getBytes());
-		}*/
+		}
 		
 		bos.flush();
 		bos.close();

@@ -272,7 +272,7 @@ public class externalClass extends Activity implements iLiteproabstract{
 	}
 	public String buscarCWMySustituirRutas(String fichero){
 		String rutCWM="";
-		rutCWM=fichero.replaceFirst("/mnt/sdcard/","/data/media/").replaceFirst("/mnt/extSdCard/","/data/media/external").replaceFirst(sdCard.getPath(),"/data/media").replaceFirst(extSdCard.getPath(),"/data/media/external");
+		rutCWM=fichero.replaceFirst("/mnt/sdcard/","/data/media/").replaceFirst("/mnt/extSdCard/","/data/media/external/").replaceFirst(sdCard.getPath(),"/data/media").replaceFirst(extSdCard.getPath(),"/data/media/external");
 		return rutCWM;
 	}
 	public String optionSelect(String selected, AlertDialog diag,

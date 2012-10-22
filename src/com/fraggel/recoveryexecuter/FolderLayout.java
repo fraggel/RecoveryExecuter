@@ -6,6 +6,7 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.os.Environment;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +22,7 @@ public class FolderLayout extends LinearLayout implements
 	IFolderItemListener folderListener;
 	private List<String> item = null;
 	private List<String> path = null;
-	private String root = "/mnt";
+	private String root = Environment.getExternalStorageDirectory().getParent();
 	private TextView myPath;
 	private ListView lstView;
 	AlertDialog diag;

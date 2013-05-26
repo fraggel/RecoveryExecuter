@@ -463,7 +463,8 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 											//Comentado para JIAYU
 											//prepPartitions(bos);
 											String fabricante=Build.BRAND;
-											if("JIAYU".equals(fabricante.toUpperCase().trim())){
+											String procesador=Build.HARDWARE;
+											if("JIAYU".equals(fabricante.toUpperCase().trim())||procesador.toUpperCase().indexOf("MT6")!=-1){
 												prepPartitionsJIAYU(bos);
 											}else{
 												prepPartitionsI9300(bos);
@@ -573,7 +574,8 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 		//Quitado para JIAYU en I9300 hay que descomentar
 		//prepPartitions(bos);
 		String fabricante=Build.BRAND;
-		if("JIAYU".equals(fabricante.toUpperCase().trim())){
+		String procesador=Build.HARDWARE;
+		if("JIAYU".equals(fabricante.toUpperCase().trim())||procesador.toUpperCase().indexOf("MT6")!=-1){
 			prepPartitionsJIAYU(bos);
 		}else{
 			prepPartitionsI9300(bos);

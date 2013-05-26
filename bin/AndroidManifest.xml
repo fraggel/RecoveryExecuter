@@ -3,7 +3,7 @@
     package="com.fraggel.recoveryexecuter.pro"
     android:icon="@drawable/ic_launcher"
     android:versionCode="69"
-    android:versionName="1.4.9" >
+    android:versionName="1.5.0" >
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
     </uses-permission>

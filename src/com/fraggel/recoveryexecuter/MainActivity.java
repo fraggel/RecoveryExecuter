@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
 import java.util.zip.ZipEntry;
@@ -22,6 +23,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.DisplayMetrics;
@@ -68,7 +70,12 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 			StorageOptions.determineStorageOptions();
 			ArrayList<String> mounts = StorageOptions.getMounts();
 			if(mounts!=null && mounts.size()>0){
-				extSdCard=new File(mounts.get(0));	
+				for (Iterator iterator = mounts.iterator(); iterator.hasNext();) {
+					String string = (String) iterator.next();
+					if(!string.trim().equals(sdCard.getAbsolutePath().trim())){
+						extSdCard=new File(string);
+					}
+				}
 			}else{
 				extSdCard=null;
 			}
@@ -105,7 +112,7 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 			super.setTitle(R.string.version);
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.main);
-
+			
 			items = res.getStringArray(R.array.arrayAcciones);
 			values = res.getStringArray(R.array.arrayAccionesValues);
 			borrarDirectorio(rutaTmp);
@@ -459,7 +466,13 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 											boolean algoSelectRebootNormal = false;
 											boolean erroneo = false;
 											String nomBck="";
-											prepPartitions(bos);
+											externalClass extCls=new externalClass();
+											String fabricante=Build.BRAND;
+											if("JIAYU".equals(fabricante.toUpperCase().trim())){
+												extCls.prepPartitionsJIAYU(bos);
+											}else{
+												extCls.prepPartitionsI9300(bos);
+											}
 											for (int i = 0; i < lista.size(); i++) {
 												String string = (String) lista
 														.get(i);
@@ -562,7 +575,13 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 		//bos.write(("rm /cache/recovery/extendedcommand\n").getBytes());
 		boolean algoSelect = false;
 		boolean algoSelectRebootNormal = false;
-		prepPartitions(bos);
+		externalClass extCls=new externalClass();
+		String fabricante=Build.BRAND;
+		if("JIAYU".equals(fabricante.toUpperCase().trim())){
+			extCls.prepPartitionsJIAYU(bos);
+		}else{
+			extCls.prepPartitionsI9300(bos);
+		}
 		if (chkdata.isChecked()) {
 			bos.write(("echo 'Wipe Data'\n").getBytes());
 			bos.write(("echo 'format (\"/data\");' > /cache/recovery/extendedcommand\n")
@@ -601,27 +620,7 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 		bos.close();
 		
 	}
-	private void prepPartitions(
-			BufferedOutputStream bos) {
-			ArrayList<String> listaVold=new ArrayList<String>();
-			ArrayList<String> mMounts=new ArrayList<String>();
-			listaVold=StorageOptions.listaVoldF;
-			mMounts=StorageOptions.mMountsF;
-			
-			try {
-				bos.write(("echo 'run_program(\"/sbin/busybox\",\"mount\",\"-a\");' >> /cache/recovery/extendedcommand\n").getBytes());
-				bos.write(("echo 'run_program(\"/sbin/busybox\",\"mount\",\"-t\",\"auto\",\""+listaVold.get(0)+"\",\"/data/\");' >> /cache/recovery/extendedcommand\n").getBytes());
-				bos.write(("echo 'run_program(\"/sbin/mkdir\",\"/data/media/\");' >> /cache/recovery/extendedcommand\n").getBytes());
-				bos.write(("echo 'run_program(\"/sbin/busybox\",\"mount\",\"-t\",\"auto\",\""+listaVold.get(0)+"\",\"/data/media/\");' >> /cache/recovery/extendedcommand\n").getBytes());
-				bos.write(("echo 'run_program(\"/sbin/mkdir\",\"/data/media/external/\");' >> /cache/recovery/extendedcommand\n").getBytes());
-				bos.write(("echo 'run_program(\"/sbin/busybox\",\"mount\",\"-t\",\"auto\",\""+listaVold.get(1)+"\",\"/data/media/external/\");' >> /cache/recovery/extendedcommand\n").getBytes());
-				
-			} catch (Exception e) {
-				
-			}
-			
-		
-	}
+	
 	public boolean crearZipCwm(String f) throws Exception {
 		File rutaTmpKernel = new File(sdCard.getPath()+"/RecoveryExecuter/kernel/");
 		File rutaTmpModem = new File(sdCard.getPath()+"/RecoveryExecuter/modem/");

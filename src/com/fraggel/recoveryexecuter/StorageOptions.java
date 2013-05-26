@@ -1,5 +1,7 @@
 package com.fraggel.recoveryexecuter;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -69,9 +71,10 @@ public class StorageOptions {
 		try {
 			Scanner scanner = new Scanner(new File("/proc/mounts"));
 			String dataTMP=null;
+			String fuseTMP=null;
 			while (scanner.hasNext()) {
 				String line = scanner.nextLine();
-				if(line.indexOf(sdcard)!=-1 || line.indexOf(extSdCard)!=-1){
+				if((line.indexOf(sdcard)!=-1 && !"".equals(sdcard.trim()))|| (line.indexOf(extSdCard)!=-1 && !"".equals(extSdCard.trim()))){
 					String tmp=line.substring(0,line.indexOf(" "));
 					if(line.startsWith("/dev/block/vold/")){
 						String[] tnp=line.split("/");
@@ -82,7 +85,14 @@ public class StorageOptions {
 							String line2 = scan.nextLine();
 							//Line2 tiene la ruta entera pero hay que separar por los numbers[0] y numbers[1] y una vez con esa linea
 							// hacemos un split por " " y cogemos el último
-							if(line2.indexOf(String.valueOf(numbers[0])+"       "+String.valueOf(numbers[1]))!=-1){
+							line2=line2.trim();
+							line2=line2.replaceAll("  "," ");
+							line2=line2.replaceAll("  "," ");
+							line2=line2.replaceAll("  "," ");
+							line2=line2.replaceAll("  "," ");
+							line2=line2.replaceAll("  "," ");
+							line2=line2.replaceAll("  "," ");
+							if(line2.indexOf(String.valueOf(numbers[0])+" "+String.valueOf(numbers[1]))!=-1){
 								String[] split = line2.split(" ");
 								for (int i = 0; i < split.length; i++) {
 									String string = split[i].trim();
@@ -92,6 +102,9 @@ public class StorageOptions {
 										} catch (Exception e) {
 											String ttt=string;
 											listaVoldF.add("/dev/block/"+ttt);
+											String[] lineElements = line.split(" ");
+											lineElements[1].replaceAll(":.*$", "");
+											mMountsF.add(lineElements[1]);
 										}
 										
 									}
@@ -106,6 +119,15 @@ public class StorageOptions {
 							dataTMP=tmp;
 							listaVoldF.add(tmp);
 						}
+						if(line.indexOf("/dev/fuse ")!=-1){
+							tmp=line.substring(0,line.indexOf(sdcard+" "));
+							if("".equals(tmp.trim())){
+								tmp=line.substring(0,line.indexOf(extSdCard+" "));
+							}
+							fuseTMP=new String();
+							fuseTMP=tmp;
+							listaVoldF.add(tmp);
+						}
 					}
 					
 					//listaVold.add(line);
@@ -117,25 +139,44 @@ public class StorageOptions {
 						dataTMP=tmp;
 						listaVoldF.add(tmp);
 					}
+					if(line.indexOf("/dev/fuse ")!=-1){
+						tmp=line.substring(0,line.indexOf(sdcard+" "));
+						if("".equals(tmp.trim())){
+							tmp=line.substring(0,line.indexOf(extSdCard+" "));
+						}
+						fuseTMP=new String();
+						fuseTMP=tmp;
+						listaVoldF.add(tmp);
+					}
 				}
-				if (line.startsWith("/dev/block/vold/")) {
+				/*if (line.startsWith("/dev/block/vold/")) {
 					String[] lineElements = line.split(" ");
 					lineElements[1].replaceAll(":.*$", "");
 					mMountsF.add(lineElements[1]);
-				}/*else if(line.lastIndexOf("fuse")!=-1){
+				}else if(line.lastIndexOf("fuse")!=-1){
 					String[] lineElements = line.split(" ");
 					lineElements[1].replaceAll(":.*$", "");
 					mMounts.add(lineElements[1]);				
-				}*/else if(dataTMP!=null && line.lastIndexOf(dataTMP)!=-1){
+				}*/if(dataTMP!=null && line.lastIndexOf(dataTMP)!=-1){
+					String[] lineElements = line.split(" ");
+					lineElements[1].replaceAll(":.*$", "");
+					mMountsF.add(lineElements[1]);				
+				}else if(fuseTMP!=null && line.lastIndexOf(fuseTMP)!=-1){
 					String[] lineElements = line.split(" ");
 					lineElements[1].replaceAll(":.*$", "");
 					mMountsF.add(lineElements[1]);				
 				}
 			}
+			/*externalClass extCls=new externalClass();
+			BufferedOutputStream bos=new BufferedOutputStream(new FileOutputStream("/mnt/sdcard/prueba"));
+			extCls.prepPartitions(bos);
+			bos.flush();
+			bos.close();*/
 		} catch (Exception e) {
 			// Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
 
 	private static void readVoldFile() {

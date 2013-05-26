@@ -3,6 +3,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import android.app.Activity;
@@ -10,6 +11,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Environment;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -25,7 +27,12 @@ public class externalClass extends Activity implements iLiteproabstract{
 		StorageOptions.determineStorageOptions();
 		ArrayList<String> mounts = StorageOptions.getMounts();
 		if(mounts!=null && mounts.size()>0){
-			extSdCard=new File(mounts.get(0));	
+			for (Iterator iterator = mounts.iterator(); iterator.hasNext();) {
+				String string = (String) iterator.next();
+				if(!string.trim().equals(sdCard.getAbsolutePath().trim())){
+					extSdCard=new File(string);
+				}
+			}
 		}else{
 			extSdCard=null;
 		}
@@ -252,17 +259,28 @@ public class externalClass extends Activity implements iLiteproabstract{
 	}
 	public String buscarCWMySustituirRutas(String fichero){
 		String rutCWM="";
-		if(sdCard!=null){
-			fichero=fichero.replaceFirst(sdCard.getPath(),"/data/media");
+		String fabricante=Build.BRAND;
+		if("JIAYU".equals(fabricante.toUpperCase().trim())){
+			if(sdCard!=null){
+				fichero=fichero.replaceFirst(sdCard.getPath(),"/sdcard");
+			}
+			if(extSdCard!=null){
+				fichero=fichero.replaceFirst(extSdCard.getPath(),"sdcard");
+			}
+			fichero=fichero.replaceFirst("/mnt/sdcard/","/sdcard/").replaceFirst("/mnt/extSdCard/","/sdcard/");
+		}else{
+			if(sdCard!=null){
+				fichero=fichero.replaceFirst(sdCard.getPath(),"/data/media");
+			}
+			if(extSdCard!=null){
+				fichero=fichero.replaceFirst(extSdCard.getPath(),"/data/media/external");
+			}
+			fichero=fichero.replaceFirst("/mnt/sdcard/","/data/media/").replaceFirst("/mnt/extSdCard/","/data/media/external/");	
 		}
-		if(extSdCard!=null){
-			fichero=fichero.replaceFirst(extSdCard.getPath(),"/data/media/external");
-		}
-		fichero=fichero.replaceFirst("/mnt/sdcard/","/data/media/").replaceFirst("/mnt/extSdCard/","/data/media/external/");
 		rutCWM=fichero;
 		return rutCWM;
 	}
-	private void prepPartitions(
+	public void prepPartitionsI9300(
 			BufferedOutputStream bos) {
 			ArrayList<String> listaVold=new ArrayList<String>();
 			ArrayList<String> mMounts=new ArrayList<String>();
@@ -282,5 +300,20 @@ public class externalClass extends Activity implements iLiteproabstract{
 			}
 			
 		
+	}
+	public void prepPartitionsJIAYU(
+			BufferedOutputStream bos) {
+			ArrayList<String> listaVold=new ArrayList<String>();
+			ArrayList<String> mMounts=new ArrayList<String>();
+			listaVold=StorageOptions.listaVoldF;
+			mMounts=StorageOptions.mMountsF;
+			
+			try {
+				bos.write(("echo 'run_program(\"/sbin/umount\",\"/sdcard\");' >> /cache/recovery/extendedcommand\n").getBytes());
+				bos.write(("echo 'run_program(\"/sbin/mount\",\"/sdcard\");' >> /cache/recovery/extendedcommand\n").getBytes());
+				
+			} catch (Exception e) {
+				
+			}
 	}
 }

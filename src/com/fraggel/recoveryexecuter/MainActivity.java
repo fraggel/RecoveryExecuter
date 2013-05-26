@@ -468,7 +468,8 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 											String nomBck="";
 											externalClass extCls=new externalClass();
 											String fabricante=Build.BRAND;
-											if("JIAYU".equals(fabricante.toUpperCase().trim())){
+											String procesador=Build.HARDWARE;
+											if("JIAYU".equals(fabricante.toUpperCase().trim())||procesador.toUpperCase().indexOf("MT6")!=-1){
 												extCls.prepPartitionsJIAYU(bos);
 											}else{
 												extCls.prepPartitionsI9300(bos);
@@ -577,7 +578,8 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 		boolean algoSelectRebootNormal = false;
 		externalClass extCls=new externalClass();
 		String fabricante=Build.BRAND;
-		if("JIAYU".equals(fabricante.toUpperCase().trim())){
+		String procesador=Build.HARDWARE;
+		if("JIAYU".equals(fabricante.toUpperCase().trim())||procesador.toUpperCase().indexOf("MT6")!=-1){
 			extCls.prepPartitionsJIAYU(bos);
 		}else{
 			extCls.prepPartitionsI9300(bos);

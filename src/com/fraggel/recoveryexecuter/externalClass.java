@@ -260,7 +260,8 @@ public class externalClass extends Activity implements iLiteproabstract{
 	public String buscarCWMySustituirRutas(String fichero){
 		String rutCWM="";
 		String fabricante=Build.BRAND;
-		if("JIAYU".equals(fabricante.toUpperCase().trim())){
+		String procesador=Build.HARDWARE;
+		if("JIAYU".equals(fabricante.toUpperCase().trim())||procesador.toUpperCase().indexOf("MT6")!=-1){
 			if(sdCard!=null){
 				fichero=fichero.replaceFirst(sdCard.getPath(),"/sdcard");
 			}

@@ -2,18 +2,12 @@ package com.fraggel.recoveryexecuter.pro;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
 import java.util.zip.ZipEntry;
@@ -28,9 +22,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.storage.StorageManager;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -74,6 +68,7 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 			initialDir=sdCard+"/Download/";
 			StorageOptions.determineStorageOptions();
 			ArrayList<String> mounts = StorageOptions.getMounts();
+			
 			if(mounts!=null && mounts.size()>0){
 				extSdCard=new File(mounts.get(0));	
 			}else{
@@ -465,7 +460,14 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 											boolean algoSelectRebootNormal = false;
 											boolean erroneo = false;
 											String nomBck="";
-											prepPartitions(bos);
+											//Comentado para JIAYU
+											//prepPartitions(bos);
+											String fabricante=Build.BRAND;
+											if("JIAYU".equals(fabricante.toUpperCase().trim())){
+												prepPartitionsJIAYU(bos);
+											}else{
+												prepPartitionsI9300(bos);
+											}
 											for (int i = 0; i < lista.size(); i++) {
 												String string = (String) lista
 														.get(i);
@@ -568,7 +570,14 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 		//bos.write(("rm /cache/recovery/extendedcommand\n").getBytes());
 		boolean algoSelect = false;
 		boolean algoSelectRebootNormal = false;
-		prepPartitions(bos);
+		//Quitado para JIAYU en I9300 hay que descomentar
+		//prepPartitions(bos);
+		String fabricante=Build.BRAND;
+		if("JIAYU".equals(fabricante.toUpperCase().trim())){
+			prepPartitionsJIAYU(bos);
+		}else{
+			prepPartitionsI9300(bos);
+		}
 		if (chkdata.isChecked()) {
 			bos.write(("echo 'Wipe Data'\n").getBytes());
 			bos.write(("echo 'format (\"/data\");' > /cache/recovery/extendedcommand\n")
@@ -607,7 +616,7 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 		bos.close();
 		
 	}
-	private void prepPartitions(
+	private void prepPartitionsI9300(
 			BufferedOutputStream bos) {
 			ArrayList<String> listaVold=new ArrayList<String>();
 			ArrayList<String> mMounts=new ArrayList<String>();
@@ -622,6 +631,22 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 				bos.write(("echo 'run_program(\"/sbin/mkdir\",\"/data/media/external/\");' >> /cache/recovery/extendedcommand\n").getBytes());
 				bos.write(("echo 'run_program(\"/sbin/busybox\",\"mount\",\"-t\",\"auto\",\""+listaVold.get(1)+"\",\"/data/media/external/\");' >> /cache/recovery/extendedcommand\n").getBytes());
 				
+			} catch (Exception e) {
+				
+			}
+			
+		
+	}
+	private void prepPartitionsJIAYU(
+			BufferedOutputStream bos) {
+			ArrayList<String> listaVold=new ArrayList<String>();
+			ArrayList<String> mMounts=new ArrayList<String>();
+			listaVold=StorageOptions.listaVoldF;
+			mMounts=StorageOptions.mMountsF;
+			
+			try {
+				bos.write(("echo 'run_program(\"/sbin/umount\",\"/sdcard\");' >> /cache/recovery/extendedcommand\n").getBytes());
+				bos.write(("echo 'run_program(\"/sbin/mount\",\"/sdcard\");' >> /cache/recovery/extendedcommand\n").getBytes());
 			} catch (Exception e) {
 				
 			}

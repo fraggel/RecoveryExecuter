@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Environment;
 import android.view.View;
 import android.widget.AdapterView;
@@ -120,7 +121,12 @@ public class externalClass extends Activity implements iLiteproabstract{
 		
 			bos.write(("rm /cache/recovery/extendedcommand\n")
 					.getBytes());
-		prepPartitions(bos);
+		String fabricante=Build.BRAND;
+		if("JIAYU".equals(fabricante.toUpperCase().trim())){
+			prepPartitionsJIAYU(bos);
+		}else{
+			prepPartitionsI9300(bos);
+		}	
 		File fff=new File(Environment.getExternalStorageDirectory().getPath()+"/clockworkmod/backup/"+nombreBck+"/");
 		if(fff.exists()){
 			File[] listFiles = fff.listFiles();
@@ -166,7 +172,12 @@ public class externalClass extends Activity implements iLiteproabstract{
 			bos= new BufferedOutputStream(exec.getOutputStream());
 			bos.write(("rm /cache/recovery/extendedcommand\n")
 						.getBytes());	
-			prepPartitions(bos);
+			String fabricante=Build.BRAND;
+			if("JIAYU".equals(fabricante.toUpperCase().trim())){
+				prepPartitionsJIAYU(bos);
+			}else{
+				prepPartitionsI9300(bos);
+			}
 			File fff=new File(Environment.getExternalStorageDirectory().getPath()+"/clockworkmod/backup/"+nombreBck+"/");
 			if(fff.exists()){
 				File[] listFiles = fff.listFiles();
@@ -272,13 +283,24 @@ public class externalClass extends Activity implements iLiteproabstract{
 	}
 	public String buscarCWMySustituirRutas(String fichero){
 		String rutCWM="";
-		if(sdCard!=null){
-			fichero=fichero.replaceFirst(sdCard.getPath(),"/data/media");
+		String fabricante=Build.BRAND;
+		if("JIAYU".equals(fabricante.toUpperCase().trim())){
+			if(sdCard!=null){
+				fichero=fichero.replaceFirst(sdCard.getPath(),"/sdcard");
+			}
+			if(extSdCard!=null){
+				fichero=fichero.replaceFirst(extSdCard.getPath(),"sdcard");
+			}
+			fichero=fichero.replaceFirst("/mnt/sdcard/","/sdcard/").replaceFirst("/mnt/extSdCard/","/sdcard/");
+		}else{
+			if(sdCard!=null){
+				fichero=fichero.replaceFirst(sdCard.getPath(),"/data/media");
+			}
+			if(extSdCard!=null){
+				fichero=fichero.replaceFirst(extSdCard.getPath(),"/data/media/external");
+			}
+			fichero=fichero.replaceFirst("/mnt/sdcard/","/data/media/").replaceFirst("/mnt/extSdCard/","/data/media/external/");	
 		}
-		if(extSdCard!=null){
-			fichero=fichero.replaceFirst(extSdCard.getPath(),"/data/media/external");
-		}
-		fichero=fichero.replaceFirst("/mnt/sdcard/","/data/media/").replaceFirst("/mnt/extSdCard/","/data/media/external/");
 		rutCWM=fichero;
 		return rutCWM;
 	}
@@ -286,7 +308,7 @@ public class externalClass extends Activity implements iLiteproabstract{
 			OnClickListener onClickListener, Resources res) {
 		return selected;
 	}
-	private void prepPartitions(
+	private void prepPartitionsI9300(
 			BufferedOutputStream bos) {
 			ArrayList<String> listaVold=new ArrayList<String>();
 			ArrayList<String> mMounts=new ArrayList<String>();
@@ -300,6 +322,23 @@ public class externalClass extends Activity implements iLiteproabstract{
 				bos.write(("echo 'run_program(\"/sbin/busybox\",\"mount\",\"-t\",\"auto\",\""+listaVold.get(0)+"\",\"/data/media/\");' >> /cache/recovery/extendedcommand\n").getBytes());
 				bos.write(("echo 'run_program(\"/sbin/mkdir\",\"/data/media/external/\");' >> /cache/recovery/extendedcommand\n").getBytes());
 				bos.write(("echo 'run_program(\"/sbin/busybox\",\"mount\",\"-t\",\"auto\",\""+listaVold.get(1)+"\",\"/data/media/external/\");' >> /cache/recovery/extendedcommand\n").getBytes());
+				
+			} catch (Exception e) {
+				
+			}
+			
+		
+	}
+	private void prepPartitionsJIAYU(
+			BufferedOutputStream bos) {
+			ArrayList<String> listaVold=new ArrayList<String>();
+			ArrayList<String> mMounts=new ArrayList<String>();
+			listaVold=StorageOptions.listaVoldF;
+			mMounts=StorageOptions.mMountsF;
+			
+			try {
+				bos.write(("echo 'run_program(\"/sbin/umount\",\"/sdcard\");' >> /cache/recovery/extendedcommand\n").getBytes());
+				bos.write(("echo 'run_program(\"/sbin/mount\",\"/sdcard\");' >> /cache/recovery/extendedcommand\n").getBytes());
 				
 			} catch (Exception e) {
 				

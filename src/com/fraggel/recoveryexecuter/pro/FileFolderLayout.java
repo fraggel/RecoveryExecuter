@@ -6,6 +6,7 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.os.Build;
 import android.os.Environment;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -85,14 +86,25 @@ public class FileFolderLayout extends LinearLayout implements
 						file.getName().length());
 			}
 
-			if (!file.isDirectory()
-					&& (".zip".equals(ext.toLowerCase())
-							|| ".img".equals(ext.toLowerCase())
-							|| ".bin".equals(ext.toLowerCase())
-							|| ".tar".equals(ext.toLowerCase()) || ".md5"
-								.equals(ext.toLowerCase()))) {
-				path.add(file.getPath());
-				item.add(file.getName());
+			String fabricante=Build.BRAND;
+			String procesador=Build.HARDWARE;
+			if("JIAYU".equals(fabricante.toUpperCase().trim())||procesador.toUpperCase().indexOf("MT")!=-1){
+				if (!file.isDirectory()
+						&& (".zip".equals(ext.toLowerCase()))) {
+							//|| ".img".equals(ext.toLowerCase())) {
+					path.add(file.getPath());
+					item.add(file.getName());
+				}
+			}else{
+				if (!file.isDirectory()
+						&& (".zip".equals(ext.toLowerCase())
+								|| ".img".equals(ext.toLowerCase())
+								|| ".bin".equals(ext.toLowerCase())
+								|| ".tar".equals(ext.toLowerCase()) || ".md5"
+									.equals(ext.toLowerCase()))) {
+					path.add(file.getPath());
+					item.add(file.getName());
+				}
 			}
 		}
 		setItemList(item);

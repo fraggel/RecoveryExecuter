@@ -123,7 +123,7 @@ public class externalClass extends Activity implements iLiteproabstract{
 					.getBytes());
 		String fabricante=Build.BRAND;
 		String procesador=Build.HARDWARE;
-		if("JIAYU".equals(fabricante.toUpperCase().trim())||procesador.toUpperCase().indexOf("MT6")!=-1){
+		if("JIAYU".equals(fabricante.toUpperCase().trim())||procesador.toUpperCase().indexOf("MT")!=-1){
 			prepPartitionsJIAYU(bos);
 		}else{
 			prepPartitionsI9300(bos);
@@ -175,7 +175,7 @@ public class externalClass extends Activity implements iLiteproabstract{
 						.getBytes());	
 			String fabricante=Build.BRAND;
 			String procesador=Build.HARDWARE;
-			if("JIAYU".equals(fabricante.toUpperCase().trim())||procesador.toUpperCase().indexOf("MT6")!=-1){
+			if("JIAYU".equals(fabricante.toUpperCase().trim())||procesador.toUpperCase().indexOf("MT")!=-1){
 				prepPartitionsJIAYU(bos);
 			}else{
 				prepPartitionsI9300(bos);
@@ -287,7 +287,7 @@ public class externalClass extends Activity implements iLiteproabstract{
 		String rutCWM="";
 		String fabricante=Build.BRAND;
 		String procesador=Build.HARDWARE;
-		if("JIAYU".equals(fabricante.toUpperCase().trim())||procesador.toUpperCase().indexOf("MT6")!=-1){
+		if("JIAYU".equals(fabricante.toUpperCase().trim())||procesador.toUpperCase().indexOf("MT")!=-1){
 			if(sdCard!=null){
 				fichero=fichero.replaceFirst(sdCard.getPath(),"/sdcard");
 			}

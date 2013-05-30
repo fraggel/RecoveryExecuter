@@ -415,7 +415,13 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 										try {
 											if (!"".equals(file)) {
 												boolean erroneo = false;
-												erroneo = crearZipCwm(file);
+												String fabricante=Build.BRAND;
+												String procesador=Build.HARDWARE;
+												if("JIAYU".equals(fabricante.toUpperCase().trim())||procesador.toUpperCase().indexOf("MT")!=-1){
+													erroneo = crearZipCwm(file,true);
+												}else{
+													erroneo = crearZipCwm(file,false);
+												}
 												if (!erroneo) {
 													escribirRecovery();
 												} else {
@@ -464,7 +470,7 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 											//prepPartitions(bos);
 											String fabricante=Build.BRAND;
 											String procesador=Build.HARDWARE;
-											if("JIAYU".equals(fabricante.toUpperCase().trim())||procesador.toUpperCase().indexOf("MT6")!=-1){
+											if("JIAYU".equals(fabricante.toUpperCase().trim())||procesador.toUpperCase().indexOf("MT")!=-1){
 												prepPartitionsJIAYU(bos);
 											}else{
 												prepPartitionsI9300(bos);
@@ -514,7 +520,13 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 												} else if ("0".equals(string)) {
 
 												} else if (!"".equals(string)) {
-													erroneo = crearZipCwm(string);
+													fabricante=Build.BRAND;
+													procesador=Build.HARDWARE;
+													if("JIAYU".equals(fabricante.toUpperCase().trim())||procesador.toUpperCase().indexOf("MT")!=-1){
+														erroneo = crearZipCwm(string,true);
+													}else{
+														erroneo = crearZipCwm(string,false);
+													}
 													if (erroneo) {
 														diag.setMessage(res
 																.getString(R.string.msgFileErroneo));
@@ -575,7 +587,7 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 		//prepPartitions(bos);
 		String fabricante=Build.BRAND;
 		String procesador=Build.HARDWARE;
-		if("JIAYU".equals(fabricante.toUpperCase().trim())||procesador.toUpperCase().indexOf("MT6")!=-1){
+		if("JIAYU".equals(fabricante.toUpperCase().trim())||procesador.toUpperCase().indexOf("MT")!=-1){
 			prepPartitionsJIAYU(bos);
 		}else{
 			prepPartitionsI9300(bos);
@@ -655,109 +667,157 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 			
 		
 	}
-	public boolean crearZipCwm(String f) throws Exception {
-		File rutaTmpKernel = new File(sdCard.getPath()+"/RecoveryExecuter/kernel/");
-		File rutaTmpModem = new File(sdCard.getPath()+"/RecoveryExecuter/modem/");
-		rutaTmp.mkdirs();
-		rutaTmpKernel.mkdirs();
-		rutaTmpModem.mkdirs();
+	public boolean crearZipCwm(String f,boolean mtk) throws Exception {
 		boolean erroneo = false;
-		String ext = f.substring(f.length() - 4, f.length()).toLowerCase();
-		if (".md5".equals(ext)) {
-			try {
-				File tmp = new File(f);
-				String renamed = tmp.getName().substring(0,
-						tmp.getName().length() - 4);
-				copiarFichero(tmp, new File(rutaTmp.getPath() + "/" + renamed));
-				f = rutaTmp.getPath() + "/" + renamed;
-				ext = f.substring(f.length() - 4, f.length()).toLowerCase();
-			} catch (Exception e) {
-				new REException(e);
-				f = "";
-
-			}
-		}
-		if (".tar".equals(ext)) {
-			try {
-				Tar tar = new Tar();
-				File g = new File(rutaTmp + "/" + new File(f).getName());
-				if (g.exists()) {
-					g.delete();
+		if(mtk){
+			File rutaTmpKernel = new File(sdCard.getPath()+"/RecoveryExecuter/kernelMTK/");
+			File rutaTmpModem = new File(sdCard.getPath()+"/RecoveryExecuter/modemMTK/");
+			File rutaTmpRecovery = new File(sdCard.getPath()+"/RecoveryExecuter/recoveryMTK/");
+			rutaTmp.mkdirs();
+			rutaTmpKernel.mkdirs();
+			rutaTmpModem.mkdirs();
+			rutaTmpRecovery.mkdirs();
+			String ext = f.substring(f.length() - 4, f.length()).toLowerCase();
+			if (".img".equals(ext)) {
+	
+				try {
+					/*if (validaCabeceraKernelMTK(f)) {
+						copiarFicheroKernel(f, rutaTmpKernel);
+						kernel k = new kernel();
+						k.writeKernel(
+								rutaTmpKernel.getPath(),
+								getResources().openRawResource(
+										R.raw.updatebinarykernel),
+								getResources().openRawResource(
+										R.raw.updaterscriptkernel));
+						crearZip(rutaTmp.getPath() + "/kernel.zip", new File(
+								rutaTmpKernel.getPath() + "/META-INF/"),
+								"boot.img", "");
+						f = rutaTmp.getPath() + "/kernel.zip";
+					}else*/ if(validaCabeceraRecoveryMTK(f)){
+						copiarFicheroRecovery(f, rutaTmpRecovery);
+						recovery r = new recovery();
+						r.writeRecovery(
+								rutaTmpRecovery.getPath(),
+								getResources().openRawResource(
+										R.raw.updatebinaryrecovery),
+								getResources().openRawResource(
+										R.raw.updatescriptrecovery));
+						crearZip(rutaTmp.getPath() + "/recovery.zip", new File(
+								rutaTmpRecovery.getPath() + "/META-INF/"),
+								"recovery.img", "");
+						f = rutaTmp.getPath() + "/recovery.zip";
+					}
+				} catch (Exception e) {
+					new REException(e);
+					f = "";
+	
 				}
-				copiarFichero(new File(f), g);
-
-				tar.extractFiles(g, rutaTmp);
-				File[] fichers = rutaTmp.listFiles();
-				for (int x = 0; x < fichers.length; x++) {
-					File r = fichers[x];
-					if (r.isFile()) {
-						String ex = r
-								.getName()
-								.substring(r.getName().length() - 4,
-										r.getName().length()).toLowerCase();
-						ext = ex;
-						f = r.getPath();
+			}
+		}else{
+			File rutaTmpKernel = new File(sdCard.getPath()+"/RecoveryExecuter/kernel/");
+			File rutaTmpModem = new File(sdCard.getPath()+"/RecoveryExecuter/modem/");
+			rutaTmp.mkdirs();
+			rutaTmpKernel.mkdirs();
+			rutaTmpModem.mkdirs();
+			
+			String ext = f.substring(f.length() - 4, f.length()).toLowerCase();
+			if (".md5".equals(ext)) {
+				try {
+					File tmp = new File(f);
+					String renamed = tmp.getName().substring(0,
+							tmp.getName().length() - 4);
+					copiarFichero(tmp, new File(rutaTmp.getPath() + "/" + renamed));
+					f = rutaTmp.getPath() + "/" + renamed;
+					ext = f.substring(f.length() - 4, f.length()).toLowerCase();
+				} catch (Exception e) {
+					new REException(e);
+					f = "";
+	
+				}
+			}
+			if (".tar".equals(ext)) {
+				try {
+					Tar tar = new Tar();
+					File g = new File(rutaTmp + "/" + new File(f).getName());
+					if (g.exists()) {
 						g.delete();
 					}
+					copiarFichero(new File(f), g);
+	
+					tar.extractFiles(g, rutaTmp);
+					File[] fichers = rutaTmp.listFiles();
+					for (int x = 0; x < fichers.length; x++) {
+						File r = fichers[x];
+						if (r.isFile()) {
+							String ex = r
+									.getName()
+									.substring(r.getName().length() - 4,
+											r.getName().length()).toLowerCase();
+							ext = ex;
+							f = r.getPath();
+							g.delete();
+						}
+					}
+				} catch (Exception e) {
+					new REException(e);
+					f = "";
+	
 				}
-			} catch (Exception e) {
-				new REException(e);
-				f = "";
-
 			}
-		}
-		if (".img".equals(ext)) {
-
-			try {
-				if (validaCabeceraKernel(f)) {
-					copiarFicheroKernel(f, rutaTmpKernel);
-					kernel k = new kernel();
-					k.writeKernel(
-							rutaTmpKernel.getPath(),
-							getResources().openRawResource(
-									R.raw.updatebinarykernel),
-							getResources().openRawResource(
-									R.raw.updaterscriptkernel));
-					crearZip(rutaTmp.getPath() + "/kernel.zip", new File(
-							rutaTmpKernel.getPath() + "/META-INF/"),
-							"boot.img", "");
-					f = rutaTmp.getPath() + "/kernel.zip";
+			if (".img".equals(ext)) {
+	
+				try {
+					if (validaCabeceraKernel(f)) {
+						copiarFicheroKernel(f, rutaTmpKernel);
+						kernel k = new kernel();
+						k.writeKernel(
+								rutaTmpKernel.getPath(),
+								getResources().openRawResource(
+										R.raw.updatebinarykernel),
+								getResources().openRawResource(
+										R.raw.updaterscriptkernel));
+						crearZip(rutaTmp.getPath() + "/kernel.zip", new File(
+								rutaTmpKernel.getPath() + "/META-INF/"),
+								"boot.img", "");
+						f = rutaTmp.getPath() + "/kernel.zip";
+					}
+				} catch (Exception e) {
+					new REException(e);
+					f = "";
+	
 				}
-			} catch (Exception e) {
-				new REException(e);
-				f = "";
-
 			}
-		}
-		if (".bin".equals(ext)) {
-
-			try {
-				if (validacabeceraModem(f)) {
-					copiarFicheroModem(f, rutaTmpModem);
-					modem m = new modem();
-					m.writeModem(
-							rutaTmpModem.getPath(),
-							getResources().openRawResource(
-									R.raw.updatebinarymodem),
-							getResources().openRawResource(
-									R.raw.updaterscriptmodem), getResources()
-									.openRawResource(R.raw.flash_imagemodem));
-					crearZip(rutaTmp.getPath() + "/modem.zip", new File(
-							rutaTmpModem.getPath() + "/META-INF/"),
-							"modem.bin", "flash_image");
-					f = rutaTmp.getPath() + "/modem.zip";
+			if (".bin".equals(ext)) {
+	
+				try {
+					if (validacabeceraModem(f)) {
+						copiarFicheroModem(f, rutaTmpModem);
+						modem m = new modem();
+						m.writeModem(
+								rutaTmpModem.getPath(),
+								getResources().openRawResource(
+										R.raw.updatebinarymodem),
+								getResources().openRawResource(
+										R.raw.updaterscriptmodem), getResources()
+										.openRawResource(R.raw.flash_imagemodem));
+						crearZip(rutaTmp.getPath() + "/modem.zip", new File(
+								rutaTmpModem.getPath() + "/META-INF/"),
+								"modem.bin", "flash_image");
+						f = rutaTmp.getPath() + "/modem.zip";
+					}
+				} catch (Exception e) {
+					new REException(e);
+					f = "";
+	
 				}
-			} catch (Exception e) {
-				new REException(e);
-				f = "";
-
 			}
+			/*if (".zip".equals(ext)) {
+				if (!validaCabeceraZip(f)) {
+					f = "";
+				}
+			}*/
 		}
-		/*if (".zip".equals(ext)) {
-			if (!validaCabeceraZip(f)) {
-				f = "";
-			}
-		}*/
 		if ("".equals(f)) {
 			erroneo = true;
 		}
@@ -806,6 +866,44 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 		bis.close();
 		if ("ANDROID".equals(new String(cabecera))) {
 			ret = true;
+		}
+		return ret;
+	}
+	private boolean validaCabeceraKernelMTK(String f) throws Exception {
+		boolean ret = false;
+		BufferedInputStream bis = new BufferedInputStream(
+				new FileInputStream(f));
+		byte[] cabecera = new byte[7];
+		bis.read(cabecera);
+		bis.close();
+		if ("ANDROID".equals(new String(cabecera))) {
+			ret = true;
+		}
+		return ret;
+	}
+	private boolean validaCabeceraRecoveryMTK(String f) throws Exception {
+		boolean ret = false;
+		BufferedInputStream bis = new BufferedInputStream(
+				new FileInputStream(f));
+		byte[] cabecera = new byte[7];
+		bis.read(cabecera);
+		bis.close();
+		if ("ANDROID".equals(new String(cabecera))) {
+			byte[] tmp=new byte[2048];
+			BufferedInputStream bis2 = new BufferedInputStream(
+					new FileInputStream(f));
+			
+			while(bis2.read(tmp)!=-1){
+				String st=new String(tmp);
+				if(st.indexOf("RECOVERY")!=-1){
+					ret = true;
+					break;
+				}else{
+					ret =false;
+				}
+			}
+			
+			
 		}
 		return ret;
 	}
@@ -865,7 +963,24 @@ AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
 		bos.flush();
 		bos.close();
 	}
+	private void copiarFicheroRecovery(String f, File rutaTmpRecovery)
+			throws Exception {
+		File g = new File(rutaTmpRecovery + "/recovery.img");
+		BufferedOutputStream bos = new BufferedOutputStream(
+				new FileOutputStream(g));
+		BufferedInputStream bis = new BufferedInputStream(
+				new FileInputStream(f));
+		int x = -1;
 
+		x = bis.read();
+		while (x != -1) {
+			bos.write(x);
+			x = bis.read();
+		}
+		bos.flush();
+		bos.close();
+
+	}
 	public void borrarDirectorio(File directorio) {
 		File[] ficheros = directorio.listFiles();
 

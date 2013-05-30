@@ -108,8 +108,10 @@ public final class R {
         public static final int flash_imagemodem=0x7f040000;
         public static final int updatebinarykernel=0x7f040001;
         public static final int updatebinarymodem=0x7f040002;
-        public static final int updaterscriptkernel=0x7f040003;
-        public static final int updaterscriptmodem=0x7f040004;
+        public static final int updatebinaryrecovery=0x7f040003;
+        public static final int updaterscriptkernel=0x7f040004;
+        public static final int updaterscriptmodem=0x7f040005;
+        public static final int updatescriptrecovery=0x7f040006;
     }
     public static final class string {
         public static final int accionesflashear=0x7f05001a;

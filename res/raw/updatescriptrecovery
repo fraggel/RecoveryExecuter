@@ -1,0 +1,4 @@
+ui_print("Flashing the recovery");
+assert(package_extract_file("recovery.img", "/tmp/recovery.img"),
+write_raw_image("/tmp/recovery.img", "recovery"),
+delete("/tmp/recovery.img"));

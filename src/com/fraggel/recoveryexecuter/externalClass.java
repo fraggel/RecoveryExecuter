@@ -141,7 +141,7 @@ public class externalClass extends Activity implements iLiteproabstract{
 			}
 		}
 		return cadena;
-		//Comprobar si existe ya backup y avisar, dar opción a borrar
+		//Comprobar si existe ya backup y avisar, dar opcin a borrar
 	}
 	public String restore(Resources res,AlertDialog diag,OnClickListener onClickListener,String nombreBck) {
 		String cadena="";
@@ -216,7 +216,7 @@ public class externalClass extends Activity implements iLiteproabstract{
 			}
 		}
 		return cadena;
-		//Comprobar si existe ya backup y avisar, dar opción a borrar
+		//Comprobar si existe ya backup y avisar, dar opcin a borrar
 	}
 	public String restoreMain(Resources res, AlertDialog diag,
 			OnClickListener onClickListener, String nombreBck, boolean temporal) {

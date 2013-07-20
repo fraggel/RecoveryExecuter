@@ -81,7 +81,7 @@ public class StorageOptions {
 						while (scan.hasNext()) {
 							String line2 = scan.nextLine();
 							//Line2 tiene la ruta entera pero hay que separar por los numbers[0] y numbers[1] y una vez con esa linea
-							// hacemos un split por " " y cogemos el último
+							// hacemos un split por " " y cogemos el ltimo
 							if(line2.indexOf(String.valueOf(numbers[0])+"       "+String.valueOf(numbers[1]))!=-1){
 								String[] split = line2.split(" ");
 								for (int i = 0; i < split.length; i++) {
